@@ -1,0 +1,62 @@
+{
+  "text_response": "# Data Anomaly Analysis Report\n\n### Executive Summary\n- **Status:** Failed\n- **Error Message:** 404 Table `test_claims - Copy (2)` not found in local warehouse.\n\n### Analysis Results\n- **Total Rows Analyzed:** 0\n- **Total Columns Analyzed:** 0\n\n### Recommendations\n- **Action Needed:**  Ensure that the table `test_claims - Copy (2)` exists in the local warehouse before reattempting profiling.\n\n### Enhanced Analysis\n- **Availability:** Not available due to profiling failure.\n- **Reasoning:** The specified table was not found, leading to no analysis being conducted.",
+  "tool_response": {
+    "result": [
+      {
+        "table_reference": "sttm.sttm_data.test_claims - Copy (2)",
+        "analysis_type": "error",
+        "processing_mode": "failed",
+        "table_summary": {
+          "total_rows": 0,
+          "total_columns": 0
+        },
+        "column_analysis": {},
+        "default_value_analysis": {},
+        "data_quality_score": {
+          "overall_score": 0.0,
+          "dimension_scores": {
+            "completeness": 0.0,
+            "uniqueness": 0.0,
+            "distribution": 0.0,
+            "validity": 0.0
+          },
+          "per_column_scores": {}
+        },
+        "recommendations": [
+          "Profiling failed: 404 Table test_claims - Copy (2) not found in local warehouse"
+        ],
+        "enhanced_analysis": {
+          "available": false,
+          "version": "1.0",
+          "table_context": {
+            "detected_level": "unknown",
+            "confidence": 0.0,
+            "primary_entity": "",
+            "business_context": "",
+            "reasoning": "404 Table test_claims - Copy (2) not found in local warehouse"
+          },
+          "primary_key_recommendations": [],
+          "composite_key_recommendations": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "llm_suggested_combos": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "validation_results": {
+            "two_column": []
+          },
+          "enhanced_recommendations": [
+            "404 Table test_claims - Copy (2) not found in local warehouse"
+          ]
+        },
+        "error_message": "404 Table test_claims - Copy (2) not found in local warehouse"
+      }
+    ]
+  },
+  "status": 0,
+  "should_update": false
+}

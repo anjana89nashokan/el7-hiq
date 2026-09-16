@@ -1,0 +1,2439 @@
+{
+    "analysis": {
+        "title": "BigQuery Data Profile",
+        "date_start": "2026-09-16 12:00:35.086224",
+        "date_end": "2026-09-16 12:00:35.217370"
+    },
+    "time_index_analysis": "None",
+    "table": {
+        "n": 18,
+        "n_var": 15,
+        "memory_size": 14866,
+        "record_size": 825.8888888888889,
+        "n_cells_missing": 0,
+        "n_vars_with_missing": 0,
+        "n_vars_all_missing": 0,
+        "p_cells_missing": 0.0,
+        "types": {
+            "Text": 14,
+            "Numeric": 1
+        }
+    },
+    "variables": {
+        "livongo_id": {
+            "n_distinct": 12,
+            "p_distinct": 0.6666666666666666,
+            "is_unique": false,
+            "n_unique": 10,
+            "p_unique": 0.5555555555555556,
+            "type": "Text",
+            "hashable": true,
+            "value_counts_without_nan": {
+                "BA128": 4,
+                "BA122": 4,
+                "BA108": 1,
+                "BA129": 1,
+                "BA130": 1,
+                "BA131": 1,
+                "BA132": 1,
+                "BA133": 1,
+                "BA134": 1,
+                "BA135": 1,
+                "BA136": 1,
+                "BA137": 1
+            },
+            "value_counts_index_sorted": {
+                "BA108": 1,
+                "BA122": 4,
+                "BA128": 4,
+                "BA129": 1,
+                "BA130": 1,
+                "BA131": 1,
+                "BA132": 1,
+                "BA133": 1,
+                "BA134": 1,
+                "BA135": 1,
+                "BA136": 1,
+                "BA137": 1
+            },
+            "ordering": true,
+            "n_missing": 0,
+            "n": 18,
+            "p_missing": 0.0,
+            "count": 18,
+            "memory_size": 1104,
+            "first_rows": {
+                "0": "BA128",
+                "1": "BA128",
+                "2": "BA122",
+                "3": "BA122",
+                "4": "BA122"
+            },
+            "max_length": 5,
+            "mean_length": 5.0,
+            "median_length": 5,
+            "min_length": 5,
+            "length_histogram": {
+                "5": 18
+            },
+            "histogram_length": {
+                "counts": [
+                    18
+                ],
+                "bin_edges": [
+                    4.5,
+                    5.5
+                ]
+            },
+            "n_characters_distinct": 12,
+            "n_characters": 90,
+            "character_counts": {
+                "1": 19,
+                "B": 18,
+                "A": 18,
+                "2": 14,
+                "3": 9,
+                "8": 5,
+                "0": 2,
+                "9": 1,
+                "4": 1,
+                "5": 1,
+                "6": 1,
+                "7": 1
+            },
+            "category_alias_values": {
+                "1": "(unknown)",
+                "B": "(unknown)",
+                "A": "(unknown)",
+                "2": "(unknown)",
+                "3": "(unknown)",
+                "8": "(unknown)",
+                "0": "(unknown)",
+                "9": "(unknown)",
+                "4": "(unknown)",
+                "5": "(unknown)",
+                "6": "(unknown)",
+                "7": "(unknown)"
+            },
+            "block_alias_values": {
+                "1": "(unknown)",
+                "B": "(unknown)",
+                "A": "(unknown)",
+                "2": "(unknown)",
+                "3": "(unknown)",
+                "8": "(unknown)",
+                "0": "(unknown)",
+                "9": "(unknown)",
+                "4": "(unknown)",
+                "5": "(unknown)",
+                "6": "(unknown)",
+                "7": "(unknown)"
+            },
+            "block_alias_counts": {
+                "(unknown)": 90
+            },
+            "n_block_alias": 1,
+            "block_alias_char_counts": {
+                "(unknown)": {
+                    "1": 19,
+                    "B": 18,
+                    "A": 18,
+                    "2": 14,
+                    "3": 9,
+                    "8": 5,
+                    "0": 2,
+                    "9": 1,
+                    "4": 1,
+                    "5": 1,
+                    "6": 1,
+                    "7": 1
+                }
+            },
+            "script_counts": {
+                "(unknown)": 90
+            },
+            "n_scripts": 1,
+            "script_char_counts": {
+                "(unknown)": {
+                    "1": 19,
+                    "B": 18,
+                    "A": 18,
+                    "2": 14,
+                    "3": 9,
+                    "8": 5,
+                    "0": 2,
+                    "9": 1,
+                    "4": 1,
+                    "5": 1,
+                    "6": 1,
+                    "7": 1
+                }
+            },
+            "category_alias_counts": {
+                "(unknown)": 90
+            },
+            "n_category": 1,
+            "category_alias_char_counts": {
+                "(unknown)": {
+                    "1": 19,
+                    "B": 18,
+                    "A": 18,
+                    "2": 14,
+                    "3": 9,
+                    "8": 5,
+                    "0": 2,
+                    "9": 1,
+                    "4": 1,
+                    "5": 1,
+                    "6": 1,
+                    "7": 1
+                }
+            },
+            "word_counts": {
+                "ba128": 4,
+                "ba122": 4,
+                "ba108": 1,
+                "ba129": 1,
+                "ba130": 1,
+                "ba131": 1,
+                "ba132": 1,
+                "ba133": 1,
+                "ba134": 1,
+                "ba135": 1,
+                "ba136": 1,
+                "ba137": 1
+            },
+            "cast_type": "None"
+        },
+        "first_name": {
+            "n_distinct": 12,
+            "p_distinct": 0.6666666666666666,
+            "is_unique": false,
+            "n_unique": 10,
+            "p_unique": 0.5555555555555556,
+            "type": "Text",
+            "hashable": true,
+            "value_counts_without_nan": {
+                "John4124": 4,
+                "John2312": 4,
+                "John4036": 1,
+                "John4125": 1,
+                "John4126": 1,
+                "John4127": 1,
+                "John4128": 1,
+                "John4129": 1,
+                "John4130": 1,
+                "John4131": 1,
+                "John4132": 1,
+                "John4133": 1
+            },
+            "value_counts_index_sorted": {
+                "John2312": 4,
+                "John4036": 1,
+                "John4124": 4,
+                "John4125": 1,
+                "John4126": 1,
+                "John4127": 1,
+                "John4128": 1,
+                "John4129": 1,
+                "John4130": 1,
+                "John4131": 1,
+                "John4132": 1,
+                "John4133": 1
+            },
+            "ordering": true,
+            "n_missing": 0,
+            "n": 18,
+            "p_missing": 0.0,
+            "count": 18,
+            "memory_size": 1158,
+            "first_rows": {
+                "0": "John4124",
+                "1": "John4124",
+                "2": "John2312",
+                "3": "John2312",
+                "4": "John2312"
+            },
+            "max_length": 8,
+            "mean_length": 8.0,
+            "median_length": 8,
+            "min_length": 8,
+            "length_histogram": {
+                "8": 18
+            },
+            "histogram_length": {
+                "counts": [
+                    18
+                ],
+                "bin_edges": [
+                    7.2,
+                    8.8
+                ]
+            },
+            "n_characters_distinct": 14,
+            "n_characters": 144,
+            "character_counts": {
+                "J": 18,
+                "o": 18,
+                "h": 18,
+                "n": 18,
+                "4": 18,
+                "1": 18,
+                "2": 18,
+                "3": 10,
+                "0": 2,
+                "6": 2,
+                "5": 1,
+                "7": 1,
+                "8": 1,
+                "9": 1
+            },
+            "category_alias_values": {
+                "J": "(unknown)",
+                "o": "(unknown)",
+                "h": "(unknown)",
+                "n": "(unknown)",
+                "4": "(unknown)",
+                "1": "(unknown)",
+                "2": "(unknown)",
+                "3": "(unknown)",
+                "0": "(unknown)",
+                "6": "(unknown)",
+                "5": "(unknown)",
+                "7": "(unknown)",
+                "8": "(unknown)",
+                "9": "(unknown)"
+            },
+            "block_alias_values": {
+                "J": "(unknown)",
+                "o": "(unknown)",
+                "h": "(unknown)",
+                "n": "(unknown)",
+                "4": "(unknown)",
+                "1": "(unknown)",
+                "2": "(unknown)",
+                "3": "(unknown)",
+                "0": "(unknown)",
+                "6": "(unknown)",
+                "5": "(unknown)",
+                "7": "(unknown)",
+                "8": "(unknown)",
+                "9": "(unknown)"
+            },
+            "block_alias_counts": {
+                "(unknown)": 144
+            },
+            "n_block_alias": 1,
+            "block_alias_char_counts": {
+                "(unknown)": {
+                    "J": 18,
+                    "o": 18,
+                    "h": 18,
+                    "n": 18,
+                    "4": 18,
+                    "1": 18,
+                    "2": 18,
+                    "3": 10,
+                    "0": 2,
+                    "6": 2,
+                    "5": 1,
+                    "7": 1,
+                    "8": 1,
+                    "9": 1
+                }
+            },
+            "script_counts": {
+                "(unknown)": 144
+            },
+            "n_scripts": 1,
+            "script_char_counts": {
+                "(unknown)": {
+                    "J": 18,
+                    "o": 18,
+                    "h": 18,
+                    "n": 18,
+                    "4": 18,
+                    "1": 18,
+                    "2": 18,
+                    "3": 10,
+                    "0": 2,
+                    "6": 2,
+                    "5": 1,
+                    "7": 1,
+                    "8": 1,
+                    "9": 1
+                }
+            },
+            "category_alias_counts": {
+                "(unknown)": 144
+            },
+            "n_category": 1,
+            "category_alias_char_counts": {
+                "(unknown)": {
+                    "J": 18,
+                    "o": 18,
+                    "h": 18,
+                    "n": 18,
+                    "4": 18,
+                    "1": 18,
+                    "2": 18,
+                    "3": 10,
+                    "0": 2,
+                    "6": 2,
+                    "5": 1,
+                    "7": 1,
+                    "8": 1,
+                    "9": 1
+                }
+            },
+            "word_counts": {
+                "john4124": 4,
+                "john2312": 4,
+                "john4036": 1,
+                "john4125": 1,
+                "john4126": 1,
+                "john4127": 1,
+                "john4128": 1,
+                "john4129": 1,
+                "john4130": 1,
+                "john4131": 1,
+                "john4132": 1,
+                "john4133": 1
+            },
+            "cast_type": "None"
+        },
+        "last_name": {
+            "n_distinct": 12,
+            "p_distinct": 0.6666666666666666,
+            "is_unique": false,
+            "n_unique": 10,
+            "p_unique": 0.5555555555555556,
+            "type": "Text",
+            "hashable": true,
+            "value_counts_without_nan": {
+                "Doe4124": 4,
+                "Doe2312": 4,
+                "Doe4036": 1,
+                "Doe4125": 1,
+                "Doe4126": 1,
+                "Doe4127": 1,
+                "Doe4128": 1,
+                "Doe4129": 1,
+                "Doe4130": 1,
+                "Doe4131": 1,
+                "Doe4132": 1,
+                "Doe4133": 1
+            },
+            "value_counts_index_sorted": {
+                "Doe2312": 4,
+                "Doe4036": 1,
+                "Doe4124": 4,
+                "Doe4125": 1,
+                "Doe4126": 1,
+                "Doe4127": 1,
+                "Doe4128": 1,
+                "Doe4129": 1,
+                "Doe4130": 1,
+                "Doe4131": 1,
+                "Doe4132": 1,
+                "Doe4133": 1
+            },
+            "ordering": true,
+            "n_missing": 0,
+            "n": 18,
+            "p_missing": 0.0,
+            "count": 18,
+            "memory_size": 1140,
+            "first_rows": {
+                "0": "Doe4124",
+                "1": "Doe4124",
+                "2": "Doe2312",
+                "3": "Doe2312",
+                "4": "Doe2312"
+            },
+            "max_length": 7,
+            "mean_length": 7.0,
+            "median_length": 7,
+            "min_length": 7,
+            "length_histogram": {
+                "7": 18
+            },
+            "histogram_length": {
+                "counts": [
+                    18
+                ],
+                "bin_edges": [
+                    6.3,
+                    7.7
+                ]
+            },
+            "n_characters_distinct": 13,
+            "n_characters": 126,
+            "character_counts": {
+                "D": 18,
+                "o": 18,
+                "e": 18,
+                "4": 18,
+                "1": 18,
+                "2": 18,
+                "3": 10,
+                "0": 2,
+                "6": 2,
+                "5": 1,
+                "7": 1,
+                "8": 1,
+                "9": 1
+            },
+            "category_alias_values": {
+                "D": "(unknown)",
+                "o": "(unknown)",
+                "e": "(unknown)",
+                "4": "(unknown)",
+                "1": "(unknown)",
+                "2": "(unknown)",
+                "3": "(unknown)",
+                "0": "(unknown)",
+                "6": "(unknown)",
+                "5": "(unknown)",
+                "7": "(unknown)",
+                "8": "(unknown)",
+                "9": "(unknown)"
+            },
+            "block_alias_values": {
+                "D": "(unknown)",
+                "o": "(unknown)",
+                "e": "(unknown)",
+                "4": "(unknown)",
+                "1": "(unknown)",
+                "2": "(unknown)",
+                "3": "(unknown)",
+                "0": "(unknown)",
+                "6": "(unknown)",
+                "5": "(unknown)",
+                "7": "(unknown)",
+                "8": "(unknown)",
+                "9": "(unknown)"
+            },
+            "block_alias_counts": {
+                "(unknown)": 126
+            },
+            "n_block_alias": 1,
+            "block_alias_char_counts": {
+                "(unknown)": {
+                    "D": 18,
+                    "o": 18,
+                    "e": 18,
+                    "4": 18,
+                    "1": 18,
+                    "2": 18,
+                    "3": 10,
+                    "0": 2,
+                    "6": 2,
+                    "5": 1,
+                    "7": 1,
+                    "8": 1,
+                    "9": 1
+                }
+            },
+            "script_counts": {
+                "(unknown)": 126
+            },
+            "n_scripts": 1,
+            "script_char_counts": {
+                "(unknown)": {
+                    "D": 18,
+                    "o": 18,
+                    "e": 18,
+                    "4": 18,
+                    "1": 18,
+                    "2": 18,
+                    "3": 10,
+                    "0": 2,
+                    "6": 2,
+                    "5": 1,
+                    "7": 1,
+                    "8": 1,
+                    "9": 1
+                }
+            },
+            "category_alias_counts": {
+                "(unknown)": 126
+            },
+            "n_category": 1,
+            "category_alias_char_counts": {
+                "(unknown)": {
+                    "D": 18,
+                    "o": 18,
+                    "e": 18,
+                    "4": 18,
+                    "1": 18,
+                    "2": 18,
+                    "3": 10,
+                    "0": 2,
+                    "6": 2,
+                    "5": 1,
+                    "7": 1,
+                    "8": 1,
+                    "9": 1
+                }
+            },
+            "word_counts": {
+                "doe4124": 4,
+                "doe2312": 4,
+                "doe4036": 1,
+                "doe4125": 1,
+                "doe4126": 1,
+                "doe4127": 1,
+                "doe4128": 1,
+                "doe4129": 1,
+                "doe4130": 1,
+                "doe4131": 1,
+                "doe4132": 1,
+                "doe4133": 1
+            },
+            "cast_type": "None"
+        },
+        "birth_date": {
+            "n_distinct": 10,
+            "p_distinct": 0.5555555555555556,
+            "is_unique": false,
+            "n_unique": 7,
+            "p_unique": 0.3888888888888889,
+            "type": "Text",
+            "hashable": true,
+            "value_counts_without_nan": {
+                "1965-01-04 00:00:00.000000": 5,
+                "1965-01-01 00:00:00.000000": 4,
+                "1965-01-09 00:00:00.000000": 2,
+                "1965-01-02 00:00:00.000000": 1,
+                "1965-01-03 00:00:00.000000": 1,
+                "1965-01-05 00:00:00.000000": 1,
+                "1965-01-06 00:00:00.000000": 1,
+                "1965-01-07 00:00:00.000000": 1,
+                "1965-01-08 00:00:00.000000": 1,
+                "1965-01-10 00:00:00.000000": 1
+            },
+            "value_counts_index_sorted": {
+                "1965-01-01 00:00:00.000000": 4,
+                "1965-01-02 00:00:00.000000": 1,
+                "1965-01-03 00:00:00.000000": 1,
+                "1965-01-04 00:00:00.000000": 5,
+                "1965-01-05 00:00:00.000000": 1,
+                "1965-01-06 00:00:00.000000": 1,
+                "1965-01-07 00:00:00.000000": 1,
+                "1965-01-08 00:00:00.000000": 1,
+                "1965-01-09 00:00:00.000000": 2,
+                "1965-01-10 00:00:00.000000": 1
+            },
+            "ordering": true,
+            "n_missing": 0,
+            "n": 18,
+            "p_missing": 0.0,
+            "count": 18,
+            "memory_size": 1482,
+            "first_rows": {
+                "0": "1965-01-01 00:00:00.000000",
+                "1": "1965-01-01 00:00:00.000000",
+                "2": "1965-01-04 00:00:00.000000",
+                "3": "1965-01-04 00:00:00.000000",
+                "4": "1965-01-04 00:00:00.000000"
+            },
+            "max_length": 26,
+            "mean_length": 26.0,
+            "median_length": 26,
+            "min_length": 26,
+            "length_histogram": {
+                "26": 18
+            },
+            "histogram_length": {
+                "counts": [
+                    18
+                ],
+                "bin_edges": [
+                    23.4,
+                    28.6
+                ]
+            },
+            "n_characters_distinct": 14,
+            "n_characters": 468,
+            "character_counts": {
+                "0": 252,
+                "1": 41,
+                "-": 36,
+                ":": 36,
+                "9": 20,
+                "5": 19,
+                "6": 19,
+                " ": 18,
+                ".": 18,
+                "4": 5,
+                "2": 1,
+                "3": 1,
+                "7": 1,
+                "8": 1
+            },
+            "category_alias_values": {
+                "0": "(unknown)",
+                "1": "(unknown)",
+                "-": "(unknown)",
+                ":": "(unknown)",
+                "9": "(unknown)",
+                "5": "(unknown)",
+                "6": "(unknown)",
+                " ": "(unknown)",
+                ".": "(unknown)",
+                "4": "(unknown)",
+                "2": "(unknown)",
+                "3": "(unknown)",
+                "7": "(unknown)",
+                "8": "(unknown)"
+            },
+            "block_alias_values": {
+                "0": "(unknown)",
+                "1": "(unknown)",
+                "-": "(unknown)",
+                ":": "(unknown)",
+                "9": "(unknown)",
+                "5": "(unknown)",
+                "6": "(unknown)",
+                " ": "(unknown)",
+                ".": "(unknown)",
+                "4": "(unknown)",
+                "2": "(unknown)",
+                "3": "(unknown)",
+                "7": "(unknown)",
+                "8": "(unknown)"
+            },
+            "block_alias_counts": {
+                "(unknown)": 468
+            },
+            "n_block_alias": 1,
+            "block_alias_char_counts": {
+                "(unknown)": {
+                    "0": 252,
+                    "1": 41,
+                    "-": 36,
+                    ":": 36,
+                    "9": 20,
+                    "5": 19,
+                    "6": 19,
+                    " ": 18,
+                    ".": 18,
+                    "4": 5,
+                    "2": 1,
+                    "3": 1,
+                    "7": 1,
+                    "8": 1
+                }
+            },
+            "script_counts": {
+                "(unknown)": 468
+            },
+            "n_scripts": 1,
+            "script_char_counts": {
+                "(unknown)": {
+                    "0": 252,
+                    "1": 41,
+                    "-": 36,
+                    ":": 36,
+                    "9": 20,
+                    "5": 19,
+                    "6": 19,
+                    " ": 18,
+                    ".": 18,
+                    "4": 5,
+                    "2": 1,
+                    "3": 1,
+                    "7": 1,
+                    "8": 1
+                }
+            },
+            "category_alias_counts": {
+                "(unknown)": 468
+            },
+            "n_category": 1,
+            "category_alias_char_counts": {
+                "(unknown)": {
+                    "0": 252,
+                    "1": 41,
+                    "-": 36,
+                    ":": 36,
+                    "9": 20,
+                    "5": 19,
+                    "6": 19,
+                    " ": 18,
+                    ".": 18,
+                    "4": 5,
+                    "2": 1,
+                    "3": 1,
+                    "7": 1,
+                    "8": 1
+                }
+            },
+            "word_counts": {
+                "00:00:00.000000": 18,
+                "1965-01-04": 5,
+                "1965-01-01": 4,
+                "1965-01-09": 2,
+                "1965-01-02": 1,
+                "1965-01-03": 1,
+                "1965-01-05": 1,
+                "1965-01-06": 1,
+                "1965-01-07": 1,
+                "1965-01-08": 1,
+                "1965-01-10": 1
+            },
+            "cast_type": "None"
+        },
+        "client_name": {
+            "n_distinct": 12,
+            "p_distinct": 0.6666666666666666,
+            "is_unique": false,
+            "n_unique": 10,
+            "p_unique": 0.5555555555555556,
+            "type": "Text",
+            "hashable": true,
+            "value_counts_without_nan": {
+                "CLIENT0681": 4,
+                "CLIENT2415": 4,
+                "CLIENT6054": 1,
+                "CLIENT0682": 1,
+                "CLIENT0683": 1,
+                "CLIENT0684": 1,
+                "CLIENT0685": 1,
+                "CLIENT0686": 1,
+                "CLIENT0687": 1,
+                "CLIENT0688": 1,
+                "CLIENT0689": 1,
+                "CLIENT0690": 1
+            },
+            "value_counts_index_sorted": {
+                "CLIENT0681": 4,
+                "CLIENT0682": 1,
+                "CLIENT0683": 1,
+                "CLIENT0684": 1,
+                "CLIENT0685": 1,
+                "CLIENT0686": 1,
+                "CLIENT0687": 1,
+                "CLIENT0688": 1,
+                "CLIENT0689": 1,
+                "CLIENT0690": 1,
+                "CLIENT2415": 4,
+                "CLIENT6054": 1
+            },
+            "ordering": true,
+            "n_missing": 0,
+            "n": 18,
+            "p_missing": 0.0,
+            "count": 18,
+            "memory_size": 1194,
+            "first_rows": {
+                "0": "CLIENT0681",
+                "1": "CLIENT0681",
+                "2": "CLIENT2415",
+                "3": "CLIENT2415",
+                "4": "CLIENT2415"
+            },
+            "max_length": 10,
+            "mean_length": 10.0,
+            "median_length": 10,
+            "min_length": 10,
+            "length_histogram": {
+                "10": 18
+            },
+            "histogram_length": {
+                "counts": [
+                    18
+                ],
+                "bin_edges": [
+                    9.0,
+                    11.0
+                ]
+            },
+            "n_characters_distinct": 16,
+            "n_characters": 180,
+            "character_counts": {
+                "C": 18,
+                "L": 18,
+                "I": 18,
+                "E": 18,
+                "N": 18,
+                "T": 18,
+                "0": 15,
+                "6": 15,
+                "8": 13,
+                "1": 8,
+                "4": 6,
+                "5": 6,
+                "2": 5,
+                "9": 2,
+                "3": 1,
+                "7": 1
+            },
+            "category_alias_values": {
+                "C": "(unknown)",
+                "L": "(unknown)",
+                "I": "(unknown)",
+                "E": "(unknown)",
+                "N": "(unknown)",
+                "T": "(unknown)",
+                "0": "(unknown)",
+                "6": "(unknown)",
+                "8": "(unknown)",
+                "1": "(unknown)",
+                "4": "(unknown)",
+                "5": "(unknown)",
+                "2": "(unknown)",
+                "9": "(unknown)",
+                "3": "(unknown)",
+                "7": "(unknown)"
+            },
+            "block_alias_values": {
+                "C": "(unknown)",
+                "L": "(unknown)",
+                "I": "(unknown)",
+                "E": "(unknown)",
+                "N": "(unknown)",
+                "T": "(unknown)",
+                "0": "(unknown)",
+                "6": "(unknown)",
+                "8": "(unknown)",
+                "1": "(unknown)",
+                "4": "(unknown)",
+                "5": "(unknown)",
+                "2": "(unknown)",
+                "9": "(unknown)",
+                "3": "(unknown)",
+                "7": "(unknown)"
+            },
+            "block_alias_counts": {
+                "(unknown)": 180
+            },
+            "n_block_alias": 1,
+            "block_alias_char_counts": {
+                "(unknown)": {
+                    "C": 18,
+                    "L": 18,
+                    "I": 18,
+                    "E": 18,
+                    "N": 18,
+                    "T": 18,
+                    "0": 15,
+                    "6": 15,
+                    "8": 13,
+                    "1": 8,
+                    "4": 6,
+                    "5": 6,
+                    "2": 5,
+                    "9": 2,
+                    "3": 1,
+                    "7": 1
+                }
+            },
+            "script_counts": {
+                "(unknown)": 180
+            },
+            "n_scripts": 1,
+            "script_char_counts": {
+                "(unknown)": {
+                    "C": 18,
+                    "L": 18,
+                    "I": 18,
+                    "E": 18,
+                    "N": 18,
+                    "T": 18,
+                    "0": 15,
+                    "6": 15,
+                    "8": 13,
+                    "1": 8,
+                    "4": 6,
+                    "5": 6,
+                    "2": 5,
+                    "9": 2,
+                    "3": 1,
+                    "7": 1
+                }
+            },
+            "category_alias_counts": {
+                "(unknown)": 180
+            },
+            "n_category": 1,
+            "category_alias_char_counts": {
+                "(unknown)": {
+                    "C": 18,
+                    "L": 18,
+                    "I": 18,
+                    "E": 18,
+                    "N": 18,
+                    "T": 18,
+                    "0": 15,
+                    "6": 15,
+                    "8": 13,
+                    "1": 8,
+                    "4": 6,
+                    "5": 6,
+                    "2": 5,
+                    "9": 2,
+                    "3": 1,
+                    "7": 1
+                }
+            },
+            "word_counts": {
+                "client0681": 4,
+                "client2415": 4,
+                "client6054": 1,
+                "client0682": 1,
+                "client0683": 1,
+                "client0684": 1,
+                "client0685": 1,
+                "client0686": 1,
+                "client0687": 1,
+                "client0688": 1,
+                "client0689": 1,
+                "client0690": 1
+            },
+            "cast_type": "None"
+        },
+        "insurer_name": {
+            "n_distinct": 1,
+            "p_distinct": 0.05555555555555555,
+            "is_unique": false,
+            "n_unique": 0,
+            "p_unique": 0.0,
+            "type": "Text",
+            "hashable": true,
+            "value_counts_without_nan": {
+                "nan": 18
+            },
+            "value_counts_index_sorted": {
+                "nan": 18
+            },
+            "ordering": true,
+            "n_missing": 0,
+            "n": 18,
+            "p_missing": 0.0,
+            "count": 18,
+            "memory_size": 1068,
+            "first_rows": {
+                "0": "nan",
+                "1": "nan",
+                "2": "nan",
+                "3": "nan",
+                "4": "nan"
+            },
+            "max_length": 3,
+            "mean_length": 3.0,
+            "median_length": 3,
+            "min_length": 3,
+            "length_histogram": {
+                "3": 18
+            },
+            "histogram_length": {
+                "counts": [
+                    18
+                ],
+                "bin_edges": [
+                    2.7,
+                    3.3
+                ]
+            },
+            "n_characters_distinct": 2,
+            "n_characters": 54,
+            "character_counts": {
+                "n": 36,
+                "a": 18
+            },
+            "category_alias_values": {
+                "n": "(unknown)",
+                "a": "(unknown)"
+            },
+            "block_alias_values": {
+                "n": "(unknown)",
+                "a": "(unknown)"
+            },
+            "block_alias_counts": {
+                "(unknown)": 54
+            },
+            "n_block_alias": 1,
+            "block_alias_char_counts": {
+                "(unknown)": {
+                    "n": 36,
+                    "a": 18
+                }
+            },
+            "script_counts": {
+                "(unknown)": 54
+            },
+            "n_scripts": 1,
+            "script_char_counts": {
+                "(unknown)": {
+                    "n": 36,
+                    "a": 18
+                }
+            },
+            "category_alias_counts": {
+                "(unknown)": 54
+            },
+            "n_category": 1,
+            "category_alias_char_counts": {
+                "(unknown)": {
+                    "n": 36,
+                    "a": 18
+                }
+            },
+            "word_counts": {
+                "nan": 18
+            },
+            "cast_type": "None"
+        },
+        "insurance_member_id": {
+            "n_distinct": 1,
+            "p_distinct": 0.05555555555555555,
+            "is_unique": false,
+            "n_unique": 0,
+            "p_unique": 0.0,
+            "type": "Text",
+            "hashable": true,
+            "value_counts_without_nan": {
+                "nan": 18
+            },
+            "value_counts_index_sorted": {
+                "nan": 18
+            },
+            "ordering": true,
+            "n_missing": 0,
+            "n": 18,
+            "p_missing": 0.0,
+            "count": 18,
+            "memory_size": 1068,
+            "first_rows": {
+                "0": "nan",
+                "1": "nan",
+                "2": "nan",
+                "3": "nan",
+                "4": "nan"
+            },
+            "max_length": 3,
+            "mean_length": 3.0,
+            "median_length": 3,
+            "min_length": 3,
+            "length_histogram": {
+                "3": 18
+            },
+            "histogram_length": {
+                "counts": [
+                    18
+                ],
+                "bin_edges": [
+                    2.7,
+                    3.3
+                ]
+            },
+            "n_characters_distinct": 2,
+            "n_characters": 54,
+            "character_counts": {
+                "n": 36,
+                "a": 18
+            },
+            "category_alias_values": {
+                "n": "(unknown)",
+                "a": "(unknown)"
+            },
+            "block_alias_values": {
+                "n": "(unknown)",
+                "a": "(unknown)"
+            },
+            "block_alias_counts": {
+                "(unknown)": 54
+            },
+            "n_block_alias": 1,
+            "block_alias_char_counts": {
+                "(unknown)": {
+                    "n": 36,
+                    "a": 18
+                }
+            },
+            "script_counts": {
+                "(unknown)": 54
+            },
+            "n_scripts": 1,
+            "script_char_counts": {
+                "(unknown)": {
+                    "n": 36,
+                    "a": 18
+                }
+            },
+            "category_alias_counts": {
+                "(unknown)": 54
+            },
+            "n_category": 1,
+            "category_alias_char_counts": {
+                "(unknown)": {
+                    "n": 36,
+                    "a": 18
+                }
+            },
+            "word_counts": {
+                "nan": 18
+            },
+            "cast_type": "None"
+        },
+        "insurance_group_id": {
+            "n_distinct": 1,
+            "p_distinct": 0.05555555555555555,
+            "is_unique": false,
+            "n_unique": 0,
+            "p_unique": 0.0,
+            "type": "Text",
+            "hashable": true,
+            "value_counts_without_nan": {
+                "nan": 18
+            },
+            "value_counts_index_sorted": {
+                "nan": 18
+            },
+            "ordering": true,
+            "n_missing": 0,
+            "n": 18,
+            "p_missing": 0.0,
+            "count": 18,
+            "memory_size": 1068,
+            "first_rows": {
+                "0": "nan",
+                "1": "nan",
+                "2": "nan",
+                "3": "nan",
+                "4": "nan"
+            },
+            "max_length": 3,
+            "mean_length": 3.0,
+            "median_length": 3,
+            "min_length": 3,
+            "length_histogram": {
+                "3": 18
+            },
+            "histogram_length": {
+                "counts": [
+                    18
+                ],
+                "bin_edges": [
+                    2.7,
+                    3.3
+                ]
+            },
+            "n_characters_distinct": 2,
+            "n_characters": 54,
+            "character_counts": {
+                "n": 36,
+                "a": 18
+            },
+            "category_alias_values": {
+                "n": "(unknown)",
+                "a": "(unknown)"
+            },
+            "block_alias_values": {
+                "n": "(unknown)",
+                "a": "(unknown)"
+            },
+            "block_alias_counts": {
+                "(unknown)": 54
+            },
+            "n_block_alias": 1,
+            "block_alias_char_counts": {
+                "(unknown)": {
+                    "n": 36,
+                    "a": 18
+                }
+            },
+            "script_counts": {
+                "(unknown)": 54
+            },
+            "n_scripts": 1,
+            "script_char_counts": {
+                "(unknown)": {
+                    "n": 36,
+                    "a": 18
+                }
+            },
+            "category_alias_counts": {
+                "(unknown)": 54
+            },
+            "n_category": 1,
+            "category_alias_char_counts": {
+                "(unknown)": {
+                    "n": 36,
+                    "a": 18
+                }
+            },
+            "word_counts": {
+                "nan": 18
+            },
+            "cast_type": "None"
+        },
+        "gender": {
+            "n_distinct": 2,
+            "p_distinct": 0.1111111111111111,
+            "is_unique": false,
+            "n_unique": 0,
+            "p_unique": 0.0,
+            "type": "Text",
+            "hashable": true,
+            "value_counts_without_nan": {
+                "Male": 14,
+                "Female": 4
+            },
+            "value_counts_index_sorted": {
+                "Female": 4,
+                "Male": 14
+            },
+            "ordering": true,
+            "n_missing": 0,
+            "n": 18,
+            "p_missing": 0.0,
+            "count": 18,
+            "memory_size": 1094,
+            "first_rows": {
+                "0": "Male",
+                "1": "Male",
+                "2": "Female",
+                "3": "Female",
+                "4": "Female"
+            },
+            "max_length": 6,
+            "mean_length": 4.444444444444445,
+            "median_length": 4,
+            "min_length": 4,
+            "length_histogram": {
+                "4": 14,
+                "6": 4
+            },
+            "histogram_length": {
+                "counts": [
+                    14,
+                    4
+                ],
+                "bin_edges": [
+                    4.0,
+                    5.0,
+                    6.0
+                ]
+            },
+            "n_characters_distinct": 6,
+            "n_characters": 80,
+            "character_counts": {
+                "e": 22,
+                "a": 18,
+                "l": 18,
+                "M": 14,
+                "F": 4,
+                "m": 4
+            },
+            "category_alias_values": {
+                "e": "(unknown)",
+                "a": "(unknown)",
+                "l": "(unknown)",
+                "M": "(unknown)",
+                "F": "(unknown)",
+                "m": "(unknown)"
+            },
+            "block_alias_values": {
+                "e": "(unknown)",
+                "a": "(unknown)",
+                "l": "(unknown)",
+                "M": "(unknown)",
+                "F": "(unknown)",
+                "m": "(unknown)"
+            },
+            "block_alias_counts": {
+                "(unknown)": 80
+            },
+            "n_block_alias": 1,
+            "block_alias_char_counts": {
+                "(unknown)": {
+                    "e": 22,
+                    "a": 18,
+                    "l": 18,
+                    "M": 14,
+                    "F": 4,
+                    "m": 4
+                }
+            },
+            "script_counts": {
+                "(unknown)": 80
+            },
+            "n_scripts": 1,
+            "script_char_counts": {
+                "(unknown)": {
+                    "e": 22,
+                    "a": 18,
+                    "l": 18,
+                    "M": 14,
+                    "F": 4,
+                    "m": 4
+                }
+            },
+            "category_alias_counts": {
+                "(unknown)": 80
+            },
+            "n_category": 1,
+            "category_alias_char_counts": {
+                "(unknown)": {
+                    "e": 22,
+                    "a": 18,
+                    "l": 18,
+                    "M": 14,
+                    "F": 4,
+                    "m": 4
+                }
+            },
+            "word_counts": {
+                "male": 14,
+                "female": 4
+            },
+            "cast_type": "None"
+        },
+        "event_type": {
+            "n_distinct": 4,
+            "p_distinct": 0.2222222222222222,
+            "is_unique": false,
+            "n_unique": 0,
+            "p_unique": 0.0,
+            "type": "Text",
+            "hashable": true,
+            "value_counts_without_nan": {
+                "Coaching": 11,
+                "Assessment": 3,
+                "Activity": 2,
+                "Current Focus Area": 2
+            },
+            "value_counts_index_sorted": {
+                "Activity": 2,
+                "Assessment": 3,
+                "Coaching": 11,
+                "Current Focus Area": 2
+            },
+            "ordering": true,
+            "n_missing": 0,
+            "n": 18,
+            "p_missing": 0.0,
+            "count": 18,
+            "memory_size": 1184,
+            "first_rows": {
+                "0": "Activity",
+                "1": "Activity",
+                "2": "Assessment",
+                "3": "Assessment",
+                "4": "Assessment"
+            },
+            "max_length": 18,
+            "mean_length": 9.444444444444445,
+            "median_length": 8,
+            "min_length": 8,
+            "length_histogram": {
+                "8": 13,
+                "10": 3,
+                "18": 2
+            },
+            "histogram_length": {
+                "counts": [
+                    16,
+                    0,
+                    2
+                ],
+                "bin_edges": [
+                    8.0,
+                    11.333333333333334,
+                    14.666666666666668,
+                    18.0
+                ]
+            },
+            "n_characters_distinct": 19,
+            "n_characters": 170,
+            "character_counts": {
+                "n": 16,
+                "c": 15,
+                "i": 15,
+                "s": 14,
+                "a": 13,
+                "C": 13,
+                "o": 13,
+                "h": 11,
+                "g": 11,
+                "e": 10,
+                "t": 9,
+                "A": 7,
+                "r": 6,
+                "u": 4,
+                " ": 4,
+                "m": 3,
+                "v": 2,
+                "y": 2,
+                "F": 2
+            },
+            "category_alias_values": {
+                "n": "(unknown)",
+                "c": "(unknown)",
+                "i": "(unknown)",
+                "s": "(unknown)",
+                "a": "(unknown)",
+                "C": "(unknown)",
+                "o": "(unknown)",
+                "h": "(unknown)",
+                "g": "(unknown)",
+                "e": "(unknown)",
+                "t": "(unknown)",
+                "A": "(unknown)",
+                "r": "(unknown)",
+                "u": "(unknown)",
+                " ": "(unknown)",
+                "m": "(unknown)",
+                "v": "(unknown)",
+                "y": "(unknown)",
+                "F": "(unknown)"
+            },
+            "block_alias_values": {
+                "n": "(unknown)",
+                "c": "(unknown)",
+                "i": "(unknown)",
+                "s": "(unknown)",
+                "a": "(unknown)",
+                "C": "(unknown)",
+                "o": "(unknown)",
+                "h": "(unknown)",
+                "g": "(unknown)",
+                "e": "(unknown)",
+                "t": "(unknown)",
+                "A": "(unknown)",
+                "r": "(unknown)",
+                "u": "(unknown)",
+                " ": "(unknown)",
+                "m": "(unknown)",
+                "v": "(unknown)",
+                "y": "(unknown)",
+                "F": "(unknown)"
+            },
+            "block_alias_counts": {
+                "(unknown)": 170
+            },
+            "n_block_alias": 1,
+            "block_alias_char_counts": {
+                "(unknown)": {
+                    "n": 16,
+                    "c": 15,
+                    "i": 15,
+                    "s": 14,
+                    "a": 13,
+                    "C": 13,
+                    "o": 13,
+                    "h": 11,
+                    "g": 11,
+                    "e": 10,
+                    "t": 9,
+                    "A": 7,
+                    "r": 6,
+                    "u": 4,
+                    " ": 4,
+                    "m": 3,
+                    "v": 2,
+                    "y": 2,
+                    "F": 2
+                }
+            },
+            "script_counts": {
+                "(unknown)": 170
+            },
+            "n_scripts": 1,
+            "script_char_counts": {
+                "(unknown)": {
+                    "n": 16,
+                    "c": 15,
+                    "i": 15,
+                    "s": 14,
+                    "a": 13,
+                    "C": 13,
+                    "o": 13,
+                    "h": 11,
+                    "g": 11,
+                    "e": 10,
+                    "t": 9,
+                    "A": 7,
+                    "r": 6,
+                    "u": 4,
+                    " ": 4,
+                    "m": 3,
+                    "v": 2,
+                    "y": 2,
+                    "F": 2
+                }
+            },
+            "category_alias_counts": {
+                "(unknown)": 170
+            },
+            "n_category": 1,
+            "category_alias_char_counts": {
+                "(unknown)": {
+                    "n": 16,
+                    "c": 15,
+                    "i": 15,
+                    "s": 14,
+                    "a": 13,
+                    "C": 13,
+                    "o": 13,
+                    "h": 11,
+                    "g": 11,
+                    "e": 10,
+                    "t": 9,
+                    "A": 7,
+                    "r": 6,
+                    "u": 4,
+                    " ": 4,
+                    "m": 3,
+                    "v": 2,
+                    "y": 2,
+                    "F": 2
+                }
+            },
+            "word_counts": {
+                "coaching": 11,
+                "assessment": 3,
+                "activity": 2,
+                "current": 2,
+                "focus": 2,
+                "area": 2
+            },
+            "cast_type": "None"
+        },
+        "event_name": {
+            "n_distinct": 9,
+            "p_distinct": 0.5,
+            "is_unique": false,
+            "n_unique": 8,
+            "p_unique": 0.4444444444444444,
+            "type": "Text",
+            "hashable": true,
+            "value_counts_without_nan": {
+                "Coach to Member": 10,
+                "Gratitude Meditation": 1,
+                "Examining Beliefs about Sleep": 1,
+                "WHO-5": 1,
+                "GAD-7": 1,
+                "PHQ-9": 1,
+                "Depression": 1,
+                "Anxiety": 1,
+                "Member to Coach": 1
+            },
+            "value_counts_index_sorted": {
+                "Anxiety": 1,
+                "Coach to Member": 10,
+                "Depression": 1,
+                "Examining Beliefs about Sleep": 1,
+                "GAD-7": 1,
+                "Gratitude Meditation": 1,
+                "Member to Coach": 1,
+                "PHQ-9": 1,
+                "WHO-5": 1
+            },
+            "ordering": true,
+            "n_missing": 0,
+            "n": 18,
+            "p_missing": 0.0,
+            "count": 18,
+            "memory_size": 1260,
+            "first_rows": {
+                "0": "Gratitude Meditation",
+                "1": "Examining Beliefs about Sleep",
+                "2": "GAD-7",
+                "3": "WHO-5",
+                "4": "PHQ-9"
+            },
+            "max_length": 29,
+            "mean_length": 13.666666666666666,
+            "median_length": 15,
+            "min_length": 5,
+            "length_histogram": {
+                "15": 11,
+                "5": 3,
+                "20": 1,
+                "29": 1,
+                "10": 1,
+                "7": 1
+            },
+            "histogram_length": {
+                "counts": [
+                    4,
+                    1,
+                    11,
+                    1,
+                    0,
+                    1
+                ],
+                "bin_edges": [
+                    5.0,
+                    9.0,
+                    13.0,
+                    17.0,
+                    21.0,
+                    25.0,
+                    29.0
+                ]
+            },
+            "n_characters_distinct": 38,
+            "n_characters": 246,
+            "character_counts": {
+                "e": 31,
+                " ": 26,
+                "o": 25,
+                "t": 17,
+                "a": 15,
+                "r": 13,
+                "m": 12,
+                "b": 12,
+                "M": 12,
+                "C": 11,
+                "h": 11,
+                "c": 11,
+                "i": 8,
+                "n": 5,
+                "-": 3,
+                "s": 3,
+                "G": 2,
+                "u": 2,
+                "l": 2,
+                "H": 2,
+                "d": 2,
+                "x": 2,
+                "D": 2,
+                "A": 2,
+                "p": 2,
+                "E": 1,
+                "B": 1,
+                "g": 1,
+                "S": 1,
+                "f": 1,
+                "O": 1,
+                "W": 1,
+                "5": 1,
+                "7": 1,
+                "P": 1,
+                "Q": 1,
+                "9": 1,
+                "y": 1
+            },
+            "category_alias_values": {
+                "e": "(unknown)",
+                " ": "(unknown)",
+                "o": "(unknown)",
+                "t": "(unknown)",
+                "a": "(unknown)",
+                "r": "(unknown)",
+                "m": "(unknown)",
+                "b": "(unknown)",
+                "M": "(unknown)",
+                "C": "(unknown)",
+                "h": "(unknown)",
+                "c": "(unknown)",
+                "i": "(unknown)",
+                "n": "(unknown)",
+                "-": "(unknown)",
+                "s": "(unknown)",
+                "G": "(unknown)",
+                "u": "(unknown)",
+                "l": "(unknown)",
+                "H": "(unknown)",
+                "d": "(unknown)",
+                "x": "(unknown)",
+                "D": "(unknown)",
+                "A": "(unknown)",
+                "p": "(unknown)",
+                "E": "(unknown)",
+                "B": "(unknown)",
+                "g": "(unknown)",
+                "S": "(unknown)",
+                "f": "(unknown)",
+                "O": "(unknown)",
+                "W": "(unknown)",
+                "5": "(unknown)",
+                "7": "(unknown)",
+                "P": "(unknown)",
+                "Q": "(unknown)",
+                "9": "(unknown)",
+                "y": "(unknown)"
+            },
+            "block_alias_values": {
+                "e": "(unknown)",
+                " ": "(unknown)",
+                "o": "(unknown)",
+                "t": "(unknown)",
+                "a": "(unknown)",
+                "r": "(unknown)",
+                "m": "(unknown)",
+                "b": "(unknown)",
+                "M": "(unknown)",
+                "C": "(unknown)",
+                "h": "(unknown)",
+                "c": "(unknown)",
+                "i": "(unknown)",
+                "n": "(unknown)",
+                "-": "(unknown)",
+                "s": "(unknown)",
+                "G": "(unknown)",
+                "u": "(unknown)",
+                "l": "(unknown)",
+                "H": "(unknown)",
+                "d": "(unknown)",
+                "x": "(unknown)",
+                "D": "(unknown)",
+                "A": "(unknown)",
+                "p": "(unknown)",
+                "E": "(unknown)",
+                "B": "(unknown)",
+                "g": "(unknown)",
+                "S": "(unknown)",
+                "f": "(unknown)",
+                "O": "(unknown)",
+                "W": "(unknown)",
+                "5": "(unknown)",
+                "7": "(unknown)",
+                "P": "(unknown)",
+                "Q": "(unknown)",
+                "9": "(unknown)",
+                "y": "(unknown)"
+            },
+            "block_alias_counts": {
+                "(unknown)": 246
+            },
+            "n_block_alias": 1,
+            "block_alias_char_counts": {
+                "(unknown)": {
+                    "e": 31,
+                    " ": 26,
+                    "o": 25,
+                    "t": 17,
+                    "a": 15,
+                    "r": 13,
+                    "m": 12,
+                    "b": 12,
+                    "M": 12,
+                    "C": 11,
+                    "h": 11,
+                    "c": 11,
+                    "i": 8,
+                    "n": 5,
+                    "-": 3,
+                    "s": 3,
+                    "G": 2,
+                    "u": 2,
+                    "l": 2,
+                    "H": 2,
+                    "d": 2,
+                    "x": 2,
+                    "D": 2,
+                    "A": 2,
+                    "p": 2,
+                    "E": 1,
+                    "B": 1,
+                    "g": 1,
+                    "S": 1,
+                    "f": 1,
+                    "O": 1,
+                    "W": 1,
+                    "5": 1,
+                    "7": 1,
+                    "P": 1,
+                    "Q": 1,
+                    "9": 1,
+                    "y": 1
+                }
+            },
+            "script_counts": {
+                "(unknown)": 246
+            },
+            "n_scripts": 1,
+            "script_char_counts": {
+                "(unknown)": {
+                    "e": 31,
+                    " ": 26,
+                    "o": 25,
+                    "t": 17,
+                    "a": 15,
+                    "r": 13,
+                    "m": 12,
+                    "b": 12,
+                    "M": 12,
+                    "C": 11,
+                    "h": 11,
+                    "c": 11,
+                    "i": 8,
+                    "n": 5,
+                    "-": 3,
+                    "s": 3,
+                    "G": 2,
+                    "u": 2,
+                    "l": 2,
+                    "H": 2,
+                    "d": 2,
+                    "x": 2,
+                    "D": 2,
+                    "A": 2,
+                    "p": 2,
+                    "E": 1,
+                    "B": 1,
+                    "g": 1,
+                    "S": 1,
+                    "f": 1,
+                    "O": 1,
+                    "W": 1,
+                    "5": 1,
+                    "7": 1,
+                    "P": 1,
+                    "Q": 1,
+                    "9": 1,
+                    "y": 1
+                }
+            },
+            "category_alias_counts": {
+                "(unknown)": 246
+            },
+            "n_category": 1,
+            "category_alias_char_counts": {
+                "(unknown)": {
+                    "e": 31,
+                    " ": 26,
+                    "o": 25,
+                    "t": 17,
+                    "a": 15,
+                    "r": 13,
+                    "m": 12,
+                    "b": 12,
+                    "M": 12,
+                    "C": 11,
+                    "h": 11,
+                    "c": 11,
+                    "i": 8,
+                    "n": 5,
+                    "-": 3,
+                    "s": 3,
+                    "G": 2,
+                    "u": 2,
+                    "l": 2,
+                    "H": 2,
+                    "d": 2,
+                    "x": 2,
+                    "D": 2,
+                    "A": 2,
+                    "p": 2,
+                    "E": 1,
+                    "B": 1,
+                    "g": 1,
+                    "S": 1,
+                    "f": 1,
+                    "O": 1,
+                    "W": 1,
+                    "5": 1,
+                    "7": 1,
+                    "P": 1,
+                    "Q": 1,
+                    "9": 1,
+                    "y": 1
+                }
+            },
+            "word_counts": {
+                "coach": 11,
+                "to": 11,
+                "member": 11,
+                "gratitude": 1,
+                "meditation": 1,
+                "examining": 1,
+                "beliefs": 1,
+                "about": 1,
+                "sleep": 1,
+                "who-5": 1,
+                "gad-7": 1,
+                "phq-9": 1,
+                "depression": 1,
+                "anxiety": 1
+            },
+            "cast_type": "None"
+        },
+        "event_value": {
+            "n_distinct": 6,
+            "p_distinct": 0.3333333333333333,
+            "is_unique": false,
+            "n_unique": 4,
+            "p_unique": 0.2222222222222222,
+            "type": "Numeric",
+            "hashable": true,
+            "value_counts_without_nan": {
+                "7": 10,
+                "5": 4,
+                "4": 1,
+                "23": 1,
+                "18": 1,
+                "6": 1
+            },
+            "value_counts_index_sorted": {
+                "4": 1,
+                "5": 4,
+                "6": 1,
+                "7": 10,
+                "18": 1,
+                "23": 1
+            },
+            "ordering": true,
+            "n_missing": 0,
+            "n": 18,
+            "p_missing": 0.0,
+            "count": 18,
+            "memory_size": 276,
+            "n_negative": 0,
+            "p_negative": 0.0,
+            "n_infinite": 0,
+            "n_zeros": 0,
+            "mean": 7.833333333333333,
+            "std": 4.7927641539402,
+            "variance": 22.970588235294123,
+            "min": 4,
+            "max": 23,
+            "kurtosis": 6.568389454407735,
+            "skewness": 2.633010472057505,
+            "sum": 141,
+            "mad": 0.0,
+            "range": 19,
+            "5%": 4.85,
+            "25%": 5.25,
+            "50%": 7.0,
+            "75%": 7.0,
+            "95%": 18.749999999999993,
+            "iqr": 1.75,
+            "cv": 0.6118422324178979,
+            "p_zeros": 0.0,
+            "p_infinite": 0.0,
+            "monotonic_increase": false,
+            "monotonic_decrease": false,
+            "monotonic_increase_strict": false,
+            "monotonic_decrease_strict": false,
+            "monotonic": 0,
+            "histogram": {
+                "counts": [
+                    16,
+                    0,
+                    0,
+                    0,
+                    1,
+                    1
+                ],
+                "bin_edges": [
+                    4.0,
+                    7.166666666666666,
+                    10.333333333333332,
+                    13.5,
+                    16.666666666666664,
+                    19.833333333333332,
+                    23.0
+                ]
+            },
+            "cast_type": "None"
+        },
+        "event_date": {
+            "n_distinct": 13,
+            "p_distinct": 0.7222222222222222,
+            "is_unique": false,
+            "n_unique": 11,
+            "p_unique": 0.6111111111111112,
+            "type": "Text",
+            "hashable": true,
+            "value_counts_without_nan": {
+                "2020-09-01 00:00:00.000000": 4,
+                "2020-08-03 00:00:00.000000": 3,
+                "2020-08-15 00:00:00.000000": 1,
+                "2020-08-24 00:00:00.000000": 1,
+                "2020-09-02 00:00:00.000000": 1,
+                "2020-09-03 00:00:00.000000": 1,
+                "2020-09-04 00:00:00.000000": 1,
+                "2020-09-05 00:00:00.000000": 1,
+                "2020-09-06 00:00:00.000000": 1,
+                "2020-09-07 00:00:00.000000": 1,
+                "2020-09-08 00:00:00.000000": 1,
+                "2020-09-09 00:00:00.000000": 1,
+                "2020-09-10 00:00:00.000000": 1
+            },
+            "value_counts_index_sorted": {
+                "2020-08-03 00:00:00.000000": 3,
+                "2020-08-15 00:00:00.000000": 1,
+                "2020-08-24 00:00:00.000000": 1,
+                "2020-09-01 00:00:00.000000": 4,
+                "2020-09-02 00:00:00.000000": 1,
+                "2020-09-03 00:00:00.000000": 1,
+                "2020-09-04 00:00:00.000000": 1,
+                "2020-09-05 00:00:00.000000": 1,
+                "2020-09-06 00:00:00.000000": 1,
+                "2020-09-07 00:00:00.000000": 1,
+                "2020-09-08 00:00:00.000000": 1,
+                "2020-09-09 00:00:00.000000": 1,
+                "2020-09-10 00:00:00.000000": 1
+            },
+            "ordering": true,
+            "n_missing": 0,
+            "n": 18,
+            "p_missing": 0.0,
+            "count": 18,
+            "memory_size": 1482,
+            "first_rows": {
+                "0": "2020-08-15 00:00:00.000000",
+                "1": "2020-08-24 00:00:00.000000",
+                "2": "2020-08-03 00:00:00.000000",
+                "3": "2020-08-03 00:00:00.000000",
+                "4": "2020-08-03 00:00:00.000000"
+            },
+            "max_length": 26,
+            "mean_length": 26.0,
+            "median_length": 26,
+            "min_length": 26,
+            "length_histogram": {
+                "26": 18
+            },
+            "histogram_length": {
+                "counts": [
+                    18
+                ],
+                "bin_edges": [
+                    23.4,
+                    28.6
+                ]
+            },
+            "n_characters_distinct": 14,
+            "n_characters": 468,
+            "character_counts": {
+                "0": 286,
+                "2": 38,
+                "-": 36,
+                ":": 36,
+                ".": 18,
+                " ": 18,
+                "9": 14,
+                "1": 6,
+                "8": 6,
+                "3": 4,
+                "5": 2,
+                "4": 2,
+                "6": 1,
+                "7": 1
+            },
+            "category_alias_values": {
+                "0": "(unknown)",
+                "2": "(unknown)",
+                "-": "(unknown)",
+                ":": "(unknown)",
+                ".": "(unknown)",
+                " ": "(unknown)",
+                "9": "(unknown)",
+                "1": "(unknown)",
+                "8": "(unknown)",
+                "3": "(unknown)",
+                "5": "(unknown)",
+                "4": "(unknown)",
+                "6": "(unknown)",
+                "7": "(unknown)"
+            },
+            "block_alias_values": {
+                "0": "(unknown)",
+                "2": "(unknown)",
+                "-": "(unknown)",
+                ":": "(unknown)",
+                ".": "(unknown)",
+                " ": "(unknown)",
+                "9": "(unknown)",
+                "1": "(unknown)",
+                "8": "(unknown)",
+                "3": "(unknown)",
+                "5": "(unknown)",
+                "4": "(unknown)",
+                "6": "(unknown)",
+                "7": "(unknown)"
+            },
+            "block_alias_counts": {
+                "(unknown)": 468
+            },
+            "n_block_alias": 1,
+            "block_alias_char_counts": {
+                "(unknown)": {
+                    "0": 286,
+                    "2": 38,
+                    "-": 36,
+                    ":": 36,
+                    ".": 18,
+                    " ": 18,
+                    "9": 14,
+                    "1": 6,
+                    "8": 6,
+                    "3": 4,
+                    "5": 2,
+                    "4": 2,
+                    "6": 1,
+                    "7": 1
+                }
+            },
+            "script_counts": {
+                "(unknown)": 468
+            },
+            "n_scripts": 1,
+            "script_char_counts": {
+                "(unknown)": {
+                    "0": 286,
+                    "2": 38,
+                    "-": 36,
+                    ":": 36,
+                    ".": 18,
+                    " ": 18,
+                    "9": 14,
+                    "1": 6,
+                    "8": 6,
+                    "3": 4,
+                    "5": 2,
+                    "4": 2,
+                    "6": 1,
+                    "7": 1
+                }
+            },
+            "category_alias_counts": {
+                "(unknown)": 468
+            },
+            "n_category": 1,
+            "category_alias_char_counts": {
+                "(unknown)": {
+                    "0": 286,
+                    "2": 38,
+                    "-": 36,
+                    ":": 36,
+                    ".": 18,
+                    " ": 18,
+                    "9": 14,
+                    "1": 6,
+                    "8": 6,
+                    "3": 4,
+                    "5": 2,
+                    "4": 2,
+                    "6": 1,
+                    "7": 1
+                }
+            },
+            "word_counts": {
+                "00:00:00.000000": 18,
+                "2020-09-01": 4,
+                "2020-08-03": 3,
+                "2020-08-15": 1,
+                "2020-08-24": 1,
+                "2020-09-02": 1,
+                "2020-09-03": 1,
+                "2020-09-04": 1,
+                "2020-09-05": 1,
+                "2020-09-06": 1,
+                "2020-09-07": 1,
+                "2020-09-08": 1,
+                "2020-09-09": 1,
+                "2020-09-10": 1
+            },
+            "cast_type": "None"
+        },
+        "ibc_id": {
+            "n_distinct": 1,
+            "p_distinct": 0.05555555555555555,
+            "is_unique": false,
+            "n_unique": 0,
+            "p_unique": 0.0,
+            "type": "Text",
+            "hashable": true,
+            "value_counts_without_nan": {
+                "nan": 18
+            },
+            "value_counts_index_sorted": {
+                "nan": 18
+            },
+            "ordering": true,
+            "n_missing": 0,
+            "n": 18,
+            "p_missing": 0.0,
+            "count": 18,
+            "memory_size": 1068,
+            "first_rows": {
+                "0": "nan",
+                "1": "nan",
+                "2": "nan",
+                "3": "nan",
+                "4": "nan"
+            },
+            "max_length": 3,
+            "mean_length": 3.0,
+            "median_length": 3,
+            "min_length": 3,
+            "length_histogram": {
+                "3": 18
+            },
+            "histogram_length": {
+                "counts": [
+                    18
+                ],
+                "bin_edges": [
+                    2.7,
+                    3.3
+                ]
+            },
+            "n_characters_distinct": 2,
+            "n_characters": 54,
+            "character_counts": {
+                "n": 36,
+                "a": 18
+            },
+            "category_alias_values": {
+                "n": "(unknown)",
+                "a": "(unknown)"
+            },
+            "block_alias_values": {
+                "n": "(unknown)",
+                "a": "(unknown)"
+            },
+            "block_alias_counts": {
+                "(unknown)": 54
+            },
+            "n_block_alias": 1,
+            "block_alias_char_counts": {
+                "(unknown)": {
+                    "n": 36,
+                    "a": 18
+                }
+            },
+            "script_counts": {
+                "(unknown)": 54
+            },
+            "n_scripts": 1,
+            "script_char_counts": {
+                "(unknown)": {
+                    "n": 36,
+                    "a": 18
+                }
+            },
+            "category_alias_counts": {
+                "(unknown)": 54
+            },
+            "n_category": 1,
+            "category_alias_char_counts": {
+                "(unknown)": {
+                    "n": 36,
+                    "a": 18
+                }
+            },
+            "word_counts": {
+                "nan": 18
+            },
+            "cast_type": "None"
+        },
+        "member_uid": {
+            "n_distinct": 1,
+            "p_distinct": 0.05555555555555555,
+            "is_unique": false,
+            "n_unique": 0,
+            "p_unique": 0.0,
+            "type": "Text",
+            "hashable": true,
+            "value_counts_without_nan": {
+                "nan": 18
+            },
+            "value_counts_index_sorted": {
+                "nan": 18
+            },
+            "ordering": true,
+            "n_missing": 0,
+            "n": 18,
+            "p_missing": 0.0,
+            "count": 18,
+            "memory_size": 1068,
+            "first_rows": {
+                "0": "nan",
+                "1": "nan",
+                "2": "nan",
+                "3": "nan",
+                "4": "nan"
+            },
+            "max_length": 3,
+            "mean_length": 3.0,
+            "median_length": 3,
+            "min_length": 3,
+            "length_histogram": {
+                "3": 18
+            },
+            "histogram_length": {
+                "counts": [
+                    18
+                ],
+                "bin_edges": [
+                    2.7,
+                    3.3
+                ]
+            },
+            "n_characters_distinct": 2,
+            "n_characters": 54,
+            "character_counts": {
+                "n": 36,
+                "a": 18
+            },
+            "category_alias_values": {
+                "n": "(unknown)",
+                "a": "(unknown)"
+            },
+            "block_alias_values": {
+                "n": "(unknown)",
+                "a": "(unknown)"
+            },
+            "block_alias_counts": {
+                "(unknown)": 54
+            },
+            "n_block_alias": 1,
+            "block_alias_char_counts": {
+                "(unknown)": {
+                    "n": 36,
+                    "a": 18
+                }
+            },
+            "script_counts": {
+                "(unknown)": 54
+            },
+            "n_scripts": 1,
+            "script_char_counts": {
+                "(unknown)": {
+                    "n": 36,
+                    "a": 18
+                }
+            },
+            "category_alias_counts": {
+                "(unknown)": 54
+            },
+            "n_category": 1,
+            "category_alias_char_counts": {
+                "(unknown)": {
+                    "n": 36,
+                    "a": 18
+                }
+            },
+            "word_counts": {
+                "nan": 18
+            },
+            "cast_type": "None"
+        }
+    },
+    "scatter": {},
+    "correlations": {},
+    "missing": {},
+    "alerts": [
+        "[insurer_name] has a constant value",
+        "[insurance_member_id] has a constant value",
+        "[insurance_group_id] has a constant value",
+        "[ibc_id] has a constant value",
+        "[member_uid] has a constant value"
+    ],
+    "package": {
+        "ydata_profiling_version": "4.18.4",
+        "ydata_profiling_config": "{\"title\": \"BigQuery Data Profile\", \"dataset\": {\"description\": \"\", \"creator\": \"\", \"author\": \"\", \"copyright_holder\": \"\", \"copyright_year\": \"\", \"url\": \"\"}, \"variables\": {\"descriptions\": {}}, \"infer_dtypes\": false, \"show_variable_description\": true, \"pool_size\": 0, \"progress_bar\": true, \"vars\": {\"num\": {\"quantiles\": [0.05, 0.25, 0.5, 0.75, 0.95], \"skewness_threshold\": 20, \"low_categorical_threshold\": 5, \"chi_squared_threshold\": 0.0}, \"text\": {\"length\": true, \"words\": true, \"characters\": true, \"redact\": false}, \"cat\": {\"length\": false, \"characters\": false, \"words\": false, \"cardinality_threshold\": 50, \"percentage_cat_threshold\": 0.5, \"imbalance_threshold\": 0.5, \"n_obs\": 5, \"chi_squared_threshold\": 0.0, \"coerce_str_to_date\": false, \"redact\": false, \"histogram_largest\": 10, \"stop_words\": [], \"dirty_categories\": false, \"dirty_categories_threshold\": 0.85}, \"image\": {\"active\": true, \"exif\": false, \"hash\": false}, \"bool\": {\"n_obs\": 3, \"imbalance_threshold\": 0.5, \"mappings\": {\"t\": true, \"f\": false, \"True\": true, \"False\": false, \"y\": true, \"n\": false, \"true\": true, \"false\": false}}, \"path\": {\"active\": true}, \"file\": {\"active\": true}, \"url\": {\"active\": true}, \"timeseries\": {\"active\": false, \"sortby\": null, \"autocorrelation\": 0.7, \"lags\": [1, 7, 12, 24, 30], \"significance\": 0.05, \"pacf_acf_lag\": 100, \"autolag\": \"AIC\", \"maxlag\": null}}, \"sort\": null, \"missing_diagrams\": {\"bar\": false, \"matrix\": false, \"heatmap\": false}, \"correlation_table\": true, \"correlations\": {\"pearson\": {\"key\": \"\", \"calculate\": false, \"warn_high_correlations\": 1, \"threshold\": 0.9, \"n_bins\": 10}, \"spearman\": {\"key\": \"\", \"calculate\": false, \"warn_high_correlations\": 0, \"threshold\": 0.9, \"n_bins\": 10}, \"kendall\": {\"key\": \"\", \"calculate\": false, \"warn_high_correlations\": 0, \"threshold\": 0.9, \"n_bins\": 10}, \"phi_k\": {\"key\": \"\", \"calculate\": false, \"warn_high_correlations\": 0, \"threshold\": 0.9, \"n_bins\": 10}, \"cramers\": {\"key\": \"\", \"calculate\": false, \"warn_high_correlations\": 1, \"threshold\": 0.9, \"n_bins\": 10}, \"auto\": {\"key\": \"\", \"calculate\": false, \"warn_high_correlations\": 1, \"threshold\": 0.9, \"n_bins\": 10}}, \"interactions\": {\"continuous\": false, \"targets\": []}, \"categorical_maximum_correlation_distinct\": 100, \"memory_deep\": true, \"plot\": {\"missing\": {\"force_labels\": true, \"cmap\": \"RdBu\"}, \"image_format\": \"svg\", \"correlation\": {\"cmap\": \"RdBu\", \"bad\": \"#000000\"}, \"dpi\": 800, \"histogram\": {\"bins\": 50, \"max_bins\": 250, \"x_axis_labels\": true, \"density\": false}, \"scatter_threshold\": 1000, \"cat_freq\": {\"show\": true, \"type\": \"bar\", \"max_unique\": 10, \"colors\": null}, \"font_path\": null}, \"duplicates\": {\"head\": 0, \"key\": \"# duplicates\"}, \"samples\": {\"head\": 0, \"tail\": 0, \"random\": 0}, \"reject_variables\": true, \"n_obs_unique\": 5, \"n_freq_table_max\": 10, \"n_extreme_obs\": 5, \"report\": {\"precision\": 10}, \"html\": {\"style\": {\"primary_colors\": [\"#0d6efd\", \"#dc3545\", \"#198754\"], \"logo\": \"\", \"theme\": null}, \"navbar_show\": true, \"minify_html\": true, \"use_local_assets\": true, \"inline\": true, \"assets_prefix\": null, \"assets_path\": null, \"full_width\": false}, \"notebook\": {\"iframe\": {\"height\": \"800px\", \"width\": \"100%\", \"attribute\": \"srcdoc\"}}}"
+    },
+    "sample": [],
+    "duplicates": "None"
+}

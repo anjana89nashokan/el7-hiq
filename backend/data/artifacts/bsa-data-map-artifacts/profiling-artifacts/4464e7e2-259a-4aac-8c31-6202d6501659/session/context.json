@@ -1,0 +1,9 @@
+{
+  "usage_metadata": {
+    "total_tokens": 159484,
+    "window_tokens": 58395,
+    "window_requests": 12,
+    "window_start": "2026-08-24T14:55:04.536170",
+    "last_request": "2026-08-24T14:55:21.567190"
+  }
+}

@@ -1,0 +1,83 @@
+:root {
+  /* UST STTM theme tokens (scoped to the embedded app shell). */
+  --color-brand-blue: #0F9BAA;
+  --color-brand-light: #F4F7F7;
+  --color-brand-darkblue: #0B5563;
+  --color-brand-charcoal: #1F2A2D;
+  --color-font-dark: #1F2A2D;
+  --color-font-blue: #0B7E87;
+  --color-brand-primary: #0F9BAA;
+  --color-brand-primary-hover: #0B7E87;
+  --color-brand-dark: #0B5563;
+  --color-brand-surface: #E6F4F5;
+  --color-brand-success: #16A34A;
+  --color-brand-warning: #D97706;
+  --color-brand-error: #DC2626;
+
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, "Noto Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--color-font-dark);
+}
+
+.sttm-launchpad-shell {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, "Noto Sans", sans-serif;
+  font-size: 16px !important;
+  color: var(--color-font-dark);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.sidebar-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.5) transparent;
+}
+
+.sidebar-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.mde-sm .CodeMirror,
+.mde-sm .CodeMirror pre,
+.mde-sm .CodeMirror-code,
+.mde-sm .CodeMirror .CodeMirror-line {
+  font-size: 11px;
+}
+
+.mde-sm .editor-toolbar button {
+  font-size: 11px;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+}
+
+.mde-sm .editor-toolbar {
+  padding: 2px 4px;
+}
+
+.mde-sm .editor-preview,
+.mde-sm .editor-preview-side {
+  font-size: 11px;
+}

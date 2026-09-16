@@ -1,0 +1,13 @@
+{
+  "dataDictionaryJson": null,
+  "dataDictionaryResponse": "",
+  "dataDictionaryState": {
+    "response": "",
+    "json": null,
+    "resultData": [],
+    "validationAuditLog": [],
+    "isDdPresent": false,
+    "isCompleted": false
+  },
+  "modifiedDataDictionaryResponse": null
+}

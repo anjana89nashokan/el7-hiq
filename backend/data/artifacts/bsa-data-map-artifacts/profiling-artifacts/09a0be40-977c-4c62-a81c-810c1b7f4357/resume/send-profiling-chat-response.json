@@ -1,0 +1,546 @@
+{
+  "text_response": "### Data Profiling Report\n\n#### Table: sttm.sttm_data.sttm_profiling_2026_08_21t19_41_45_9fae464b_defaults\n\n**Table Summary:**\n- **Total Rows:** 15\n- **Total Columns:** 4\n- **Data Quality Score:** 72.08%\n\n**Primary Key Recommendation:**\n- Column 'fieldName': Excellent primary key candidate (100% unique, no nulls).\n\n**Column Analysis:**\n| Column Name | Data Type | Uniqueness % | Null % | PK Candidate |\n|---|---|---|---|---|\n| fileName | STRING | 6.67% | 0.00% | No |\n| fieldName | STRING | 100.00% | 0.00% | Yes |\n| defaultValue | STRING | 0.00% | 100.00% | No |\n| defaultPct | STRING | 6.67% | 0.00% | No |\n\n**Data Quality Breakdown:**\n- **Overall Score:** 72.08\n- **Completeness:** 75.00\n- **Uniqueness:** 28.33\n- **Distribution:** 100.00\n- **Validity:** 100.00\n\n---\n\n#### Table: sttm.sttm_data.sttm_profiling_2026_08_21t19_41_45_9fae464b_nulls___lengths\n\n**Table Summary:**\n- **Total Rows:** 15\n- **Total Columns:** 5\n- **Data Quality Score:** 84.33%\n\n**Primary Key Recommendation:**\n- Column 'fieldName': Excellent primary key candidate (100% unique, no nulls).\n\n**Column Analysis:**\n| Column Name | Data Type | Uniqueness % | Null % | PK Candidate |\n|---|---|---|---|---|\n| fileName | STRING | 6.67% | 0.00% | No |\n| fieldName | STRING | 100.00% | 0.00% | Yes |\n| null | STRING | 13.33% | 0.00% | No |\n| notNull | STRING | 13.33% | 0.00% | No |\n| maxLength | INTEGER | 53.33% | 0.00% | No |\n\n**Data Quality Breakdown:**\n- **Overall Score:** 84.33\n- **Completeness:** 100.00\n- **Uniqueness:** 37.33\n- **Distribution:** 100.00\n- **Validity:** 100.00\n\n---\n\n#### Table: sttm.sttm_data.sttm_profiling_2026_08_21t19_41_45_9fae464b_foreign_keys\n\n**Table Summary:**\n- **Total Rows:** 3\n- **Total Columns:** 7\n- **Data Quality Score:** 83.63%\n\n**Primary Key Recommendation:**\n- Column 'fieldName': Excellent primary key candidate (100% unique, no nulls).\n\n**Column Analysis:**\n| Column Name | Data Type | Uniqueness % | Null % | PK Candidate |\n|---|---|---|---|---|\n| fileName | STRING | 33.33% | 0.00% | No |\n| fieldName | STRING | 100.00% | 0.00% | Yes |\n| dataType | STRING | 66.67% | 0.00% | No |\n| length | FLOAT | 66.67% | 33.33% | No |\n| primaryKey | STRING | 33.33% | 0.00% | No |\n| foreignKey | STRING | 33.33% | 0.00% | No |\n| reference | STRING | 33.33% | 0.00% | No |\n\n**Data Quality Breakdown:**\n- **Overall Score:** 83.63\n- **Completeness:** 92.06\n- **Uniqueness:** 52.38\n- **Distribution:** 100.00\n- **Validity:** 91.43\n",
+  "tool_response": {
+    "result": [
+      {
+        "table_reference": "sttm.sttm_data.sttm_profiling_2026_08_21t19_41_45_9fae464b_defaults",
+        "analysis_type": "comprehensive",
+        "processing_mode": "bigquery",
+        "status": "success",
+        "data_quality_score": {
+          "overall_score": 72.08,
+          "dimension_scores": {
+            "completeness": 75,
+            "uniqueness": 28.33,
+            "distribution": 100,
+            "validity": 100
+          },
+          "per_column_scores": {
+            "fileName": {
+              "overall_score": 76.67,
+              "dimension_scores": {
+                "completeness": 100,
+                "uniqueness": 6.67,
+                "distribution": 100,
+                "validity": 100
+              }
+            },
+            "fieldName": {
+              "overall_score": 100,
+              "dimension_scores": {
+                "completeness": 100,
+                "uniqueness": 100,
+                "distribution": 100,
+                "validity": 100
+              }
+            },
+            "defaultValue": {
+              "overall_score": 35,
+              "dimension_scores": {
+                "completeness": 0,
+                "uniqueness": 0,
+                "distribution": 100,
+                "validity": 100
+              }
+            },
+            "defaultPct": {
+              "overall_score": 76.67,
+              "dimension_scores": {
+                "completeness": 100,
+                "uniqueness": 6.67,
+                "distribution": 100,
+                "validity": 100
+              }
+            }
+          }
+        },
+        "table_summary": {
+          "total_rows": 15,
+          "total_columns": 4
+        },
+        "column_analysis": {
+          "fileName": {
+            "data_type": "STRING",
+            "total_count": 15,
+            "null_count": 0,
+            "null_percentage": 0,
+            "unique_count": 1,
+            "uniqueness_percentage": 6.666666666666667,
+            "distinct_values_sample": [
+              "sttm_test_claims___copy__2__9bb6cb66_sheet_1"
+            ],
+            "original_data_type": "STRING",
+            "blank_count": 0,
+            "blank_percentage": 0,
+            "avg_length": 44,
+            "primary_key_candidate": false,
+            "foreign_key_candidate": false
+          },
+          "fieldName": {
+            "data_type": "STRING",
+            "total_count": 15,
+            "null_count": 0,
+            "null_percentage": 0,
+            "unique_count": 15,
+            "uniqueness_percentage": 100,
+            "distinct_values_sample": [
+              "livongo_id",
+              "first_name",
+              "last_name",
+              "birth_date",
+              "client_name",
+              "insurer_name",
+              "insurance_member_id",
+              "insurance_group_id",
+              "gender",
+              "event_type",
+              "event_name",
+              "event_value",
+              "event_date",
+              "ibc_id",
+              "member_uid"
+            ],
+            "original_data_type": "STRING",
+            "blank_count": 0,
+            "blank_percentage": 0,
+            "avg_length": 10.8,
+            "primary_key_candidate": true,
+            "foreign_key_candidate": false
+          },
+          "defaultValue": {
+            "data_type": "STRING",
+            "total_count": 15,
+            "null_count": 15,
+            "null_percentage": 100,
+            "unique_count": 0,
+            "uniqueness_percentage": 0,
+            "distinct_values_sample": [],
+            "original_data_type": "STRING",
+            "blank_count": 0,
+            "blank_percentage": 0,
+            "avg_length": 3,
+            "primary_key_candidate": false,
+            "foreign_key_candidate": false
+          },
+          "defaultPct": {
+            "data_type": "STRING",
+            "total_count": 15,
+            "null_count": 0,
+            "null_percentage": 0,
+            "unique_count": 1,
+            "uniqueness_percentage": 6.666666666666667,
+            "distinct_values_sample": [
+              "0%"
+            ],
+            "original_data_type": "STRING",
+            "blank_count": 0,
+            "blank_percentage": 0,
+            "avg_length": 2,
+            "primary_key_candidate": false,
+            "foreign_key_candidate": false
+          }
+        },
+        "recommendations": [
+          "Column 'fieldName': Excellent primary key candidate (100% unique, no nulls)",
+          "Column 'defaultValue': High null percentage (100.0%) - investigate data collection"
+        ]
+      },
+      {
+        "table_reference": "sttm.sttm_data.sttm_profiling_2026_08_21t19_41_45_9fae464b_nulls___lengths",
+        "analysis_type": "comprehensive",
+        "processing_mode": "bigquery",
+        "status": "success",
+        "data_quality_score": {
+          "overall_score": 84.33,
+          "dimension_scores": {
+            "completeness": 100,
+            "uniqueness": 37.33,
+            "distribution": 100,
+            "validity": 100
+          },
+          "per_column_scores": {
+            "fileName": {
+              "overall_score": 76.67,
+              "dimension_scores": {
+                "completeness": 100,
+                "uniqueness": 6.67,
+                "distribution": 100,
+                "validity": 100
+              }
+            },
+            "fieldName": {
+              "overall_score": 100,
+              "dimension_scores": {
+                "completeness": 100,
+                "uniqueness": 100,
+                "distribution": 100,
+                "validity": 100
+              }
+            },
+            "null": {
+              "overall_score": 78.33,
+              "dimension_scores": {
+                "completeness": 100,
+                "uniqueness": 13.33,
+                "distribution": 100,
+                "validity": 100
+              }
+            },
+            "notNull": {
+              "overall_score": 78.33,
+              "dimension_scores": {
+                "completeness": 100,
+                "uniqueness": 13.33,
+                "distribution": 100,
+                "validity": 100
+              }
+            },
+            "maxLength": {
+              "overall_score": 88.33,
+              "dimension_scores": {
+                "completeness": 100,
+                "uniqueness": 53.33,
+                "distribution": 100,
+                "validity": 100
+              }
+            }
+          }
+        },
+        "table_summary": {
+          "total_rows": 15,
+          "total_columns": 5
+        },
+        "column_analysis": {
+          "fileName": {
+            "data_type": "STRING",
+            "total_count": 15,
+            "null_count": 0,
+            "null_percentage": 0,
+            "unique_count": 1,
+            "uniqueness_percentage": 6.666666666666667,
+            "distinct_values_sample": [
+              "sttm_test_claims___copy__2__9bb6cb66_sheet_1"
+            ],
+            "original_data_type": "STRING",
+            "blank_count": 0,
+            "blank_percentage": 0,
+            "avg_length": 44,
+            "primary_key_candidate": false,
+            "foreign_key_candidate": false
+          },
+          "fieldName": {
+            "data_type": "STRING",
+            "total_count": 15,
+            "null_count": 0,
+            "null_percentage": 0,
+            "unique_count": 15,
+            "uniqueness_percentage": 100,
+            "distinct_values_sample": [
+              "livongo_id",
+              "first_name",
+              "last_name",
+              "birth_date",
+              "client_name",
+              "insurer_name",
+              "insurance_member_id",
+              "insurance_group_id",
+              "gender",
+              "event_type",
+              "event_name",
+              "event_value",
+              "event_date",
+              "ibc_id",
+              "member_uid"
+            ],
+            "original_data_type": "STRING",
+            "blank_count": 0,
+            "blank_percentage": 0,
+            "avg_length": 10.8,
+            "primary_key_candidate": true,
+            "foreign_key_candidate": false
+          },
+          "null": {
+            "data_type": "STRING",
+            "total_count": 15,
+            "null_count": 0,
+            "null_percentage": 0,
+            "unique_count": 2,
+            "uniqueness_percentage": 13.333333333333334,
+            "distinct_values_sample": [
+              "0%",
+              "100%"
+            ],
+            "original_data_type": "STRING",
+            "blank_count": 0,
+            "blank_percentage": 0,
+            "avg_length": 2.6666666666666665,
+            "primary_key_candidate": false,
+            "foreign_key_candidate": true
+          },
+          "notNull": {
+            "data_type": "STRING",
+            "total_count": 15,
+            "null_count": 0,
+            "null_percentage": 0,
+            "unique_count": 2,
+            "uniqueness_percentage": 13.333333333333334,
+            "distinct_values_sample": [
+              "100%",
+              "0%"
+            ],
+            "original_data_type": "STRING",
+            "blank_count": 0,
+            "blank_percentage": 0,
+            "avg_length": 3.3333333333333335,
+            "primary_key_candidate": false,
+            "foreign_key_candidate": true
+          },
+          "maxLength": {
+            "data_type": "INTEGER",
+            "total_count": 15,
+            "null_count": 0,
+            "null_percentage": 0,
+            "unique_count": 8,
+            "uniqueness_percentage": 53.333333333333336,
+            "distinct_values_sample": [
+              "5",
+              "8",
+              "7",
+              "26",
+              "10",
+              "3",
+              "14",
+              "0"
+            ],
+            "original_data_type": "INTEGER",
+            "min_value": 0,
+            "max_value": 26,
+            "avg_value": 8.4,
+            "primary_key_candidate": false,
+            "foreign_key_candidate": false
+          }
+        },
+        "recommendations": [
+          "Column 'fieldName': Excellent primary key candidate (100% unique, no nulls)",
+          "Column 'null': Potential foreign key (low uniqueness suggests references)",
+          "Column 'notNull': Potential foreign key (low uniqueness suggests references)"
+        ]
+      },
+      {
+        "table_reference": "sttm.sttm_data.sttm_profiling_2026_08_21t19_41_45_9fae464b_foreign_keys",
+        "analysis_type": "comprehensive",
+        "processing_mode": "bigquery",
+        "status": "success",
+        "data_quality_score": {
+          "overall_score": 83.63,
+          "dimension_scores": {
+            "completeness": 92.06,
+            "uniqueness": 52.38,
+            "distribution": 100,
+            "validity": 91.43
+          },
+          "per_column_scores": {
+            "fileName": {
+              "overall_score": 83.33,
+              "dimension_scores": {
+                "completeness": 100,
+                "uniqueness": 33.33,
+                "distribution": 100,
+                "validity": 100
+              }
+            },
+            "fieldName": {
+              "overall_score": 100,
+              "dimension_scores": {
+                "completeness": 100,
+                "uniqueness": 100,
+                "distribution": 100,
+                "validity": 100
+              }
+            },
+            "dataType": {
+              "overall_score": 91.67,
+              "dimension_scores": {
+                "completeness": 100,
+                "uniqueness": 66.67,
+                "distribution": 100,
+                "validity": 100
+              }
+            },
+            "length": {
+              "overall_score": 69.44,
+              "dimension_scores": {
+                "completeness": 44.44,
+                "uniqueness": 66.67,
+                "distribution": 100,
+                "validity": 100
+              }
+            },
+            "primaryKey": {
+              "overall_score": 78.83,
+              "dimension_scores": {
+                "completeness": 100,
+                "uniqueness": 33.33,
+                "distribution": 100,
+                "validity": 70
+              }
+            },
+            "foreignKey": {
+              "overall_score": 83.33,
+              "dimension_scores": {
+                "completeness": 100,
+                "uniqueness": 33.33,
+                "distribution": 100,
+                "validity": 100
+              }
+            },
+            "reference": {
+              "overall_score": 78.83,
+              "dimension_scores": {
+                "completeness": 100,
+                "uniqueness": 33.33,
+                "distribution": 100,
+                "validity": 70
+              }
+            }
+          }
+        },
+        "table_summary": {
+          "total_rows": 3,
+          "total_columns": 7
+        },
+        "column_analysis": {
+          "fileName": {
+            "data_type": "STRING",
+            "total_count": 3,
+            "null_count": 0,
+            "null_percentage": 0,
+            "unique_count": 1,
+            "uniqueness_percentage": 33.33333333333333,
+            "distinct_values_sample": [
+              "sttm_test_claims___copy__2__9bb6cb66_sheet_1"
+            ],
+            "original_data_type": "STRING",
+            "blank_count": 0,
+            "blank_percentage": 0,
+            "avg_length": 44,
+            "primary_key_candidate": false,
+            "foreign_key_candidate": false
+          },
+          "fieldName": {
+            "data_type": "STRING",
+            "total_count": 3,
+            "null_count": 0,
+            "null_percentage": 0,
+            "unique_count": 3,
+            "uniqueness_percentage": 100,
+            "distinct_values_sample": [
+              "gender",
+              "event_type",
+              "event_value"
+            ],
+            "original_data_type": "STRING",
+            "blank_count": 0,
+            "blank_percentage": 0,
+            "avg_length": 9,
+            "primary_key_candidate": true,
+            "foreign_key_candidate": false
+          },
+          "dataType": {
+            "data_type": "STRING",
+            "total_count": 3,
+            "null_count": 0,
+            "null_percentage": 0,
+            "unique_count": 2,
+            "uniqueness_percentage": 66.66666666666666,
+            "distinct_values_sample": [
+              "STRING",
+              "INTEGER"
+            ],
+            "original_data_type": "STRING",
+            "blank_count": 0,
+            "blank_percentage": 0,
+            "avg_length": 6.333333333333333,
+            "primary_key_candidate": false,
+            "foreign_key_candidate": false
+          },
+          "length": {
+            "data_type": "FLOAT",
+            "total_count": 3,
+            "null_count": 1,
+            "null_percentage": 33.33333333333333,
+            "unique_count": 2,
+            "uniqueness_percentage": 66.66666666666666,
+            "distinct_values_sample": [
+              "4.0",
+              "9.0"
+            ],
+            "original_data_type": "FLOAT",
+            "min_value": 4,
+            "max_value": 9,
+            "avg_value": 6.5,
+            "primary_key_candidate": false,
+            "foreign_key_candidate": false
+          },
+          "primaryKey": {
+            "data_type": "STRING",
+            "total_count": 3,
+            "null_count": 0,
+            "null_percentage": 0,
+            "unique_count": 1,
+            "uniqueness_percentage": 33.33333333333333,
+            "distinct_values_sample": [
+              "0"
+            ],
+            "original_data_type": "STRING",
+            "blank_count": 0,
+            "blank_percentage": 0,
+            "avg_length": 1,
+            "primary_key_candidate": false,
+            "foreign_key_candidate": false
+          },
+          "foreignKey": {
+            "data_type": "STRING",
+            "total_count": 3,
+            "null_count": 0,
+            "null_percentage": 0,
+            "unique_count": 1,
+            "uniqueness_percentage": 33.33333333333333,
+            "distinct_values_sample": [
+              "Yes"
+            ],
+            "original_data_type": "STRING",
+            "blank_count": 0,
+            "blank_percentage": 0,
+            "avg_length": 3,
+            "primary_key_candidate": false,
+            "foreign_key_candidate": false
+          },
+          "reference": {
+            "data_type": "STRING",
+            "total_count": 3,
+            "null_count": 0,
+            "null_percentage": 0,
+            "unique_count": 1,
+            "uniqueness_percentage": 33.33333333333333,
+            "distinct_values_sample": [
+              "1"
+            ],
+            "original_data_type": "STRING",
+            "blank_count": 0,
+            "blank_percentage": 0,
+            "avg_length": 1,
+            "primary_key_candidate": false,
+            "foreign_key_candidate": false
+          }
+        },
+        "recommendations": [
+          "Column 'fieldName': Excellent primary key candidate (100% unique, no nulls)",
+          "Column 'length': High null percentage (33.3%) - investigate data collection"
+        ]
+      }
+    ]
+  },
+  "status": 0,
+  "should_update": false
+}

@@ -1,0 +1,39 @@
+{
+  "sessionID": "uuid-12345-67890-abcdef",
+  "user": "john@example.com",
+  "createdDate": "2024-01-15T10:30:00Z",
+  "lastUpdateDate": "2024-01-15T10:35:00Z",
+  "excelFileName": "analysis_output.xlsx",
+  "summaryHtml": "<html><head><style>body { font-family: Arial, sans-serif; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; } .container { background: rgba(255,255,255,0.1); padding: 30px; border-radius: 12px; backdrop-filter: blur(10px); } .title { font-size: 28px; margin-bottom: 20px; text-align: center; } .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 20px 0; } .summary-card { background: rgba(255,255,255,0.2); padding: 20px; border-radius: 8px; text-align: center; } .summary-number { font-size: 32px; font-weight: bold; margin-bottom: 5px; } .summary-label { font-size: 14px; opacity: 0.9; } .highlight { background: rgba(34, 197, 94, 0.3); padding: 15px; border-radius: 8px; margin: 20px 0; }</style></head><body><div class='container'><h1 class='title'>📊 Data Processing Summary</h1><div class='summary-grid'><div class='summary-card'><div class='summary-number'>2</div><div class='summary-label'>Files Processed</div></div><div class='summary-card'><div class='summary-number'>10</div><div class='summary-label'>Total Records</div></div><div class='summary-card'><div class='summary-number'>95%</div><div class='summary-label'>Overall Quality</div></div><div class='summary-card'><div class='summary-number'>3min</div><div class='summary-label'>Processing Time</div></div></div><div class='highlight'><h3> Processing Complete</h3><p>All files have been successfully analyzed and merged into a single Excel workbook. Each file has been converted to a separate worksheet with comprehensive data profiling and quality assessments.</p></div><div class='highlight'><h3>📈 Key Findings</h3><ul><li>Data integrity validation passed for all files</li><li>No critical data quality issues detected</li><li>All file formats successfully parsed and normalized</li><li>Ready for downstream analysis and reporting</li></ul></div></div></body></html>",
+  "sheets": [
+    {
+      "sheetName": "customers_csv",
+      "table": {
+        "headers": ["id", "name", "email", "department", "salary"],
+        "rows": [
+          [1, "Alice Johnson", "alice@example.com", "Engineering", 75000],
+          [2, "Bob Smith", "bob@example.com", "Marketing", 65000],
+          [3, "Carol Davis", "carol@example.com", "Sales", 55000],
+          [4, "David Wilson", "david@example.com", "HR", 60000],
+          [5, "Eva Brown", "eva@example.com", "Finance", 70000]
+        ]
+      },
+      "htmlContent": "<html><head><style>body { font-family: Arial, sans-serif; padding: 20px; background: #f8f9fa; } .header { color: #2563eb; border-bottom: 2px solid #e5e7eb; padding-bottom: 10px; margin-bottom: 20px; } .metric { background: white; padding: 15px; margin: 10px 0; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); } .metric-title { font-weight: bold; color: #374151; margin-bottom: 5px; } .metric-value { font-size: 24px; color: #059669; font-weight: bold; } .chart-placeholder { background: #e5e7eb; height: 200px; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #6b7280; margin: 15px 0; }</style></head><body><h2 class='header'>Customer Data Analysis</h2><div class='metric'><div class='metric-title'>Total Records</div><div class='metric-value'>5</div></div><div class='metric'><div class='metric-title'>Columns Analyzed</div><div class='metric-value'>5</div></div><div class='metric'><div class='metric-title'>Data Quality Score</div><div class='metric-value'>98%</div></div><div class='chart-placeholder'>📊 Customer Distribution by Department Chart</div><div class='metric'><div class='metric-title'>Key Insights</div><ul><li>All customer records have valid email addresses</li><li>Salary ranges from $55,000 to $75,000</li><li>5 departments represented</li><li>No duplicate records found</li></ul></div></body></html>"
+    },
+    {
+      "sheetName": "orders_json",
+      "table": {
+        "headers": ["order_id", "customer_id", "product", "quantity", "amount"],
+        "rows": [
+          [101, 1001, "Laptop", 2, 2400.00],
+          [102, 1002, "Mouse", 5, 125.00],
+          [103, 1003, "Keyboard", 3, 225.00],
+          [104, 1001, "Monitor", 1, 350.00],
+          [105, 1004, "Headphones", 2, 180.00]
+        ]
+      },
+      "htmlContent": "<html><head><style>body { font-family: Arial, sans-serif; padding: 20px; background: #f8f9fa; } .header { color: #2563eb; border-bottom: 2px solid #e5e7eb; padding-bottom: 10px; margin-bottom: 20px; } .metric { background: white; padding: 15px; margin: 10px 0; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); } .metric-title { font-weight: bold; color: #374151; margin-bottom: 5px; } .metric-value { font-size: 24px; color: #059669; font-weight: bold; } .chart-placeholder { background: #e5e7eb; height: 200px; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #6b7280; margin: 15px 0; }</style></head><body><h2 class='header'>Orders Analysis</h2><div class='metric'><div class='metric-title'>Total Orders</div><div class='metric-value'>5</div></div><div class='metric'><div class='metric-title'>Total Revenue</div><div class='metric-value'>$3,280</div></div><div class='metric'><div class='metric-title'>Average Order Value</div><div class='metric-value'>$656</div></div><div class='chart-placeholder'>📈 Order Volume and Revenue Trends</div><div class='metric'><div class='metric-title'>Key Insights</div><ul><li>Laptops generate highest revenue per order</li><li>Mouse orders have highest quantity volume</li><li>Customer 1001 placed multiple orders</li><li>All orders processed successfully</li></ul></div></body></html>"
+    }
+  ],
+  "downloadUrl": "https://api.example.com/download/analysis_output.xlsx"
+}

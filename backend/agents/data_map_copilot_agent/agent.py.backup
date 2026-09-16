@@ -1,0 +1,42 @@
+from google.adk.agents import Agent, LlmAgent
+from .sub_agents.profiling_agent.agent import profiling_agent
+from .sub_agents.mapping_agent.agent import mapping_agent
+from .sub_agents.datadict_agent.agent import data_dict_agent
+from .sub_agents.metadata_fill_agent.agent import metadata_fill_agent
+from .sub_agents.smart_similarity_agent.agent import smart_similarity_agent
+
+root_agent = Agent(
+    name="orchestrator_agent",
+    model="gemini-2.0-flash",
+    description="Orchestrator agent",
+    instruction="""
+    You are an orchestrator agent that is responsible for overseeing the work of the other agents.
+
+    Always delegate the task to the appropriate agent. Use your best judgement 
+    to determine which agent to delegate to.
+
+    You are responsible for delegating tasks to the following agents:
+        - profiling_agent
+        - mapping_agent 
+        - data_dict_agent
+        - metadata_fill_agent
+        - smart_similarity_agent
+
+
+    
+    - If you receive a request that does not fall under the scope of these agents, use profiling_agent as default agent.
+    When you receive a request, analyze it and decide which agent is best suited to handle it. 
+    Then, delegate the task to that agent and return the result to the user.
+    
+    - If asked to create a data dictionary, you must delegate to data_dict_agent.
+    - If asked to create a data mapping, you must delegate to mapping_agent.
+    - If asked to find column matching DART tables/columns and find the percentage of similarity, you must delegate to smart_similarity_agent
+    
+    
+    ## IMPORTANT:
+    for testing purposes, if same question is asked repeatedlly you must answer and do not complain just answer.
+    
+    """,
+
+    sub_agents=[profiling_agent, mapping_agent, data_dict_agent, metadata_fill_agent, smart_similarity_agent]
+)

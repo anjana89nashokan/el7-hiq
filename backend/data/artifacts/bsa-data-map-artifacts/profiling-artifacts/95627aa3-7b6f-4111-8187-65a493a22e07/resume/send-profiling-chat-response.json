@@ -1,0 +1,1264 @@
+{
+  "text_response": "### Data Profiling Report\n#### Table: sttm.sttm_data.sttm_profiling_2026_08_21t19_57_00_317fd46a_nulls___lengths\n\n**Table Summary:**\n- **Total Rows:** 15\n- **Total Columns:** 5\n- **Data Quality Score:** 84.33%\n\n**Primary Key Recommendation:**\n- Column 'fieldName': Excellent primary key candidate (100% unique, no nulls)\n\n**Column Analysis:**\n| Column Name | Data Type | Uniqueness % | Null % | PK Candidate |\n|---|---|---|---|---|\n| fileName | STRING | 6.67 | 0.00 | No |\n| fieldName | STRING | 100.00 | 0.00 | Yes |\n| null | STRING | 13.33 | 0.00 | No |\n| notNull | STRING | 13.33 | 0.00 | No |\n| maxLength | INTEGER | 53.33 | 0.00 | No |\n\n**Data Quality Breakdown:**\n- **Overall Score:** 84.33\n- **Completeness:** 100.00\n- **Uniqueness:** 37.33\n- **Distribution:** 100.00\n- **Validity:** 100.00\n\n---\n\n### Data Profiling Report\n#### Table: sttm.sttm_data.sttm_profiling_2026_08_21t19_57_00_317fd46a_defaults\n\n**Table Summary:**\n- **Total Rows:** 15\n- **Total Columns:** 4\n- **Data Quality Score:** 72.08%\n\n**Primary Key Recommendation:**\n- Column 'fieldName': Excellent primary key candidate (100% unique, no nulls)\n\n**Column Analysis:**\n| Column Name | Data Type | Uniqueness % | Null % | PK Candidate |\n|---|---|---|---|---|\n| fileName | STRING | 6.67 | 0.00 | No |\n| fieldName | STRING | 100.00 | 0.00 | Yes |\n| defaultValue | STRING | 0.00 | 100.00 | No |\n| defaultPct | STRING | 6.67 | 0.00 | No |\n\n**Data Quality Breakdown:**\n- **Overall Score:** 72.08\n- **Completeness:** 75.00\n- **Uniqueness:** 28.33\n- **Distribution:** 100.00\n- **Validity:** 100.00\n\n---\n\n### Data Profiling Report\n#### Table: sttm.sttm_data.sttm_profiling_2026_08_21t19_57_00_317fd46a_foreign_keys\n\n**Table Summary:**\n- **Total Rows:** 3\n- **Total Columns:** 7\n- **Data Quality Score:** 83.63%\n\n**Primary Key Recommendation:**\n- Column 'fieldName': Excellent primary key candidate (100% unique, no nulls)\n\n**Column Analysis:**\n| Column Name | Data Type | Uniqueness % | Null % | PK Candidate |\n|---|---|---|---|---|\n| fileName | STRING | 33.33 | 0.00 | No |\n| fieldName | STRING | 100.00 | 0.00 | Yes |\n| dataType | STRING | 66.67 | 0.00 | No |\n| length | FLOAT | 66.67 | 33.33 | No |\n| primaryKey | STRING | 33.33 | 0.00 | No |\n| foreignKey | STRING | 33.33 | 0.00 | No |\n| reference | STRING | 33.33 | 0.00 | No |\n\n**Data Quality Breakdown:**\n- **Overall Score:** 83.63\n- **Completeness:** 92.06\n- **Uniqueness:** 52.38\n- **Distribution:** 100.00\n- **Validity:** 91.43\n",
+  "tool_response": {
+    "result": [
+      {
+        "table_reference": "sttm.sttm_data.sttm_profiling_2026_08_21t19_57_00_317fd46a_nulls___lengths",
+        "analysis_type": "comprehensive",
+        "processing_mode": "bigquery",
+        "status": "success",
+        "data_quality_score": {
+          "overall_score": 84.33,
+          "dimension_scores": {
+            "completeness": 100,
+            "uniqueness": 37.33,
+            "distribution": 100,
+            "validity": 100
+          },
+          "per_column_scores": {
+            "fileName": {
+              "overall_score": 76.67,
+              "dimension_scores": {
+                "completeness": 100,
+                "uniqueness": 6.67,
+                "distribution": 100,
+                "validity": 100
+              }
+            },
+            "fieldName": {
+              "overall_score": 100,
+              "dimension_scores": {
+                "completeness": 100,
+                "uniqueness": 100,
+                "distribution": 100,
+                "validity": 100
+              }
+            },
+            "null": {
+              "overall_score": 78.33,
+              "dimension_scores": {
+                "completeness": 100,
+                "uniqueness": 13.33,
+                "distribution": 100,
+                "validity": 100
+              }
+            },
+            "notNull": {
+              "overall_score": 78.33,
+              "dimension_scores": {
+                "completeness": 100,
+                "uniqueness": 13.33,
+                "distribution": 100,
+                "validity": 100
+              }
+            },
+            "maxLength": {
+              "overall_score": 88.33,
+              "dimension_scores": {
+                "completeness": 100,
+                "uniqueness": 53.33,
+                "distribution": 100,
+                "validity": 100
+              }
+            }
+          }
+        },
+        "recommendations": [
+          "Column 'fieldName': Excellent primary key candidate (100% unique, no nulls)",
+          "Column 'null': Potential foreign key (low uniqueness suggests references)",
+          "Column 'notNull': Potential foreign key (low uniqueness suggests references)"
+        ],
+        "table_summary": {
+          "total_rows": 15,
+          "total_columns": 5
+        },
+        "column_analysis": {
+          "fileName": {
+            "data_type": "STRING",
+            "total_count": 15,
+            "null_count": 0,
+            "null_percentage": 0,
+            "unique_count": 1,
+            "uniqueness_percentage": 6.67,
+            "blank_count": 0,
+            "avg_length": 44
+          },
+          "fieldName": {
+            "data_type": "STRING",
+            "total_count": 15,
+            "null_count": 0,
+            "null_percentage": 0,
+            "unique_count": 15,
+            "uniqueness_percentage": 100,
+            "blank_count": 0,
+            "avg_length": 10.8
+          },
+          "null": {
+            "data_type": "STRING",
+            "total_count": 15,
+            "null_count": 0,
+            "null_percentage": 0,
+            "unique_count": 2,
+            "uniqueness_percentage": 13.33,
+            "blank_count": 0,
+            "avg_length": 2.67
+          },
+          "notNull": {
+            "data_type": "STRING",
+            "total_count": 15,
+            "null_count": 0,
+            "null_percentage": 0,
+            "unique_count": 2,
+            "uniqueness_percentage": 13.33,
+            "blank_count": 0,
+            "avg_length": 3.33
+          },
+          "maxLength": {
+            "data_type": "INTEGER",
+            "total_count": 15,
+            "null_count": 0,
+            "null_percentage": 0,
+            "unique_count": 8,
+            "uniqueness_percentage": 53.33,
+            "blank_count": 0,
+            "avg_length": 8.4
+          }
+        }
+      },
+      {
+        "status": "error",
+        "table_reference": "unknown",
+        "analysis_type": "error",
+        "processing_mode": "failed",
+        "table_summary": {
+          "total_rows": 0,
+          "total_columns": 0
+        },
+        "column_analysis": {},
+        "default_value_analysis": {},
+        "data_quality_score": {
+          "overall_score": 0.0,
+          "dimension_scores": {
+            "completeness": 0.0,
+            "uniqueness": 0.0,
+            "distribution": 0.0,
+            "validity": 0.0
+          },
+          "per_column_scores": {}
+        },
+        "recommendations": [
+          "Profiling failed: Profiling failed"
+        ],
+        "enhanced_analysis": {
+          "available": false,
+          "version": "1.0",
+          "table_context": {
+            "detected_level": "unknown",
+            "confidence": 0.0,
+            "primary_entity": "",
+            "business_context": "",
+            "reasoning": "Profiling failed"
+          },
+          "primary_key_recommendations": [],
+          "composite_key_recommendations": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "llm_suggested_combos": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "validation_results": {
+            "two_column": []
+          },
+          "enhanced_recommendations": [
+            "Profiling failed"
+          ]
+        },
+        "error_message": "Profiling failed"
+      },
+      {
+        "status": "error",
+        "table_reference": "unknown",
+        "analysis_type": "error",
+        "processing_mode": "failed",
+        "table_summary": {
+          "total_rows": 0,
+          "total_columns": 0
+        },
+        "column_analysis": {},
+        "default_value_analysis": {},
+        "data_quality_score": {
+          "overall_score": 0.0,
+          "dimension_scores": {
+            "completeness": 0.0,
+            "uniqueness": 0.0,
+            "distribution": 0.0,
+            "validity": 0.0
+          },
+          "per_column_scores": {}
+        },
+        "recommendations": [
+          "Profiling failed: Profiling failed"
+        ],
+        "enhanced_analysis": {
+          "available": false,
+          "version": "1.0",
+          "table_context": {
+            "detected_level": "unknown",
+            "confidence": 0.0,
+            "primary_entity": "",
+            "business_context": "",
+            "reasoning": "Profiling failed"
+          },
+          "primary_key_recommendations": [],
+          "composite_key_recommendations": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "llm_suggested_combos": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "validation_results": {
+            "two_column": []
+          },
+          "enhanced_recommendations": [
+            "Profiling failed"
+          ]
+        },
+        "error_message": "Profiling failed"
+      },
+      {
+        "status": "error",
+        "table_reference": "unknown",
+        "analysis_type": "error",
+        "processing_mode": "failed",
+        "table_summary": {
+          "total_rows": 0,
+          "total_columns": 0
+        },
+        "column_analysis": {},
+        "default_value_analysis": {},
+        "data_quality_score": {
+          "overall_score": 0.0,
+          "dimension_scores": {
+            "completeness": 0.0,
+            "uniqueness": 0.0,
+            "distribution": 0.0,
+            "validity": 0.0
+          },
+          "per_column_scores": {}
+        },
+        "recommendations": [
+          "Profiling failed: Profiling failed"
+        ],
+        "enhanced_analysis": {
+          "available": false,
+          "version": "1.0",
+          "table_context": {
+            "detected_level": "unknown",
+            "confidence": 0.0,
+            "primary_entity": "",
+            "business_context": "",
+            "reasoning": "Profiling failed"
+          },
+          "primary_key_recommendations": [],
+          "composite_key_recommendations": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "llm_suggested_combos": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "validation_results": {
+            "two_column": []
+          },
+          "enhanced_recommendations": [
+            "Profiling failed"
+          ]
+        },
+        "error_message": "Profiling failed"
+      },
+      {
+        "status": "error",
+        "table_reference": "unknown",
+        "analysis_type": "error",
+        "processing_mode": "failed",
+        "table_summary": {
+          "total_rows": 0,
+          "total_columns": 0
+        },
+        "column_analysis": {},
+        "default_value_analysis": {},
+        "data_quality_score": {
+          "overall_score": 0.0,
+          "dimension_scores": {
+            "completeness": 0.0,
+            "uniqueness": 0.0,
+            "distribution": 0.0,
+            "validity": 0.0
+          },
+          "per_column_scores": {}
+        },
+        "recommendations": [
+          "Profiling failed: Profiling failed"
+        ],
+        "enhanced_analysis": {
+          "available": false,
+          "version": "1.0",
+          "table_context": {
+            "detected_level": "unknown",
+            "confidence": 0.0,
+            "primary_entity": "",
+            "business_context": "",
+            "reasoning": "Profiling failed"
+          },
+          "primary_key_recommendations": [],
+          "composite_key_recommendations": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "llm_suggested_combos": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "validation_results": {
+            "two_column": []
+          },
+          "enhanced_recommendations": [
+            "Profiling failed"
+          ]
+        },
+        "error_message": "Profiling failed"
+      },
+      {
+        "status": "error",
+        "table_reference": "unknown",
+        "analysis_type": "error",
+        "processing_mode": "failed",
+        "table_summary": {
+          "total_rows": 0,
+          "total_columns": 0
+        },
+        "column_analysis": {},
+        "default_value_analysis": {},
+        "data_quality_score": {
+          "overall_score": 0.0,
+          "dimension_scores": {
+            "completeness": 0.0,
+            "uniqueness": 0.0,
+            "distribution": 0.0,
+            "validity": 0.0
+          },
+          "per_column_scores": {}
+        },
+        "recommendations": [
+          "Profiling failed: Profiling failed"
+        ],
+        "enhanced_analysis": {
+          "available": false,
+          "version": "1.0",
+          "table_context": {
+            "detected_level": "unknown",
+            "confidence": 0.0,
+            "primary_entity": "",
+            "business_context": "",
+            "reasoning": "Profiling failed"
+          },
+          "primary_key_recommendations": [],
+          "composite_key_recommendations": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "llm_suggested_combos": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "validation_results": {
+            "two_column": []
+          },
+          "enhanced_recommendations": [
+            "Profiling failed"
+          ]
+        },
+        "error_message": "Profiling failed"
+      },
+      {
+        "status": "error",
+        "table_reference": "unknown",
+        "analysis_type": "error",
+        "processing_mode": "failed",
+        "table_summary": {
+          "total_rows": 0,
+          "total_columns": 0
+        },
+        "column_analysis": {},
+        "default_value_analysis": {},
+        "data_quality_score": {
+          "overall_score": 0.0,
+          "dimension_scores": {
+            "completeness": 0.0,
+            "uniqueness": 0.0,
+            "distribution": 0.0,
+            "validity": 0.0
+          },
+          "per_column_scores": {}
+        },
+        "recommendations": [
+          "Profiling failed: Profiling failed"
+        ],
+        "enhanced_analysis": {
+          "available": false,
+          "version": "1.0",
+          "table_context": {
+            "detected_level": "unknown",
+            "confidence": 0.0,
+            "primary_entity": "",
+            "business_context": "",
+            "reasoning": "Profiling failed"
+          },
+          "primary_key_recommendations": [],
+          "composite_key_recommendations": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "llm_suggested_combos": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "validation_results": {
+            "two_column": []
+          },
+          "enhanced_recommendations": [
+            "Profiling failed"
+          ]
+        },
+        "error_message": "Profiling failed"
+      },
+      {
+        "status": "error",
+        "table_reference": "unknown",
+        "analysis_type": "error",
+        "processing_mode": "failed",
+        "table_summary": {
+          "total_rows": 0,
+          "total_columns": 0
+        },
+        "column_analysis": {},
+        "default_value_analysis": {},
+        "data_quality_score": {
+          "overall_score": 0.0,
+          "dimension_scores": {
+            "completeness": 0.0,
+            "uniqueness": 0.0,
+            "distribution": 0.0,
+            "validity": 0.0
+          },
+          "per_column_scores": {}
+        },
+        "recommendations": [
+          "Profiling failed: Profiling failed"
+        ],
+        "enhanced_analysis": {
+          "available": false,
+          "version": "1.0",
+          "table_context": {
+            "detected_level": "unknown",
+            "confidence": 0.0,
+            "primary_entity": "",
+            "business_context": "",
+            "reasoning": "Profiling failed"
+          },
+          "primary_key_recommendations": [],
+          "composite_key_recommendations": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "llm_suggested_combos": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "validation_results": {
+            "two_column": []
+          },
+          "enhanced_recommendations": [
+            "Profiling failed"
+          ]
+        },
+        "error_message": "Profiling failed"
+      },
+      {
+        "status": "error",
+        "table_reference": "unknown",
+        "analysis_type": "error",
+        "processing_mode": "failed",
+        "table_summary": {
+          "total_rows": 0,
+          "total_columns": 0
+        },
+        "column_analysis": {},
+        "default_value_analysis": {},
+        "data_quality_score": {
+          "overall_score": 0.0,
+          "dimension_scores": {
+            "completeness": 0.0,
+            "uniqueness": 0.0,
+            "distribution": 0.0,
+            "validity": 0.0
+          },
+          "per_column_scores": {}
+        },
+        "recommendations": [
+          "Profiling failed: Profiling failed"
+        ],
+        "enhanced_analysis": {
+          "available": false,
+          "version": "1.0",
+          "table_context": {
+            "detected_level": "unknown",
+            "confidence": 0.0,
+            "primary_entity": "",
+            "business_context": "",
+            "reasoning": "Profiling failed"
+          },
+          "primary_key_recommendations": [],
+          "composite_key_recommendations": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "llm_suggested_combos": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "validation_results": {
+            "two_column": []
+          },
+          "enhanced_recommendations": [
+            "Profiling failed"
+          ]
+        },
+        "error_message": "Profiling failed"
+      },
+      {
+        "status": "error",
+        "table_reference": "unknown",
+        "analysis_type": "error",
+        "processing_mode": "failed",
+        "table_summary": {
+          "total_rows": 0,
+          "total_columns": 0
+        },
+        "column_analysis": {},
+        "default_value_analysis": {},
+        "data_quality_score": {
+          "overall_score": 0.0,
+          "dimension_scores": {
+            "completeness": 0.0,
+            "uniqueness": 0.0,
+            "distribution": 0.0,
+            "validity": 0.0
+          },
+          "per_column_scores": {}
+        },
+        "recommendations": [
+          "Profiling failed: Profiling failed"
+        ],
+        "enhanced_analysis": {
+          "available": false,
+          "version": "1.0",
+          "table_context": {
+            "detected_level": "unknown",
+            "confidence": 0.0,
+            "primary_entity": "",
+            "business_context": "",
+            "reasoning": "Profiling failed"
+          },
+          "primary_key_recommendations": [],
+          "composite_key_recommendations": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "llm_suggested_combos": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "validation_results": {
+            "two_column": []
+          },
+          "enhanced_recommendations": [
+            "Profiling failed"
+          ]
+        },
+        "error_message": "Profiling failed"
+      },
+      {
+        "status": "error",
+        "table_reference": "unknown",
+        "analysis_type": "error",
+        "processing_mode": "failed",
+        "table_summary": {
+          "total_rows": 0,
+          "total_columns": 0
+        },
+        "column_analysis": {},
+        "default_value_analysis": {},
+        "data_quality_score": {
+          "overall_score": 0.0,
+          "dimension_scores": {
+            "completeness": 0.0,
+            "uniqueness": 0.0,
+            "distribution": 0.0,
+            "validity": 0.0
+          },
+          "per_column_scores": {}
+        },
+        "recommendations": [
+          "Profiling failed: Profiling failed"
+        ],
+        "enhanced_analysis": {
+          "available": false,
+          "version": "1.0",
+          "table_context": {
+            "detected_level": "unknown",
+            "confidence": 0.0,
+            "primary_entity": "",
+            "business_context": "",
+            "reasoning": "Profiling failed"
+          },
+          "primary_key_recommendations": [],
+          "composite_key_recommendations": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "llm_suggested_combos": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "validation_results": {
+            "two_column": []
+          },
+          "enhanced_recommendations": [
+            "Profiling failed"
+          ]
+        },
+        "error_message": "Profiling failed"
+      },
+      {
+        "status": "error",
+        "table_reference": "unknown",
+        "analysis_type": "error",
+        "processing_mode": "failed",
+        "table_summary": {
+          "total_rows": 0,
+          "total_columns": 0
+        },
+        "column_analysis": {},
+        "default_value_analysis": {},
+        "data_quality_score": {
+          "overall_score": 0.0,
+          "dimension_scores": {
+            "completeness": 0.0,
+            "uniqueness": 0.0,
+            "distribution": 0.0,
+            "validity": 0.0
+          },
+          "per_column_scores": {}
+        },
+        "recommendations": [
+          "Profiling failed: Profiling failed"
+        ],
+        "enhanced_analysis": {
+          "available": false,
+          "version": "1.0",
+          "table_context": {
+            "detected_level": "unknown",
+            "confidence": 0.0,
+            "primary_entity": "",
+            "business_context": "",
+            "reasoning": "Profiling failed"
+          },
+          "primary_key_recommendations": [],
+          "composite_key_recommendations": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "llm_suggested_combos": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "validation_results": {
+            "two_column": []
+          },
+          "enhanced_recommendations": [
+            "Profiling failed"
+          ]
+        },
+        "error_message": "Profiling failed"
+      },
+      {
+        "status": "error",
+        "table_reference": "unknown",
+        "analysis_type": "error",
+        "processing_mode": "failed",
+        "table_summary": {
+          "total_rows": 0,
+          "total_columns": 0
+        },
+        "column_analysis": {},
+        "default_value_analysis": {},
+        "data_quality_score": {
+          "overall_score": 0.0,
+          "dimension_scores": {
+            "completeness": 0.0,
+            "uniqueness": 0.0,
+            "distribution": 0.0,
+            "validity": 0.0
+          },
+          "per_column_scores": {}
+        },
+        "recommendations": [
+          "Profiling failed: Profiling failed"
+        ],
+        "enhanced_analysis": {
+          "available": false,
+          "version": "1.0",
+          "table_context": {
+            "detected_level": "unknown",
+            "confidence": 0.0,
+            "primary_entity": "",
+            "business_context": "",
+            "reasoning": "Profiling failed"
+          },
+          "primary_key_recommendations": [],
+          "composite_key_recommendations": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "llm_suggested_combos": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "validation_results": {
+            "two_column": []
+          },
+          "enhanced_recommendations": [
+            "Profiling failed"
+          ]
+        },
+        "error_message": "Profiling failed"
+      },
+      {
+        "status": "error",
+        "table_reference": "unknown",
+        "analysis_type": "error",
+        "processing_mode": "failed",
+        "table_summary": {
+          "total_rows": 0,
+          "total_columns": 0
+        },
+        "column_analysis": {},
+        "default_value_analysis": {},
+        "data_quality_score": {
+          "overall_score": 0.0,
+          "dimension_scores": {
+            "completeness": 0.0,
+            "uniqueness": 0.0,
+            "distribution": 0.0,
+            "validity": 0.0
+          },
+          "per_column_scores": {}
+        },
+        "recommendations": [
+          "Profiling failed: Profiling failed"
+        ],
+        "enhanced_analysis": {
+          "available": false,
+          "version": "1.0",
+          "table_context": {
+            "detected_level": "unknown",
+            "confidence": 0.0,
+            "primary_entity": "",
+            "business_context": "",
+            "reasoning": "Profiling failed"
+          },
+          "primary_key_recommendations": [],
+          "composite_key_recommendations": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "llm_suggested_combos": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "validation_results": {
+            "two_column": []
+          },
+          "enhanced_recommendations": [
+            "Profiling failed"
+          ]
+        },
+        "error_message": "Profiling failed"
+      },
+      {
+        "status": "error",
+        "table_reference": "unknown",
+        "analysis_type": "error",
+        "processing_mode": "failed",
+        "table_summary": {
+          "total_rows": 0,
+          "total_columns": 0
+        },
+        "column_analysis": {},
+        "default_value_analysis": {},
+        "data_quality_score": {
+          "overall_score": 0.0,
+          "dimension_scores": {
+            "completeness": 0.0,
+            "uniqueness": 0.0,
+            "distribution": 0.0,
+            "validity": 0.0
+          },
+          "per_column_scores": {}
+        },
+        "recommendations": [
+          "Profiling failed: Profiling failed"
+        ],
+        "enhanced_analysis": {
+          "available": false,
+          "version": "1.0",
+          "table_context": {
+            "detected_level": "unknown",
+            "confidence": 0.0,
+            "primary_entity": "",
+            "business_context": "",
+            "reasoning": "Profiling failed"
+          },
+          "primary_key_recommendations": [],
+          "composite_key_recommendations": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "llm_suggested_combos": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "validation_results": {
+            "two_column": []
+          },
+          "enhanced_recommendations": [
+            "Profiling failed"
+          ]
+        },
+        "error_message": "Profiling failed"
+      },
+      {
+        "status": "error",
+        "table_reference": "unknown",
+        "analysis_type": "error",
+        "processing_mode": "failed",
+        "table_summary": {
+          "total_rows": 0,
+          "total_columns": 0
+        },
+        "column_analysis": {},
+        "default_value_analysis": {},
+        "data_quality_score": {
+          "overall_score": 0.0,
+          "dimension_scores": {
+            "completeness": 0.0,
+            "uniqueness": 0.0,
+            "distribution": 0.0,
+            "validity": 0.0
+          },
+          "per_column_scores": {}
+        },
+        "recommendations": [
+          "Profiling failed: Profiling failed"
+        ],
+        "enhanced_analysis": {
+          "available": false,
+          "version": "1.0",
+          "table_context": {
+            "detected_level": "unknown",
+            "confidence": 0.0,
+            "primary_entity": "",
+            "business_context": "",
+            "reasoning": "Profiling failed"
+          },
+          "primary_key_recommendations": [],
+          "composite_key_recommendations": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "llm_suggested_combos": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "validation_results": {
+            "two_column": []
+          },
+          "enhanced_recommendations": [
+            "Profiling failed"
+          ]
+        },
+        "error_message": "Profiling failed"
+      },
+      {
+        "table_reference": "sttm.sttm_data.sttm_profiling_2026_08_21t19_57_00_317fd46a_foreign_keys",
+        "analysis_type": "comprehensive",
+        "processing_mode": "bigquery",
+        "status": "success",
+        "data_quality_score": {
+          "overall_score": 83.63,
+          "dimension_scores": {
+            "completeness": 92.06,
+            "uniqueness": 52.38,
+            "distribution": 100,
+            "validity": 91.43
+          },
+          "per_column_scores": {
+            "fileName": {
+              "overall_score": 83.33,
+              "dimension_scores": {
+                "completeness": 100,
+                "uniqueness": 33.33,
+                "distribution": 100,
+                "validity": 100
+              }
+            },
+            "fieldName": {
+              "overall_score": 100,
+              "dimension_scores": {
+                "completeness": 100,
+                "uniqueness": 100,
+                "distribution": 100,
+                "validity": 100
+              }
+            },
+            "dataType": {
+              "overall_score": 91.67,
+              "dimension_scores": {
+                "completeness": 100,
+                "uniqueness": 66.67,
+                "distribution": 100,
+                "validity": 100
+              }
+            },
+            "length": {
+              "overall_score": 69.44,
+              "dimension_scores": {
+                "completeness": 44.44,
+                "uniqueness": 66.67,
+                "distribution": 100,
+                "validity": 100
+              }
+            },
+            "primaryKey": {
+              "overall_score": 78.83,
+              "dimension_scores": {
+                "completeness": 100,
+                "uniqueness": 33.33,
+                "distribution": 100,
+                "validity": 70
+              }
+            },
+            "foreignKey": {
+              "overall_score": 83.33,
+              "dimension_scores": {
+                "completeness": 100,
+                "uniqueness": 33.33,
+                "distribution": 100,
+                "validity": 100
+              }
+            },
+            "reference": {
+              "overall_score": 78.83,
+              "dimension_scores": {
+                "completeness": 100,
+                "uniqueness": 33.33,
+                "distribution": 100,
+                "validity": 70
+              }
+            }
+          }
+        },
+        "recommendations": [
+          "Column 'fieldName': Excellent primary key candidate (100% unique, no nulls)",
+          "Column 'length': High null percentage (33.3%) - investigate data collection"
+        ],
+        "table_summary": {
+          "total_rows": 3,
+          "total_columns": 7
+        },
+        "column_analysis": {
+          "fileName": {
+            "data_type": "STRING",
+            "total_count": 3,
+            "null_count": 0,
+            "null_percentage": 0,
+            "unique_count": 1,
+            "uniqueness_percentage": 33.33,
+            "blank_count": 0,
+            "avg_length": 44
+          },
+          "fieldName": {
+            "data_type": "STRING",
+            "total_count": 3,
+            "null_count": 0,
+            "null_percentage": 0,
+            "unique_count": 3,
+            "uniqueness_percentage": 100,
+            "blank_count": 0,
+            "avg_length": 9
+          },
+          "dataType": {
+            "data_type": "STRING",
+            "total_count": 3,
+            "null_count": 0,
+            "null_percentage": 0,
+            "unique_count": 2,
+            "uniqueness_percentage": 66.67,
+            "blank_count": 0,
+            "avg_length": 6.33
+          },
+          "length": {
+            "data_type": "FLOAT",
+            "total_count": 3,
+            "null_count": 1,
+            "null_percentage": 33.33,
+            "unique_count": 2,
+            "uniqueness_percentage": 66.67,
+            "blank_count": 0,
+            "avg_length": 6.5
+          },
+          "primaryKey": {
+            "data_type": "STRING",
+            "total_count": 3,
+            "null_count": 0,
+            "null_percentage": 0,
+            "unique_count": 1,
+            "uniqueness_percentage": 33.33,
+            "blank_count": 0,
+            "avg_length": 1
+          },
+          "foreignKey": {
+            "data_type": "STRING",
+            "total_count": 3,
+            "null_count": 0,
+            "null_percentage": 0,
+            "unique_count": 1,
+            "uniqueness_percentage": 33.33,
+            "blank_count": 0,
+            "avg_length": 3
+          },
+          "reference": {
+            "data_type": "STRING",
+            "total_count": 3,
+            "null_count": 0,
+            "null_percentage": 0,
+            "unique_count": 1,
+            "uniqueness_percentage": 33.33,
+            "blank_count": 0,
+            "avg_length": 1
+          }
+        }
+      },
+      {
+        "status": "error",
+        "table_reference": "unknown",
+        "analysis_type": "error",
+        "processing_mode": "failed",
+        "table_summary": {
+          "total_rows": 0,
+          "total_columns": 0
+        },
+        "column_analysis": {},
+        "default_value_analysis": {},
+        "data_quality_score": {
+          "overall_score": 0.0,
+          "dimension_scores": {
+            "completeness": 0.0,
+            "uniqueness": 0.0,
+            "distribution": 0.0,
+            "validity": 0.0
+          },
+          "per_column_scores": {}
+        },
+        "recommendations": [
+          "Profiling failed: Profiling failed"
+        ],
+        "enhanced_analysis": {
+          "available": false,
+          "version": "1.0",
+          "table_context": {
+            "detected_level": "unknown",
+            "confidence": 0.0,
+            "primary_entity": "",
+            "business_context": "",
+            "reasoning": "Profiling failed"
+          },
+          "primary_key_recommendations": [],
+          "composite_key_recommendations": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "llm_suggested_combos": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "validation_results": {
+            "two_column": []
+          },
+          "enhanced_recommendations": [
+            "Profiling failed"
+          ]
+        },
+        "error_message": "Profiling failed"
+      },
+      {
+        "status": "error",
+        "table_reference": "unknown",
+        "analysis_type": "error",
+        "processing_mode": "failed",
+        "table_summary": {
+          "total_rows": 0,
+          "total_columns": 0
+        },
+        "column_analysis": {},
+        "default_value_analysis": {},
+        "data_quality_score": {
+          "overall_score": 0.0,
+          "dimension_scores": {
+            "completeness": 0.0,
+            "uniqueness": 0.0,
+            "distribution": 0.0,
+            "validity": 0.0
+          },
+          "per_column_scores": {}
+        },
+        "recommendations": [
+          "Profiling failed: Profiling failed"
+        ],
+        "enhanced_analysis": {
+          "available": false,
+          "version": "1.0",
+          "table_context": {
+            "detected_level": "unknown",
+            "confidence": 0.0,
+            "primary_entity": "",
+            "business_context": "",
+            "reasoning": "Profiling failed"
+          },
+          "primary_key_recommendations": [],
+          "composite_key_recommendations": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "llm_suggested_combos": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "validation_results": {
+            "two_column": []
+          },
+          "enhanced_recommendations": [
+            "Profiling failed"
+          ]
+        },
+        "error_message": "Profiling failed"
+      },
+      {
+        "status": "error",
+        "table_reference": "unknown",
+        "analysis_type": "error",
+        "processing_mode": "failed",
+        "table_summary": {
+          "total_rows": 0,
+          "total_columns": 0
+        },
+        "column_analysis": {},
+        "default_value_analysis": {},
+        "data_quality_score": {
+          "overall_score": 0.0,
+          "dimension_scores": {
+            "completeness": 0.0,
+            "uniqueness": 0.0,
+            "distribution": 0.0,
+            "validity": 0.0
+          },
+          "per_column_scores": {}
+        },
+        "recommendations": [
+          "Profiling failed: Profiling failed"
+        ],
+        "enhanced_analysis": {
+          "available": false,
+          "version": "1.0",
+          "table_context": {
+            "detected_level": "unknown",
+            "confidence": 0.0,
+            "primary_entity": "",
+            "business_context": "",
+            "reasoning": "Profiling failed"
+          },
+          "primary_key_recommendations": [],
+          "composite_key_recommendations": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "llm_suggested_combos": {
+            "two_column": [],
+            "three_column": [],
+            "four_column": []
+          },
+          "validation_results": {
+            "two_column": []
+          },
+          "enhanced_recommendations": [
+            "Profiling failed"
+          ]
+        },
+        "error_message": "Profiling failed"
+      }
+    ]
+  },
+  "status": 0,
+  "should_update": false
+}

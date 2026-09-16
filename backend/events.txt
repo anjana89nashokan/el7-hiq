@@ -1,0 +1,148 @@
+EVENT 1: 
+
+ model_version='gpt-4o-mini-2024-07-18' content=Content(
+  parts=[
+    Part(
+      function_call=FunctionCall(
+        args={
+          'agent_name': 'profiling_agent'
+        },
+        id='call_IpxQwkif4mitms2hCiFnuvxS',
+        name='transfer_to_agent'
+      )
+    ),
+  ],
+  role='model'
+) grounding_metadata=None partial=False turn_complete=None finish_reason=<FinishReason.STOP: 'STOP'> error_code=None error_message=None interrupted=None custom_metadata=None usage_metadata=GenerateContentResponseUsageMetadata(
+  cached_content_token_count=0,
+  candidates_token_count=18,
+  prompt_token_count=4018,
+  total_token_count=4036
+) live_session_resumption_update=None input_transcription=None output_transcription=None avg_logprobs=None logprobs_result=None cache_metadata=None citation_metadata=None invocation_id='e-dee5c932-3ff7-476d-95d4-e6d2b396b2a0' author='orchestrator_agent' actions=EventActions(skip_summarization=None, state_delta={}, artifact_delta={}, transfer_to_agent=None, escalate=None, requested_auth_configs={}, requested_tool_confirmations={}, compaction=None, end_of_agent=None, agent_state=None, rewind_before_invocation_id=None) long_running_tool_ids=set() branch=None id='67cdd09f-0323-4e2b-9730-26cf0f95188e' timestamp=1789560399.958328
+EVENT 2: 
+
+ model_version=None content=Content(
+  parts=[
+    Part(
+      function_response=FunctionResponse(
+        id='call_IpxQwkif4mitms2hCiFnuvxS',
+        name='transfer_to_agent',
+        response={
+          'result': None
+        }
+      )
+    ),
+  ],
+  role='user'
+) grounding_metadata=None partial=None turn_complete=None finish_reason=None error_code=None error_message=None interrupted=None custom_metadata=None usage_metadata=None live_session_resumption_update=None input_transcription=None output_transcription=None avg_logprobs=None logprobs_result=None cache_metadata=None citation_metadata=None invocation_id='e-dee5c932-3ff7-476d-95d4-e6d2b396b2a0' author='orchestrator_agent' actions=EventActions(skip_summarization=None, state_delta={}, artifact_delta={}, transfer_to_agent='profiling_agent', escalate=None, requested_auth_configs={}, requested_tool_confirmations={}, compaction=None, end_of_agent=None, agent_state=None, rewind_before_invocation_id=None) long_running_tool_ids=None branch=None id='e80f19e7-b741-4321-9c60-cf0a5b9d448e' timestamp=1789560404.684399
+EVENT 3: 
+
+ model_version='gpt-4o-mini-2024-07-18' content=Content(
+  parts=[
+    Part(
+      function_call=FunctionCall(
+        args={
+          'table_references': [
+            'sttm.sttm_data.sttm_test_claims___copy__2__9bb6cb66_sheet_1',
+          ]
+        },
+        id='call_Bda1nSTWGzGNfMa3OIWdZdRQ',
+        name='intelligent_profiling_tool'
+      )
+    ),
+  ],
+  role='model'
+) grounding_metadata=None partial=False turn_complete=None finish_reason=<FinishReason.STOP: 'STOP'> error_code=None error_message=None interrupted=None custom_metadata=None usage_metadata=GenerateContentResponseUsageMetadata(
+  cached_content_token_count=0,
+  candidates_token_count=43,
+  prompt_token_count=8245,
+  total_token_count=8288
+) live_session_resumption_update=None input_transcription=None output_transcription=None avg_logprobs=None logprobs_result=None cache_metadata=None citation_metadata=None invocation_id='e-dee5c932-3ff7-476d-95d4-e6d2b396b2a0' author='profiling_agent' actions=EventActions(skip_summarization=None, state_delta={}, artifact_delta={}, transfer_to_agent=None, escalate=None, requested_auth_configs={}, requested_tool_confirmations={}, compaction=None, end_of_agent=None, agent_state=None, rewind_before_invocation_id=None) long_running_tool_ids=set() branch=None id='80cad8c3-c639-4561-9523-b740de072f82' timestamp=1789560404.697147
+EVENT 4: 
+
+ model_version=None content=Content(
+  parts=[
+    Part(
+      function_response=FunctionResponse(
+        id='call_Bda1nSTWGzGNfMa3OIWdZdRQ',
+        name='intelligent_profiling_tool',
+        response={
+          'result': [
+            {<... 10 items at Max depth ...>},
+          ]
+        }
+      )
+    ),
+  ],
+  role='user'
+) grounding_metadata=None partial=None turn_complete=None finish_reason=None error_code=None error_message=None interrupted=None custom_metadata=None usage_metadata=None live_session_resumption_update=None input_transcription=None output_transcription=None avg_logprobs=None logprobs_result=None cache_metadata=None citation_metadata=None invocation_id='e-dee5c932-3ff7-476d-95d4-e6d2b396b2a0' author='profiling_agent' actions=EventActions(skip_summarization=None, state_delta={}, artifact_delta={}, transfer_to_agent=None, escalate=None, requested_auth_configs={}, requested_tool_confirmations={}, compaction=None, end_of_agent=None, agent_state=None, rewind_before_invocation_id=None) long_running_tool_ids=None branch=None id='040e5305-a4e7-4d65-9f12-3af003a6f9ff' timestamp=1789560411.042894
+EVENT 5: 
+
+ model_version='gpt-4o-mini-2024-07-18' content=Content(
+  parts=[
+    Part(
+      function_call=FunctionCall(
+        args={
+          'text_response': """### Data Profiling Report
+#### Table: sttm.sttm_data.sttm_test_claims___copy__2__9bb6cb66_sheet_1
+
+**Table Summary:**
+- **Total Rows:** 18
+- **Total Columns:** 15
+- **Data Quality Score:** 70.19%
+
+**Primary Key Recommendation:**
+- No primary key candidates identified.
+
+**Column Analysis:**
+| Column Name        | Data Type | Uniqueness % | Null % | PK Candidate |
+|--------------------|-----------|--------------|--------|--------------|
+| livongo_id         | STRING    | 66.67%       | 0.00%  | No           |
+| first_name         | STRING    | 66.67%       | 0.00%  | No           |
+| last_name          | STRING    | 66.67%       | 0.00%  | No           |
+| birth_date         | DATETIME  | 55.56%       | 0.00%  | No           |
+| client_name        | STRING    | 66.67%       | 0.00%  | No           |
+| insurer_name       | STRING    | 0.00%        | 100.00%| No           |
+| insurance_member_id | STRING    | 0.00%        | 100.00%| No           |
+| insurance_group_id | STRING    | 0.00%        | 100.00%| No           |
+| gender             | STRING    | 11.11%       | 0.00%  | No           |
+| event_type         | STRING    | 22.22%       | 0.00%  | No           |
+| event_name         | STRING    | 50.00%       | 0.00%  | No           |
+| event_value        | INTEGER   | 33.33%       | 0.00%  | No           |
+| event_date         | DATETIME  | 72.22%       | 0.00%  | No           |
+| ibc_id             | STRING    | 0.00%        | 100.00%| No           |
+| member_uid         | STRING    | 0.00%        | 100.00%| No           |
+
+**Data Quality Breakdown:**
+- **Overall Score:** 70.19
+- **Completeness:** 66.67
+- **Uniqueness:** 34.07
+- **Distribution:** 100.00
+- **Validity:** 100.00
+
+### Recommendations:
+- Column 'insurer_name': High null percentage (100.0%) - investigate data collection.
+- Column 'insurance_member_id': High null percentage (100.0%) - investigate data collection.
+- Column 'insurance_group_id': High null percentage (100.0%) - investigate data collection.
+- Column 'gender': Potential foreign key (low uniqueness suggests references).
+- Column 'event_type': Potential foreign key (low uniqueness suggests references).
+- Column 'event_value': Potential foreign key (low uniqueness suggests references).
+- Column 'ibc_id': High null percentage (100.0%) - investigate data collection.
+- Column 'member_uid': High null percentage (100.0%) - investigate data collection.""",
+          'tool_response': {
+            'enhanced_analysis': {<... 4 items at Max depth ...>},
+            'result': [<... 11 items at Max depth ...>]
+          }
+        },
+        id='call_YDHpzOHLunaA9l1xCoFAQsfT',
+        name='set_model_response'
+      )
+    ),
+  ],
+  role='model'
+) grounding_metadata=None partial=False turn_complete=None finish_reason=<FinishReason.STOP: 'STOP'> error_code=None error_message=None interrupted=None custom_metadata=None usage_metadata=GenerateContentResponseUsageMetadata(
+  cached_content_token_count=8192,
+  candidates_token_count=3590,
+  prompt_token_count=11797,
+  total_token_count=15387
+) live_session_resumption_update=None input_transcription=None output_transcription=None avg_logprobs=None logprobs_result=None cache_metadata=None citation_metadata=None invocation_id='e-dee5c932-3ff7-476d-95d4-e6d2b396b2a0' author='profiling_agent' actions=EventActions(skip_summarization=None, state_delta={}, artifact_delta={}, transfer_to_agent=None, escalate=None, requested_auth_configs={}, requested_tool_confirmations={}, compaction=None, end_of_agent=None, agent_state=None, rewind_before_invocation_id=None) long_running_tool_ids=set() branch=None id='e905e17b-9b9f-4fd7-bfac-6338ec81473c' timestamp=1789560411.057012

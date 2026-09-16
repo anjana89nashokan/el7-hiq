@@ -1,0 +1,502 @@
+{
+  "text_response": "### Data Profiling Report\n#### Table: sttm.sttm_data.sttm_test_claims___copy__2__9bb6cb66_sheet_1\n\n**Table Summary:**\n- **Total Rows:** 18\n- **Total Columns:** 15\n- **Data Quality Score:** 70.19%\n\n**Primary Key Recommendation:**\n- No primary key candidates identified.\n\n**Column Analysis:**\n| Column Name        | Data Type | Uniqueness % | Null % | PK Candidate |\n|--------------------|-----------|--------------|--------|--------------|\n| livongo_id         | STRING    | 66.67%       | 0.00%  | No           |\n| first_name         | STRING    | 66.67%       | 0.00%  | No           |\n| last_name          | STRING    | 66.67%       | 0.00%  | No           |\n| birth_date         | DATETIME  | 55.56%       | 0.00%  | No           |\n| client_name        | STRING    | 66.67%       | 0.00%  | No           |\n| insurer_name       | STRING    | 0.00%        | 100.00%| No           |\n| insurance_member_id | STRING    | 0.00%        | 100.00%| No           |\n| insurance_group_id | STRING    | 0.00%        | 100.00%| No           |\n| gender             | STRING    | 11.11%       | 0.00%  | No           |\n| event_type         | STRING    | 22.22%       | 0.00%  | No           |\n| event_name         | STRING    | 50.00%       | 0.00%  | No           |\n| event_value        | INTEGER   | 33.33%       | 0.00%  | No           |\n| event_date         | DATETIME  | 72.22%       | 0.00%  | No           |\n| ibc_id             | STRING    | 0.00%        | 100.00%| No           |\n| member_uid         | STRING    | 0.00%        | 100.00%| No           |\n\n**Data Quality Breakdown:**\n- **Overall Score:** 70.19\n- **Completeness:** 66.67\n- **Uniqueness:** 34.07\n- **Distribution:** 100.00\n- **Validity:** 100.00\n\n### Recommendations:\n- Column 'insurer_name': High null percentage (100.0%) - investigate data collection.\n- Column 'insurance_member_id': High null percentage (100.0%) - investigate data collection.\n- Column 'insurance_group_id': High null percentage (100.0%) - investigate data collection.\n- Column 'gender': Potential foreign key (low uniqueness suggests references).\n- Column 'event_type': Potential foreign key (low uniqueness suggests references).\n- Column 'event_value': Potential foreign key (low uniqueness suggests references).\n- Column 'ibc_id': High null percentage (100.0%) - investigate data collection.\n- Column 'member_uid': High null percentage (100.0%) - investigate data collection.",
+  "tool_response": {
+    "result": [
+      {
+        "table_reference": "sttm.sttm_data.sttm_test_claims___copy__2__9bb6cb66_sheet_1",
+        "analysis_type": "comprehensive",
+        "processing_mode": "bigquery",
+        "status": "success",
+        "data_quality_score": {
+          "overall_score": 70.19,
+          "dimension_scores": {
+            "completeness": 66.67,
+            "uniqueness": 34.07,
+            "distribution": 100.0,
+            "validity": 100.0
+          },
+          "per_column_scores": {
+            "livongo_id": {
+              "overall_score": 91.67,
+              "dimension_scores": {
+                "completeness": 100.0,
+                "uniqueness": 66.67,
+                "distribution": 100.0,
+                "validity": 100.0
+              }
+            },
+            "first_name": {
+              "overall_score": 91.67,
+              "dimension_scores": {
+                "completeness": 100.0,
+                "uniqueness": 66.67,
+                "distribution": 100.0,
+                "validity": 100.0
+              }
+            },
+            "last_name": {
+              "overall_score": 91.67,
+              "dimension_scores": {
+                "completeness": 100.0,
+                "uniqueness": 66.67,
+                "distribution": 100.0,
+                "validity": 100.0
+              }
+            },
+            "birth_date": {
+              "overall_score": 88.89,
+              "dimension_scores": {
+                "completeness": 100.0,
+                "uniqueness": 55.56,
+                "distribution": 100.0,
+                "validity": 100.0
+              }
+            },
+            "client_name": {
+              "overall_score": 91.67,
+              "dimension_scores": {
+                "completeness": 100.0,
+                "uniqueness": 66.67,
+                "distribution": 100.0,
+                "validity": 100.0
+              }
+            },
+            "insurer_name": {
+              "overall_score": 35.0,
+              "dimension_scores": {
+                "completeness": 0.0,
+                "uniqueness": 0.0,
+                "distribution": 100.0,
+                "validity": 100.0
+              }
+            },
+            "insurance_member_id": {
+              "overall_score": 35.0,
+              "dimension_scores": {
+                "completeness": 0.0,
+                "uniqueness": 0.0,
+                "distribution": 100.0,
+                "validity": 100.0
+              }
+            },
+            "insurance_group_id": {
+              "overall_score": 35.0,
+              "dimension_scores": {
+                "completeness": 0.0,
+                "uniqueness": 0.0,
+                "distribution": 100.0,
+                "validity": 100.0
+              }
+            },
+            "gender": {
+              "overall_score": 77.78,
+              "dimension_scores": {
+                "completeness": 100.0,
+                "uniqueness": 11.11,
+                "distribution": 100.0,
+                "validity": 100.0
+              }
+            },
+            "event_type": {
+              "overall_score": 80.56,
+              "dimension_scores": {
+                "completeness": 100.0,
+                "uniqueness": 22.22,
+                "distribution": 100.0,
+                "validity": 100.0
+              }
+            },
+            "event_name": {
+              "overall_score": 87.5,
+              "dimension_scores": {
+                "completeness": 100.0,
+                "uniqueness": 50.0,
+                "distribution": 100.0,
+                "validity": 100.0
+              }
+            },
+            "event_value": {
+              "overall_score": 83.33,
+              "dimension_scores": {
+                "completeness": 100.0,
+                "uniqueness": 33.33,
+                "distribution": 100.0,
+                "validity": 100.0
+              }
+            },
+            "event_date": {
+              "overall_score": 93.06,
+              "dimension_scores": {
+                "completeness": 100.0,
+                "uniqueness": 72.22,
+                "distribution": 100.0,
+                "validity": 100.0
+              }
+            },
+            "ibc_id": {
+              "overall_score": 35.0,
+              "dimension_scores": {
+                "completeness": 0.0,
+                "uniqueness": 0.0,
+                "distribution": 100.0,
+                "validity": 100.0
+              }
+            },
+            "member_uid": {
+              "overall_score": 35.0,
+              "dimension_scores": {
+                "completeness": 0.0,
+                "uniqueness": 0.0,
+                "distribution": 100.0,
+                "validity": 100.0
+              }
+            }
+          }
+        },
+        "table_summary": {
+          "total_rows": 18,
+          "total_columns": 15
+        },
+        "column_analysis": {
+          "livongo_id": {
+            "data_type": "STRING",
+            "total_count": 18,
+            "null_count": 0,
+            "null_percentage": 0.0,
+            "unique_count": 12,
+            "uniqueness_percentage": 66.66666666666666,
+            "distinct_values_sample": [
+              "BA128",
+              "BA122",
+              "BA108",
+              "BA129",
+              "BA130",
+              "BA131",
+              "BA132",
+              "BA133",
+              "BA134",
+              "BA135",
+              "BA136",
+              "BA137"
+            ],
+            "original_data_type": "STRING",
+            "blank_count": 0,
+            "blank_percentage": 0.0,
+            "avg_length": 5.0,
+            "primary_key_candidate": false,
+            "foreign_key_candidate": false
+          },
+          "first_name": {
+            "data_type": "STRING",
+            "total_count": 18,
+            "null_count": 0,
+            "null_percentage": 0.0,
+            "unique_count": 12,
+            "uniqueness_percentage": 66.66666666666666,
+            "distinct_values_sample": [
+              "John4124",
+              "John2312",
+              "John4036",
+              "John4125",
+              "John4126",
+              "John4127",
+              "John4128",
+              "John4129",
+              "John4130",
+              "John4131",
+              "John4132",
+              "John4133"
+            ],
+            "original_data_type": "STRING",
+            "blank_count": 0,
+            "blank_percentage": 0.0,
+            "avg_length": 8.0,
+            "primary_key_candidate": false,
+            "foreign_key_candidate": false
+          },
+          "last_name": {
+            "data_type": "STRING",
+            "total_count": 18,
+            "null_count": 0,
+            "null_percentage": 0.0,
+            "unique_count": 12,
+            "uniqueness_percentage": 66.66666666666666,
+            "distinct_values_sample": [
+              "Doe4124",
+              "Doe2312",
+              "Doe4036",
+              "Doe4125",
+              "Doe4126",
+              "Doe4127",
+              "Doe4128",
+              "Doe4129",
+              "Doe4130",
+              "Doe4131",
+              "Doe4132",
+              "Doe4133"
+            ],
+            "original_data_type": "STRING",
+            "blank_count": 0,
+            "blank_percentage": 0.0,
+            "avg_length": 7.0,
+            "primary_key_candidate": false,
+            "foreign_key_candidate": false
+          },
+          "birth_date": {
+            "data_type": "DATETIME",
+            "total_count": 18,
+            "null_count": 0,
+            "null_percentage": 0.0,
+            "unique_count": 10,
+            "uniqueness_percentage": 55.55555555555556,
+            "distinct_values_sample": [
+              "1965-01-01 00:00:00.000000",
+              "1965-01-04 00:00:00.000000",
+              "1965-01-09 00:00:00.000000",
+              "1965-01-02 00:00:00.000000",
+              "1965-01-03 00:00:00.000000",
+              "1965-01-05 00:00:00.000000",
+              "1965-01-06 00:00:00.000000",
+              "1965-01-07 00:00:00.000000",
+              "1965-01-08 00:00:00.000000",
+              "1965-01-10 00:00:00.000000"
+            ],
+            "original_data_type": "STRING",
+            "detected_semantic_type": "DATETIME",
+            "blank_count": 0,
+            "blank_percentage": 0.0,
+            "avg_length": 26.0,
+            "primary_key_candidate": false,
+            "foreign_key_candidate": false
+          },
+          "client_name": {
+            "data_type": "STRING",
+            "total_count": 18,
+            "null_count": 0,
+            "null_percentage": 0.0,
+            "unique_count": 12,
+            "uniqueness_percentage": 66.66666666666666,
+            "distinct_values_sample": [
+              "CLIENT0681",
+              "CLIENT2415",
+              "CLIENT6054",
+              "CLIENT0682",
+              "CLIENT0683",
+              "CLIENT0684",
+              "CLIENT0685",
+              "CLIENT0686",
+              "CLIENT0687",
+              "CLIENT0688",
+              "CLIENT0689",
+              "CLIENT0690"
+            ],
+            "original_data_type": "STRING",
+            "blank_count": 0,
+            "blank_percentage": 0.0,
+            "avg_length": 10.0,
+            "primary_key_candidate": false,
+            "foreign_key_candidate": false
+          },
+          "insurer_name": {
+            "data_type": "STRING",
+            "total_count": 18,
+            "null_count": 18,
+            "null_percentage": 100.0,
+            "unique_count": 0,
+            "uniqueness_percentage": 0.0,
+            "distinct_values_sample": [],
+            "original_data_type": "STRING",
+            "blank_count": 0,
+            "blank_percentage": 0.0,
+            "avg_length": 3.0,
+            "primary_key_candidate": false,
+            "foreign_key_candidate": false
+          },
+          "insurance_member_id": {
+            "data_type": "STRING",
+            "total_count": 18,
+            "null_count": 18,
+            "null_percentage": 100.0,
+            "unique_count": 0,
+            "uniqueness_percentage": 0.0,
+            "distinct_values_sample": [],
+            "original_data_type": "STRING",
+            "blank_count": 0,
+            "blank_percentage": 0.0,
+            "avg_length": 3.0,
+            "primary_key_candidate": false,
+            "foreign_key_candidate": false
+          },
+          "insurance_group_id": {
+            "data_type": "STRING",
+            "total_count": 18,
+            "null_count": 18,
+            "null_percentage": 100.0,
+            "unique_count": 0,
+            "uniqueness_percentage": 0.0,
+            "distinct_values_sample": [],
+            "original_data_type": "STRING",
+            "blank_count": 0,
+            "blank_percentage": 0.0,
+            "avg_length": 3.0,
+            "primary_key_candidate": false,
+            "foreign_key_candidate": false
+          },
+          "gender": {
+            "data_type": "STRING",
+            "total_count": 18,
+            "null_count": 0,
+            "null_percentage": 0.0,
+            "unique_count": 2,
+            "uniqueness_percentage": 11.11111111111111,
+            "distinct_values_sample": [
+              "Male",
+              "Female"
+            ],
+            "original_data_type": "STRING",
+            "blank_count": 0,
+            "blank_percentage": 0.0,
+            "avg_length": 4.444444444444445,
+            "primary_key_candidate": false,
+            "foreign_key_candidate": true
+          },
+          "event_type": {
+            "data_type": "STRING",
+            "total_count": 18,
+            "null_count": 0,
+            "null_percentage": 0.0,
+            "unique_count": 4,
+            "uniqueness_percentage": 22.22222222222222,
+            "distinct_values_sample": [
+              "Activity",
+              "Assessment",
+              "Current Focus Area",
+              "Coaching"
+            ],
+            "original_data_type": "STRING",
+            "blank_count": 0,
+            "blank_percentage": 0.0,
+            "avg_length": 9.444444444444445,
+            "primary_key_candidate": false,
+            "foreign_key_candidate": true
+          },
+          "event_name": {
+            "data_type": "STRING",
+            "total_count": 18,
+            "null_count": 0,
+            "null_percentage": 0.0,
+            "unique_count": 9,
+            "uniqueness_percentage": 50.0,
+            "distinct_values_sample": [
+              "Gratitude Meditation",
+              "Examining Beliefs about Sleep",
+              "GAD-7",
+              "WHO-5",
+              "PHQ-9",
+              "Depression",
+              "Anxiety",
+              "Member to Coach",
+              "Coach to Member"
+            ],
+            "original_data_type": "STRING",
+            "blank_count": 0,
+            "blank_percentage": 0.0,
+            "avg_length": 13.666666666666666,
+            "primary_key_candidate": false,
+            "foreign_key_candidate": false
+          },
+          "event_value": {
+            "data_type": "INTEGER",
+            "total_count": 18,
+            "null_count": 0,
+            "null_percentage": 0.0,
+            "unique_count": 6,
+            "uniqueness_percentage": 33.33333333333333,
+            "distinct_values_sample": [
+              "5",
+              "4",
+              "23",
+              "18",
+              "6",
+              "7"
+            ],
+            "original_data_type": "INTEGER",
+            "min_value": 4,
+            "max_value": 23,
+            "avg_value": 7.833333333333333,
+            "primary_key_candidate": false,
+            "foreign_key_candidate": true
+          },
+          "event_date": {
+            "data_type": "DATETIME",
+            "total_count": 18,
+            "null_count": 0,
+            "null_percentage": 0.0,
+            "unique_count": 13,
+            "uniqueness_percentage": 72.22222222222221,
+            "distinct_values_sample": [
+              "2020-08-15 00:00:00.000000",
+              "2020-08-24 00:00:00.000000",
+              "2020-08-03 00:00:00.000000",
+              "2020-09-01 00:00:00.000000",
+              "2020-09-02 00:00:00.000000",
+              "2020-09-03 00:00:00.000000",
+              "2020-09-04 00:00:00.000000",
+              "2020-09-05 00:00:00.000000",
+              "2020-09-06 00:00:00.000000",
+              "2020-09-07 00:00:00.000000",
+              "2020-09-08 00:00:00.000000",
+              "2020-09-09 00:00:00.000000",
+              "2020-09-10 00:00:00.000000"
+            ],
+            "original_data_type": "STRING",
+            "detected_semantic_type": "DATETIME",
+            "blank_count": 0,
+            "blank_percentage": 0.0,
+            "avg_length": 26.0,
+            "primary_key_candidate": false,
+            "foreign_key_candidate": false
+          },
+          "ibc_id": {
+            "data_type": "STRING",
+            "total_count": 18,
+            "null_count": 18,
+            "null_percentage": 100.0,
+            "unique_count": 0,
+            "uniqueness_percentage": 0.0,
+            "distinct_values_sample": [],
+            "original_data_type": "STRING",
+            "blank_count": 0,
+            "blank_percentage": 0.0,
+            "avg_length": 3.0,
+            "primary_key_candidate": false,
+            "foreign_key_candidate": false
+          },
+          "member_uid": {
+            "data_type": "STRING",
+            "total_count": 18,
+            "null_count": 18,
+            "null_percentage": 100.0,
+            "unique_count": 0,
+            "uniqueness_percentage": 0.0,
+            "distinct_values_sample": [],
+            "original_data_type": "STRING",
+            "blank_count": 0,
+            "blank_percentage": 0.0,
+            "avg_length": 3.0,
+            "primary_key_candidate": false,
+            "foreign_key_candidate": false
+          }
+        }
+      }
+    ],
+    "enhanced_analysis": {
+      "available": false,
+      "error": "name 'blank_pct' is not defined",
+      "fallback_mode": true,
+      "message": "Enhanced analysis unavailable, using standard profiling only"
+    }
+  },
+  "status": 0,
+  "should_update": false
+}

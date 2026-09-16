@@ -1,0 +1,10 @@
+{
+  "usage_metadata": {
+    "total_tokens": 417118,
+    "window_tokens": 134850,
+    "window_requests": 8,
+    "window_start": "2026-08-21T19:40:30.374092",
+    "last_request": "2026-08-21T19:40:43.742973"
+  },
+  "profiling_chat_response_uri": "gs://bsa-data-map-artifacts/profiling-artifacts/40d5c8a0-adf8-4457-bc2d-076c3e7b8a7b/resume/send-profiling-chat-response.json"
+}
