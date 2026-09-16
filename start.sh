@@ -17,7 +17,7 @@ fi
 
 if [[ ! -f "$STTM_BACKEND/.env" && -f "$STTM_BACKEND/.env.example" ]]; then
   cp "$STTM_BACKEND/.env.example" "$STTM_BACKEND/.env"
-  echo "    Created backend/.env from .env.example — add GOOGLE_API_KEY"
+  echo "    Created backend/.env from .env.example — set LLM keys in Settings if needed"
 fi
 
 cleanup() {
