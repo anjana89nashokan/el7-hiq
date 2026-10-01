@@ -56,8 +56,8 @@ gh secret set DATAMAP_CORS_ORIGINS --body "https://sttm.usthealthiq.com"
 
 On the server after success:
 
-- Frontend: `http://YOUR_IP/` (port 80)
-- API health: `http://YOUR_IP:8000/health`
+- Frontend: host port **8081** → `https://sttm.usthealthiq.com` (via your proxy)
+- API: host port **8000** → `https://sttm-api.usthealthiq.com`
 
 Put nginx/Caddy in front with TLS when you have a domain.
 

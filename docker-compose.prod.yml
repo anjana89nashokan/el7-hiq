@@ -1,10 +1,15 @@
 # Production stack for VPS (used by GitHub Actions deploy).
 # On the server: copy .env.example → .env and set keys + VITE_API_BASE_URL + DATAMAP_CORS_ORIGINS.
 
+# Host ports match existing VPS / DNS: API 8000, UI 8081 (same as hl7-hiq-* stack).
+name: hl7-hiq
+
 services:
   backend:
+    image: hl7-hiq-backend:latest
     build:
       context: ./backend
+    container_name: hl7-hiq-backend
     ports:
       - "8000:8080"
     env_file:
@@ -23,13 +28,15 @@ services:
     restart: unless-stopped
 
   frontend:
+    image: hl7-hiq-frontend:latest
     build:
       context: ./frontend
       target: production
       args:
         VITE_API_BASE_URL: ${VITE_API_BASE_URL}
+    container_name: hl7-hiq-frontend
     ports:
-      - "80:80"
+      - "8081:80"
     depends_on:
       backend:
         condition: service_healthy
