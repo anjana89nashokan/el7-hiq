@@ -8,9 +8,9 @@ sudo apt update && sudo apt install -y git docker.io docker-compose-plugin
 sudo usermod -aG docker deploy   # your deploy user
 
 mkdir -p ~/el7-hiq
-cd ~/el7-hiq
-git clone https://github.com/YOUR_ORG/el7-hiq.git .
-cp .env.example .env
+# No git on the VPS — GitHub Actions uploads the code. Only create config once:
+cp .env.example ~/el7-hiq/.env
+nano ~/el7-hiq/.env
 # Edit .env: API keys, and for production:
 #   VITE_API_BASE_URL=https://api.yourdomain.com   (or http://YOUR_IP:8000)
 #   DATAMAP_CORS_ORIGINS=https://yourdomain.com,http://YOUR_IP
@@ -45,7 +45,7 @@ Copy the **private** key (`github_actions_deploy`) — you will paste it into Gi
 | Workflow | When | What it does |
 |----------|------|----------------|
 | `ci.yml` | Push/PR to `main` | Installs deps, smoke-imports API, `npm run build` |
-| `deploy-vps.yml` | Push to `main` or **Run workflow** | SSH → `git pull` → `docker compose -f docker-compose.prod.yml up -d --build` |
+| `deploy-vps.yml` | Push to `main` or **Run workflow** | Checkout on GitHub → SCP archive → extract on VPS → `docker compose` |
 
 ## 4. Manual deploy test
 

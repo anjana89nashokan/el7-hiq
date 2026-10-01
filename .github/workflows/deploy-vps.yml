@@ -1,13 +1,9 @@
-# Deploy to your VPS on push to main (or manual run).
+# Deploy to VPS without git on the server: checkout on GitHub → tar → SCP → docker compose.
 #
-# Required GitHub repository secrets (Settings → Secrets and variables → Actions):
-#   VPS_HOST          — server IP or hostname
-#   VPS_USER          — SSH user (e.g. deploy)
-#   VPS_SSH_KEY       — private key (multiline). Prefer CLI: gh secret set VPS_SSH_KEY < ~/.ssh/github_actions_deploy
-#   VPS_SSH_KEY_BASE64 — optional alternative: base64 -i private_key | gh secret set VPS_SSH_KEY_BASE64
-# Optional:
-#   VPS_PORT          — SSH port (default 22)
-#   VPS_APP_DIR       — app path on server (default ~/el7-hiq)
+# Required secrets: VPS_HOST, VPS_USER, VPS_SSH_KEY (or VPS_SSH_KEY_BASE64)
+# Optional: VPS_PORT, VPS_APP_DIR (full path e.g. /home/deployer/el7-hiq)
+#
+# One-time on VPS: mkdir -p ~/el7-hiq && cp .env.example ~/el7-hiq/.env && edit .env
 
 name: Deploy to VPS
 
@@ -24,6 +20,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+
       - name: Prepare SSH key file
         env:
           SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
@@ -33,67 +31,78 @@ jobs:
           KEY_FILE="${RUNNER_TEMP}/deploy_key"
           umask 077
           if [ -n "$SSH_KEY_B64" ]; then
-            echo "Using VPS_SSH_KEY_BASE64"
             echo "$SSH_KEY_B64" | base64 -d > "$KEY_FILE"
           elif [ -n "$SSH_KEY" ]; then
-            echo "Using VPS_SSH_KEY"
-            # Preserve newlines from the secret (do not use a single-line printf).
             echo "$SSH_KEY" > "$KEY_FILE"
           else
             echo "::error::Set VPS_SSH_KEY or VPS_SSH_KEY_BASE64."
             exit 1
           fi
           chmod 600 "$KEY_FILE"
-          if ! head -1 "$KEY_FILE" | grep -q 'BEGIN.*PRIVATE KEY'; then
-            echo "::error::Not a private key file (use ~/.ssh/github_actions_deploy, not .pub)."
+          if ! ssh-keygen -y -f "$KEY_FILE" > /dev/null 2>&1; then
+            echo "::error::Invalid VPS_SSH_KEY. Use: gh secret set VPS_SSH_KEY < ~/.ssh/github_actions_deploy"
             exit 1
           fi
-          if ! ssh-keygen -y -f "$KEY_FILE" > "${RUNNER_TEMP}/derived.pub" 2>/dev/null; then
-            echo "::error::Private key is corrupt (newlines lost when pasting into GitHub?). Use: gh secret set VPS_SSH_KEY < ~/.ssh/github_actions_deploy"
-            exit 1
-          fi
-          echo "Key parses OK. Fingerprint (compare to your Mac):"
-          ssh-keygen -lf "$KEY_FILE"
           echo "KEY_FILE=$KEY_FILE" >> "$GITHUB_ENV"
 
-      - name: Verify GitHub secrets (non-empty)
+      - name: Verify deploy secrets
         run: |
           test -n "${{ secrets.VPS_HOST }}" || (echo "::error::VPS_HOST empty" && exit 1)
           test -n "${{ secrets.VPS_USER }}" || (echo "::error::VPS_USER empty" && exit 1)
-          echo "Will connect to host (check matches 54.x IP) and user length: ${#VPS_USER}"
-        env:
-          VPS_USER: ${{ secrets.VPS_USER }}
 
-      - name: Deploy via SSH
+      - name: Create deployment archive
+        run: |
+          tar czf "${RUNNER_TEMP}/deploy.tgz" \
+            --exclude=.git \
+            --exclude=node_modules \
+            --exclude=frontend/node_modules \
+            --exclude=backend/.venv \
+            --exclude=backend/data \
+            --exclude=.env \
+            .
+          cp "${RUNNER_TEMP}/deploy.tgz" "${GITHUB_WORKSPACE}/deploy.tgz"
+          ls -lh "${GITHUB_WORKSPACE}/deploy.tgz"
+
+      - name: Upload archive to VPS
+        uses: appleboy/scp-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key_path: ${{ env.KEY_FILE }}
+          port: ${{ secrets.VPS_PORT || 22 }}
+          source: deploy.tgz
+          target: /tmp
+          overwrite: true
+
+      - name: Extract and run Docker on VPS
         uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key_path: ${{ env.KEY_FILE }}
           port: ${{ secrets.VPS_PORT || 22 }}
-          debug: true
           command_timeout: 45m
           script: |
             set -euo pipefail
             APP_DIR="${{ secrets.VPS_APP_DIR }}"
             if [ -z "$APP_DIR" ]; then APP_DIR="${HOME}/el7-hiq"; fi
-            if [ ! -d "$APP_DIR" ]; then
-              echo "Directory $APP_DIR does not exist."
-              echo "One-time on VPS: mkdir -p $APP_DIR && cd $APP_DIR && git clone <your-repo-url> . && cp .env.example .env"
-              echo "Or set GitHub secret VPS_APP_DIR to another path."
+            mkdir -p "$APP_DIR"
+            ENV_BACK=""
+            if [ -f "$APP_DIR/.env" ]; then
+              ENV_BACK=$(mktemp)
+              cp "$APP_DIR/.env" "$ENV_BACK"
+            fi
+            tar xzf /tmp/deploy.tgz -C "$APP_DIR"
+            rm -f /tmp/deploy.tgz
+            if [ -n "$ENV_BACK" ]; then
+              cp "$ENV_BACK" "$APP_DIR/.env"
+              rm -f "$ENV_BACK"
+            fi
+            if [ ! -f "$APP_DIR/.env" ]; then
+              echo "Missing $APP_DIR/.env — on VPS run: cp $APP_DIR/.env.example $APP_DIR/.env && edit it"
               exit 1
             fi
             cd "$APP_DIR"
-            if [ ! -d .git ]; then
-              echo "Missing git repo in $APP_DIR — run: git clone <your-repo-url> $APP_DIR"
-              exit 1
-            fi
-            git fetch origin main
-            git reset --hard origin/main
-            if [ ! -f .env ]; then
-              echo "Create .env on the server (cp .env.example .env) before deploying."
-              exit 1
-            fi
             docker compose -f docker-compose.prod.yml build
             docker compose -f docker-compose.prod.yml up -d --remove-orphans
             docker compose -f docker-compose.prod.yml ps
