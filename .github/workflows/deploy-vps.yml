@@ -3,7 +3,9 @@
 # Required secrets: VPS_HOST, VPS_USER, VPS_SSH_KEY (or VPS_SSH_KEY_BASE64)
 # Optional: VPS_PORT, VPS_APP_DIR (full path e.g. /home/deployer/el7-hiq)
 #
-# One-time on VPS: mkdir -p ~/el7-hiq && cp .env.example ~/el7-hiq/.env && edit .env
+# App config (pick one):
+#   DEPLOY_ENV_FILE — entire .env contents (multiline; use: gh secret set DEPLOY_ENV_FILE < .env)
+#   Or set individual secrets: VITE_API_BASE_URL, DATAMAP_CORS_ORIGINS, GOOGLE_API_KEY, GROQ_API_KEY, …
 
 name: Deploy to VPS
 
@@ -21,6 +23,39 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Write .env from GitHub secrets
+        env:
+          DEPLOY_ENV_FILE: ${{ secrets.DEPLOY_ENV_FILE }}
+          VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL }}
+          DATAMAP_CORS_ORIGINS: ${{ secrets.DATAMAP_CORS_ORIGINS }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          LLM_PROVIDER: ${{ secrets.LLM_PROVIDER }}
+          APP_SESSION_AUTH_MODE: ${{ secrets.APP_SESSION_AUTH_MODE }}
+        run: |
+          set -euo pipefail
+          if [ -n "$DEPLOY_ENV_FILE" ]; then
+            echo "$DEPLOY_ENV_FILE" > .env
+            echo "Wrote .env from DEPLOY_ENV_FILE secret"
+          else
+            : > .env
+            append() { [ -n "${2:-}" ] && echo "$1=$2" >> .env; }
+            append VITE_API_BASE_URL "$VITE_API_BASE_URL"
+            append DATAMAP_CORS_ORIGINS "$DATAMAP_CORS_ORIGINS"
+            append GOOGLE_API_KEY "$GOOGLE_API_KEY"
+            append GROQ_API_KEY "$GROQ_API_KEY"
+            append OPENAI_API_KEY "$OPENAI_API_KEY"
+            append LLM_PROVIDER "$LLM_PROVIDER"
+            append APP_SESSION_AUTH_MODE "$APP_SESSION_AUTH_MODE"
+          fi
+          if [ ! -s .env ]; then
+            echo "::error::No deploy env configured. Set secret DEPLOY_ENV_FILE or at least VITE_API_BASE_URL and DATAMAP_CORS_ORIGINS."
+            exit 1
+          fi
+          echo "Production .env keys (names only):"
+          grep -E '^[A-Za-z_][A-Za-z0-9_]*=' .env | cut -d= -f1 | sort -u
 
       - name: Prepare SSH key file
         env:
@@ -58,7 +93,6 @@ jobs:
             --exclude=frontend/node_modules \
             --exclude=backend/.venv \
             --exclude=backend/data \
-            --exclude=.env \
             .
           cp "${RUNNER_TEMP}/deploy.tgz" "${GITHUB_WORKSPACE}/deploy.tgz"
           ls -lh "${GITHUB_WORKSPACE}/deploy.tgz"
@@ -87,21 +121,13 @@ jobs:
             APP_DIR="${{ secrets.VPS_APP_DIR }}"
             if [ -z "$APP_DIR" ]; then APP_DIR="${HOME}/el7-hiq"; fi
             mkdir -p "$APP_DIR"
-            ENV_BACK=""
-            if [ -f "$APP_DIR/.env" ]; then
-              ENV_BACK=$(mktemp)
-              cp "$APP_DIR/.env" "$ENV_BACK"
-            fi
             tar xzf /tmp/deploy.tgz -C "$APP_DIR"
             rm -f /tmp/deploy.tgz
-            if [ -n "$ENV_BACK" ]; then
-              cp "$ENV_BACK" "$APP_DIR/.env"
-              rm -f "$ENV_BACK"
-            fi
             if [ ! -f "$APP_DIR/.env" ]; then
-              echo "Missing $APP_DIR/.env — on VPS run: cp $APP_DIR/.env.example $APP_DIR/.env && edit it"
+              echo "Missing .env after extract — check Write .env step in GitHub Actions."
               exit 1
             fi
+            chmod 600 "$APP_DIR/.env"
             cd "$APP_DIR"
             docker compose -f docker-compose.prod.yml build
             docker compose -f docker-compose.prod.yml up -d --remove-orphans

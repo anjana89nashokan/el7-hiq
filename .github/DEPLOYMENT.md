@@ -8,12 +8,7 @@ sudo apt update && sudo apt install -y git docker.io docker-compose-plugin
 sudo usermod -aG docker deploy   # your deploy user
 
 mkdir -p ~/el7-hiq
-# No git on the VPS — GitHub Actions uploads the code. Only create config once:
-cp .env.example ~/el7-hiq/.env
-nano ~/el7-hiq/.env
-# Edit .env: API keys, and for production:
-#   VITE_API_BASE_URL=https://api.yourdomain.com   (or http://YOUR_IP:8000)
-#   DATAMAP_CORS_ORIGINS=https://yourdomain.com,http://YOUR_IP
+# No git on the VPS — GitHub Actions uploads code + .env from repository secrets.
 ```
 
 Create an SSH key **only for GitHub Actions**:
@@ -37,6 +32,25 @@ Copy the **private** key (`github_actions_deploy`) — you will paste it into Gi
 | `VPS_SSH_KEY` | Full private key file contents |
 | `VPS_PORT` | (optional) `22` |
 | `VPS_APP_DIR` | (optional) default is `~/el7-hiq` on the server |
+
+**Application environment (required for deploy):**
+
+Either one multiline secret:
+
+```bash
+cp .env.example .env
+# edit .env for production, then:
+gh secret set DEPLOY_ENV_FILE < .env
+```
+
+Or set individual secrets:
+
+| Secret | Example |
+|--------|---------|
+| `VITE_API_BASE_URL` | `http://54.x.x.x:8000` |
+| `DATAMAP_CORS_ORIGINS` | `http://54.x.x.x,http://54.x.x.x:80` |
+| `GOOGLE_API_KEY` | (optional) Gemini key |
+| `GROQ_API_KEY` | (optional) |
 
 3. **Actions** tab → ensure workflows are allowed: **Settings** → **Actions** → **General** → *Workflow permissions* → read access is enough for deploy (secrets are used at runtime).
 
