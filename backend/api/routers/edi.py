@@ -7,6 +7,8 @@ import uuid
 from dataclasses import asdict
 from datetime import datetime, timezone
 
+from pathlib import Path
+
 from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
 
 from api.dependencies.auth import CurrentUser, resolve_current_user
@@ -17,10 +19,13 @@ from utils.edi import (
     build_mappings,
     canonical_model,
     entities_in_play,
-    parse,
+    looks_like_x12,
+    parse_documents,
     profile,
     summarise,
 )
+
+EDI_EXTENSIONS = {".edi", ".dat"}
 
 logger = logging.getLogger(__name__)
 
@@ -71,8 +76,24 @@ async def upload_edi(
     for upload in files:
         raw = await upload.read()
         name = upload.filename or "unnamed.edi"
+        ext = Path(name).suffix.lower()
+        if ext not in EDI_EXTENSIONS:
+            file_results.append({
+                "filename": name,
+                "status": "failed",
+                "error": f"unsupported extension {ext!r}; use .edi or .dat",
+            })
+            continue
+        text = _decode(raw)
+        if not looks_like_x12(text):
+            file_results.append({
+                "filename": name,
+                "status": "failed",
+                "error": "file does not look like X12 EDI (expected ISA/GS/ST segment)",
+            })
+            continue
         try:
-            msg = parse(_decode(raw), source_file=name)
+            docs = parse_documents(text, source_file=name)
         except Exception as exc:  # noqa: BLE001
             logger.warning("EDI parse failed for %s: %s", name, exc)
             file_results.append({
@@ -82,16 +103,18 @@ async def upload_edi(
             })
             continue
 
-        messages.append(msg)
-        file_prof = profile([msg])
+        messages.extend(docs)
+        file_prof = profile(docs)
+        types = sorted({d.message_type for d in docs})
         file_results.append({
             "filename": name,
             "status": "parsed",
-            "message_type": msg.message_type,
-            "version": msg.version,
-            "control_id": msg.control_id,
-            "segment_count": len(msg.segments),
-            "segments": msg.segment_names(),
+            "message_type": types[0] if len(types) == 1 else " | ".join(types),
+            "message_types": types,
+            "version": docs[0].version,
+            "control_id": docs[0].control_id,
+            "segment_count": sum(len(d.segments) for d in docs),
+            "segments": docs[0].segment_names(),
             "z_segments": [],
             "profile": {
                 "message_count": file_prof.message_count,
@@ -107,7 +130,7 @@ async def upload_edi(
         raise HTTPException(
             status_code=400,
             detail="no X12 interchanges could be parsed. "
-                   "Check that each file begins with an ISA segment.",
+                   "Use .edi or .dat files with ISA/GS/ST segments (835/837/270/271).",
         )
 
     prof = profile(messages)
@@ -122,7 +145,7 @@ async def upload_edi(
         "summary": {
             "files_received": len(files),
             "messages_parsed": len(messages),
-            "messages_failed": len(files) - len(messages),
+            "messages_failed": sum(1 for f in file_results if f.get("status") == "failed"),
             "message_types": dict(prof.message_types),
             "versions": dict(prof.versions),
             "z_segment_names": [],

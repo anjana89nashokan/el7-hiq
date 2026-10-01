@@ -1,21 +1,20 @@
 # X12 EDI (HIPAA) support
 
-Upload **`.edi`** interchange files for profiling and canonical mapping, using the
-same review and publish workflow as HL7 v2.
+Upload **`.edi`** or healthcare **`.dat`** files (X12 sniff: ISA/GS/ST) for profiling
+and canonical mapping, using the same review workflow as HL7 v2.
 
-## Supported transactions (initial)
+## Supported transactions
 
 | Guide / family | ST01 | Notes |
 | --- | --- | --- |
-| 005010X279 | 270, 271 | Eligibility inquiry/response (sample corpus at repo root) |
-| 835 / 837 | 835, 837 | Envelope + shared segments mapped; extend rules in `mapping_engine.py` |
+| 005010X279 | 270, 271 | Eligibility (`X279-*.edi` at repo root) |
+| 005010X221 | 835 | Remittance — `edi_samples/835/*.dat` |
+| 005010X222/X223/X224 | 837 | Claims — `edi_samples/837/*.dat` |
 
-Companion references (repo root):
+Companion references: `835_compguide.pdf`, `837-health-care-claim-companion-guide 1.pdf`
 
-- `835_compguide.pdf`
-- `837-health-care-claim-companion-guide 1.pdf`
-
-Example 270/271 files: `X279-*.edi`
+Sample corpus: `edi_samples/` (`.dat` and `.edi`). Fixed-width tabular `.dat` files
+are **not** X12 — use the normal upload path.
 
 ## API
 
