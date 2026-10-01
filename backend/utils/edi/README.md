@@ -1,7 +1,9 @@
 # X12 EDI (HIPAA) support
 
-Upload **`.edi`** or healthcare **`.dat`** files (X12 sniff: ISA/GS/ST) for profiling
-and canonical mapping, using the same review workflow as HL7 v2.
+Upload **`.edi`** or healthcare **`.dat`** files (X12 sniff: ISA/GS/ST).
+
+**837 claims** use a companion-guide **decode table** (segment order preserved) — not HL7-style
+profiling/mapping. Other guides (270/271/835) still use canonical mapping review.
 
 ## Supported transactions
 
@@ -18,8 +20,9 @@ are **not** X12 — use the normal upload path.
 
 ## API
 
-- `POST /edi/upload` — parse corpus, profile, propose mappings
-- `GET /edi/canonical-model` — governed target entities for review UI
+- `POST /edi/upload` — parse; 837 → `view_mode: 837_decode` + `edi_decoded`
+- `GET /edi/sessions/{id}/decoded` — 837 segment tables for a saved session
+- `GET /edi/canonical-model` — governed target entities (non-837 review UI)
 
 Sessions are stored in `hl7_sessions` with `format: "x12"` and reuse
 `/hl7/sessions/{id}/mappings` for review.
@@ -30,4 +33,6 @@ Sessions are stored in `hl7_sessions` with `format: "x12"` and reuse
 | --- | --- |
 | `parser.py` | ISA-delimited X12 parsing into segment/element paths (`NM1-9`, …) |
 | `canonical_model.py` | Eligibility / envelope canonical entities |
-| `mapping_engine.py` | Deterministic X12 → canonical rules |
+| `decode_837.py` | 837 segment/element decode (companion guide) |
+| `guides/` | Element names and code sets for 837 |
+| `mapping_engine.py` | Deterministic X12 → canonical rules (non-837) |

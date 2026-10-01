@@ -12,6 +12,8 @@ import {
   type HL7SegmentProfile,
 } from "../end-points/hl7Api";
 import { hl7Theme as t } from "./hl7Theme";
+import EDI837DecodeView from "./EDI837Decode";
+import { getEdiDecoded, type HL7ResultWithEdi } from "../end-points/ediApi";
 
 const ROUTING_ORDER: HL7Routing[] = [
   "AUTO_MAP",
@@ -443,7 +445,9 @@ const HL7Results: React.FC = () => {
   const params = useParams<{ hl7SessionId?: string }>();
 
   const stateResult = (location.state as { result?: HL7Result } | null)?.result ?? null;
-  const [result, setResult] = useState<HL7Result | null>(stateResult);
+  const [result, setResult] = useState<HL7ResultWithEdi | null>(
+    stateResult as HL7ResultWithEdi | null
+  );
   const [loading, setLoading] = useState<boolean>(!stateResult);
   const [error, setError] = useState<string | null>(null);
   const [fhirName, setFhirName] = useState<string | null>(null);
@@ -459,7 +463,20 @@ const HL7Results: React.FC = () => {
     let cancelled = false;
     setLoading(true);
     getHL7Session(params.hl7SessionId)
-      .then((data) => !cancelled && setResult(data))
+      .then(async (data) => {
+        if (cancelled) return;
+        const withEdi = data as HL7ResultWithEdi;
+        if (withEdi.view_mode === "837_decode" && !withEdi.edi_decoded) {
+          try {
+            const decoded = await getEdiDecoded(params.hl7SessionId);
+            setResult({ ...withEdi, edi_decoded: decoded });
+            return;
+          } catch {
+            /* session payload may still include edi_decoded after re-upload */
+          }
+        }
+        setResult(withEdi);
+      })
       .catch((err) =>
         !cancelled && setError(err instanceof Error ? err.message : "Failed to load HL7 session")
       )
@@ -520,6 +537,7 @@ const HL7Results: React.FC = () => {
   const activeFileObj = result?.files.find((f) => f.filename === activeFile);
 
   const isEdi = result?.format === "x12";
+  const is837Decode = result?.view_mode === "837_decode";
 
   if (loading) {
     return (
@@ -538,6 +556,10 @@ const HL7Results: React.FC = () => {
         </div>
       </div>
     );
+  }
+
+  if (is837Decode) {
+    return <EDI837DecodeView result={result} />;
   }
 
   const { summary, profile, files, routing_summary } = result;

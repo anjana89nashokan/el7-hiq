@@ -1,4 +1,4 @@
-"""X12 EDI upload and profiling — same session store and review flow as HL7."""
+"""X12 EDI upload — 837 companion-guide decode view; other guides use mapping review."""
 
 from __future__ import annotations
 
@@ -18,10 +18,13 @@ from db.repositories import AppSessionRepository
 from utils.edi import (
     build_mappings,
     canonical_model,
+    decode_edi_837,
+    decode_edi_837_from_stored,
     entities_in_play,
     looks_like_x12,
     parse_documents,
     profile,
+    serialize_edi_messages,
     summarise,
 )
 
@@ -42,9 +45,9 @@ def _decode(raw: bytes) -> str:
 
 
 def _source_signature(messages: list) -> dict:
-    senders = sorted({m.get("ISA-6") for m in messages if m.get("ISA-6")})
-    receivers = sorted({m.get("ISA-8") for m in messages if m.get("ISA-8")})
-    segments = sorted({name for m in messages for name in m.segment_names()})
+    senders = sorted({m.get("ISA-6") for m in messages if m.get("ISA-6")})  # type: ignore[union-attr]
+    receivers = sorted({m.get("ISA-8") for m in messages if m.get("ISA-8")})  # type: ignore[union-attr]
+    segments = sorted({name for m in messages for name in m.segment_names()})  # type: ignore[union-attr]
     guides = sorted({m.implementation_guide for m in messages if m.implementation_guide})
     return {
         "interchange_senders": senders,
@@ -134,12 +137,33 @@ async def upload_edi(
         )
 
     prof = profile(messages)
-    mappings = build_mappings(messages)
-    entities = entities_in_play(messages)
+    is_837 = all(m.transaction_set == "837" for m in messages)
+    if is_837:
+        mappings = []
+        mapping_summary = {
+            "total": 0,
+            "by_status": {},
+            "standard": 0,
+            "custom": 0,
+            "auto_approvable": 0,
+            "low_confidence": 0,
+        }
+        edi_parsed = serialize_edi_messages(messages)
+        edi_decoded = decode_edi_837(messages)
+        view_mode = "837_decode"
+    else:
+        mappings = build_mappings(messages)
+        mapping_summary = summarise(mappings)
+        edi_parsed = None
+        edi_decoded = None
+        view_mode = "x12_mapping"
+
+    entities = entities_in_play(messages) if not is_837 else []
 
     session_id = uuid.uuid4().hex
     payload = {
         "format": "x12",
+        "view_mode": view_mode,
         "hl7_session_id": session_id,
         "created_at": datetime.now(timezone.utc).isoformat(),
         "summary": {
@@ -165,7 +189,9 @@ async def upload_edi(
         "inference": {},
         "canonical_entities": sorted(entities),
         "source_signature": _source_signature(messages),
-        "mapping_summary": summarise(mappings),
+        "mapping_summary": mapping_summary,
+        "edi_parsed": edi_parsed,
+        "edi_decoded": edi_decoded,
     }
 
     try:
@@ -189,7 +215,8 @@ async def upload_edi(
                 app_session_id=linked_app_session_id,
                 user_key=current_user.user_key,
             )
-            repo.sync_custom_targets_from_mappings(session_id)
+            if mappings:
+                repo.sync_custom_targets_from_mappings(session_id)
             if linked_app_session_id:
                 app_repo.link_hl7_session(
                     session=app_session,
@@ -200,3 +227,30 @@ async def upload_edi(
 
     payload["fhir_available"] = []
     return payload
+
+
+@router.get("/sessions/{hl7_session_id}/decoded")
+async def get_edi_decoded(
+    hl7_session_id: str,
+    current_user: CurrentUser = Depends(resolve_current_user),
+) -> dict:
+    with app_db_session() as db:
+        repo = Hl7Repository(db)
+        try:
+            row = repo.require(hl7_session_id)
+        except LookupError:
+            raise HTTPException(status_code=404, detail="session not found") from None
+        if row.user_key and row.user_key != current_user.user_key:
+            raise HTTPException(status_code=404, detail="session not found")
+        result = dict(row.result_json or {})
+    if result.get("format") != "x12":
+        raise HTTPException(status_code=400, detail="not an X12 EDI session")
+    if result.get("view_mode") != "837_decode":
+        raise HTTPException(status_code=400, detail="session is not an 837 decode view")
+    decoded = result.get("edi_decoded")
+    if decoded:
+        return decoded
+    stored = result.get("edi_parsed") or []
+    if not stored:
+        raise HTTPException(status_code=404, detail="no stored EDI payload for this session")
+    return decode_edi_837_from_stored(stored)
