@@ -3,10 +3,11 @@
 # Required GitHub repository secrets (Settings → Secrets and variables → Actions):
 #   VPS_HOST          — server IP or hostname
 #   VPS_USER          — SSH user (e.g. deploy)
-#   VPS_SSH_KEY       — private SSH key (entire PEM)
+#   VPS_SSH_KEY       — private key (multiline). Prefer CLI: gh secret set VPS_SSH_KEY < ~/.ssh/github_actions_deploy
+#   VPS_SSH_KEY_BASE64 — optional alternative: base64 -i private_key | gh secret set VPS_SSH_KEY_BASE64
 # Optional:
 #   VPS_PORT          — SSH port (default 22)
-#   VPS_APP_DIR       — app path on server (default /opt/el7-hiq)
+#   VPS_APP_DIR       — app path on server (default ~/el7-hiq)
 
 name: Deploy to VPS
 
@@ -23,21 +24,68 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Prepare SSH key file
+        env:
+          SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+          SSH_KEY_B64: ${{ secrets.VPS_SSH_KEY_BASE64 }}
+        run: |
+          set -euo pipefail
+          KEY_FILE="${RUNNER_TEMP}/deploy_key"
+          umask 077
+          if [ -n "$SSH_KEY_B64" ]; then
+            echo "Using VPS_SSH_KEY_BASE64"
+            echo "$SSH_KEY_B64" | base64 -d > "$KEY_FILE"
+          elif [ -n "$SSH_KEY" ]; then
+            echo "Using VPS_SSH_KEY"
+            # Preserve newlines from the secret (do not use a single-line printf).
+            echo "$SSH_KEY" > "$KEY_FILE"
+          else
+            echo "::error::Set VPS_SSH_KEY or VPS_SSH_KEY_BASE64."
+            exit 1
+          fi
+          chmod 600 "$KEY_FILE"
+          if ! head -1 "$KEY_FILE" | grep -q 'BEGIN.*PRIVATE KEY'; then
+            echo "::error::Not a private key file (use ~/.ssh/github_actions_deploy, not .pub)."
+            exit 1
+          fi
+          if ! ssh-keygen -y -f "$KEY_FILE" > "${RUNNER_TEMP}/derived.pub" 2>/dev/null; then
+            echo "::error::Private key is corrupt (newlines lost when pasting into GitHub?). Use: gh secret set VPS_SSH_KEY < ~/.ssh/github_actions_deploy"
+            exit 1
+          fi
+          echo "Key parses OK. Fingerprint (compare to your Mac):"
+          ssh-keygen -lf "$KEY_FILE"
+          echo "KEY_FILE=$KEY_FILE" >> "$GITHUB_ENV"
+
+      - name: Verify GitHub secrets (non-empty)
+        run: |
+          test -n "${{ secrets.VPS_HOST }}" || (echo "::error::VPS_HOST empty" && exit 1)
+          test -n "${{ secrets.VPS_USER }}" || (echo "::error::VPS_USER empty" && exit 1)
+          echo "Will connect to host (check matches 54.x IP) and user length: ${#VPS_USER}"
+        env:
+          VPS_USER: ${{ secrets.VPS_USER }}
+
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
+          key_path: ${{ env.KEY_FILE }}
           port: ${{ secrets.VPS_PORT || 22 }}
+          debug: true
           command_timeout: 45m
           script: |
             set -euo pipefail
             APP_DIR="${{ secrets.VPS_APP_DIR }}"
-            if [ -z "$APP_DIR" ]; then APP_DIR="/opt/el7-hiq"; fi
+            if [ -z "$APP_DIR" ]; then APP_DIR="${HOME}/el7-hiq"; fi
+            if [ ! -d "$APP_DIR" ]; then
+              echo "Directory $APP_DIR does not exist."
+              echo "One-time on VPS: mkdir -p $APP_DIR && cd $APP_DIR && git clone <your-repo-url> . && cp .env.example .env"
+              echo "Or set GitHub secret VPS_APP_DIR to another path."
+              exit 1
+            fi
             cd "$APP_DIR"
             if [ ! -d .git ]; then
-              echo "Missing git repo in $APP_DIR — clone the repository there first."
+              echo "Missing git repo in $APP_DIR — run: git clone <your-repo-url> $APP_DIR"
               exit 1
             fi
             git fetch origin main

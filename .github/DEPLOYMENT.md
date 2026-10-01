@@ -7,10 +7,8 @@
 sudo apt update && sudo apt install -y git docker.io docker-compose-plugin
 sudo usermod -aG docker deploy   # your deploy user
 
-sudo mkdir -p /opt/el7-hiq
-sudo chown deploy:deploy /opt/el7-hiq
-su - deploy
-cd /opt/el7-hiq
+mkdir -p ~/el7-hiq
+cd ~/el7-hiq
 git clone https://github.com/YOUR_ORG/el7-hiq.git .
 cp .env.example .env
 # Edit .env: API keys, and for production:
@@ -38,7 +36,7 @@ Copy the **private** key (`github_actions_deploy`) — you will paste it into Gi
 | `VPS_USER` | `deploy` (or your SSH user) |
 | `VPS_SSH_KEY` | Full private key file contents |
 | `VPS_PORT` | (optional) `22` |
-| `VPS_APP_DIR` | (optional) `/opt/el7-hiq` |
+| `VPS_APP_DIR` | (optional) default is `~/el7-hiq` on the server |
 
 3. **Actions** tab → ensure workflows are allowed: **Settings** → **Actions** → **General** → *Workflow permissions* → read access is enough for deploy (secrets are used at runtime).
 
