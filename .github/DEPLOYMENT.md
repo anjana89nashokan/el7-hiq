@@ -33,24 +33,12 @@ Copy the **private** key (`github_actions_deploy`) — you will paste it into Gi
 | `VPS_PORT` | (optional) `22` |
 | `VPS_APP_DIR` | (optional) default is `~/el7-hiq` on the server |
 
-**Application environment (required for deploy):**
-
-Either one multiline secret:
+**Application environment (required):**
 
 ```bash
-cp .env.example .env
-# edit .env for production, then:
-gh secret set DEPLOY_ENV_FILE < .env
+gh secret set VITE_API_BASE_URL --body "https://sttm-api.usthealthiq.com"
+gh secret set DATAMAP_CORS_ORIGINS --body "https://sttm.usthealthiq.com"
 ```
-
-Or set individual secrets:
-
-| Secret | Example |
-|--------|---------|
-| `VITE_API_BASE_URL` | `http://54.x.x.x:8000` |
-| `DATAMAP_CORS_ORIGINS` | `http://54.x.x.x,http://54.x.x.x:80` |
-| `GOOGLE_API_KEY` | (optional) Gemini key |
-| `GROQ_API_KEY` | (optional) |
 
 3. **Actions** tab → ensure workflows are allowed: **Settings** → **Actions** → **General** → *Workflow permissions* → read access is enough for deploy (secrets are used at runtime).
 
