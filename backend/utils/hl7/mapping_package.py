@@ -23,7 +23,7 @@ from datetime import datetime, timezone
 from db.engine import app_db_session
 from db.hl7_repository import Hl7Repository
 
-from . import canonical_model as cm
+from . import canonical_model as _hl7_cm
 from .mapping_engine import (
     APPROVED,
     DEFERRED,
@@ -45,6 +45,16 @@ ACTION_STATUS = {
 
 class ReviewError(Exception):
     """A review or publish action that violates a governance rule."""
+
+
+def _cm_for_session(session_id: str):
+    with app_db_session() as db:
+        result = Hl7Repository(db).load_result(session_id)
+    if (result or {}).get("format") == "x12":
+        from utils.edi import canonical_model as edi_cm
+
+        return edi_cm
+    return _hl7_cm
 
 
 def _now() -> str:
@@ -159,6 +169,7 @@ def apply_review(
             if action == "edit":
                 if not target_path:
                     raise ReviewError("an edit must supply a target path")
+                cm = _cm_for_session(session_id)
                 if not cm.is_governed(target_path):
                     raise ReviewError(
                         f"{target_path!r} is not an attribute of the governed canonical "
@@ -345,6 +356,7 @@ def bulk_approve_mappings(
 def readiness(session_id: str, entities: set[str]) -> dict:
     sync_standard_auto_approval(session_id)
     mappings = load_mappings(session_id)
+    cm = _cm_for_session(session_id)
     approved = [m for m in mappings if m["status"] == APPROVED]
     approved_targets = {m["target_path"] for m in approved if m.get("target_path")}
     mapped_targets = {m["target_path"] for m in mappings if m.get("target_path")}
@@ -395,7 +407,8 @@ def readiness(session_id: str, entities: set[str]) -> dict:
     }
 
 
-def _validation_rules(approved: list[dict]) -> list[dict]:
+def _validation_rules(session_id: str, approved: list[dict]) -> list[dict]:
+    cm = _cm_for_session(session_id)
     rules: list[dict] = []
     for mapping in approved:
         target = mapping.get("target_path") or ""
@@ -477,7 +490,7 @@ def publish(
             }
             for m in approved
         ],
-        "validations": _validation_rules(approved),
+        "validations": _validation_rules(session_id, approved),
         "warnings_at_publish": state["warnings"],
         "custom_targets": sync_custom_targets_from_mappings(session_id),
     }

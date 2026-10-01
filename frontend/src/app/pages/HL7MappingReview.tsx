@@ -5,6 +5,7 @@ import {
   bulkApproveHL7Mappings,
   downloadHL7Mappings,
   getCanonicalModel,
+  getHL7Session,
   getHL7Mappings,
   getHL7Version,
   publishHL7Package,
@@ -18,6 +19,7 @@ import {
   type ReviewAction,
   type SavedCustomTarget,
 } from "../end-points/hl7Api";
+import { getEdiCanonicalModel } from "../end-points/ediApi";
 import { hl7Theme as t, PAGE_SIZE_OPTIONS, type PageSizeOption } from "./hl7Theme";
 
 const STATUS_STYLE: Record<MappingStatus, { chip: string; label: string }> = {
@@ -1312,10 +1314,14 @@ const HL7MappingReview: React.FC = () => {
     if (!hl7SessionId) return;
     setLoading(true);
     try {
-      const [mappings, model] = await Promise.all([
+      const [mappings, session] = await Promise.all([
         getHL7Mappings(hl7SessionId),
-        getCanonicalModel(),
+        getHL7Session(hl7SessionId),
       ]);
+      const model =
+        session.format === "x12"
+          ? await getEdiCanonicalModel()
+          : await getCanonicalModel();
       setData(mappings);
       setEntities(model);
       setError(null);

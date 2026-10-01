@@ -11,6 +11,7 @@ import { TOOLTIP_CONTENT } from "../constants/tooltipContent";
 import { uploadIdentifierReducer, initialState } from "../state/reducers/uploadIdentifierReducers";
 import { uploadFilesApi, saveSelectedDD, processFiles } from "../end-points/uploadIdentifier";
 import { isHL7File, uploadHL7Files } from "../end-points/hl7Api";
+import { isEDIFile, uploadEDIFiles } from "../end-points/ediApi";
 import { fetchSessions } from "../end-points/sessionsApi";
 import {
   canResumeProfilingRunFromSummary,
@@ -289,6 +290,40 @@ export default function UploadIdentifier() {
   // === HL7 branch ===
   // HL7 messages are trees, not rows, so they bypass the tabular pipeline
   // entirely: no DataFrame, no warehouse table, no column profiling.
+  const startEDIIngestion = useCallback(async () => {
+    setHl7Busy(true);
+    setValidationErrors([]);
+    try {
+      let appSessionId = getCurrentAppSessionId();
+      if (!appSessionId) {
+        const created = await createAppSession(undefined, "sess");
+        appSessionId = created.session.id;
+        emitSessionChanged();
+      }
+      const result = await uploadEDIFiles(files, appSessionId);
+      emitSessionChanged();
+      navigate(sttmNav(`/hl7/${result.hl7_session_id}`), { state: { result } });
+    } catch (error: unknown) {
+      let message = "EDI ingestion failed";
+      if (error instanceof Error && error.message) {
+        message = error.message;
+      } else if (
+        typeof error === "object" &&
+        error !== null &&
+        "response" in error &&
+        typeof (error as { response?: { data?: { detail?: string } } }).response?.data?.detail ===
+          "string"
+      ) {
+        message = (error as { response: { data: { detail: string } } }).response.data.detail;
+      } else if (!navigator.onLine) {
+        message = "Network error — is the backend running?";
+      }
+      setValidationErrors([`EDI ingestion failed: ${message}`]);
+    } finally {
+      setHl7Busy(false);
+    }
+  }, [files, navigate]);
+
   const startHL7Ingestion = useCallback(async () => {
     setHl7Busy(true);
     setValidationErrors([]);
@@ -330,19 +365,31 @@ export default function UploadIdentifier() {
     }
 
     const hl7Count = files.filter(isHL7File).length;
-    if (hl7Count === files.length) {
+    const ediCount = files.filter(isEDIFile).length;
+    const interchangeCount = hl7Count + ediCount;
+    if (interchangeCount === files.length) {
+      if (hl7Count > 0 && ediCount > 0) {
+        setValidationErrors([
+          "Upload HL7 (.hl7) and X12 EDI (.edi) files in separate batches.",
+        ]);
+        return;
+      }
+      if (ediCount === files.length) {
+        void startEDIIngestion();
+        return;
+      }
       void startHL7Ingestion();
       return;
     }
-    if (hl7Count > 0) {
+    if (interchangeCount > 0) {
       setValidationErrors([
-        "HL7 files use a separate pipeline and cannot be mixed with tabular files. Upload them on their own.",
+        "HL7 and EDI files use a separate pipeline and cannot be mixed with tabular files. Upload them on their own.",
       ]);
       return;
     }
 
     setShowAdditionalInput(true);
-  }, [files, startHL7Ingestion]);
+  }, [files, startHL7Ingestion, startEDIIngestion]);
 
   const handleDataDictionaryFilesChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -730,11 +777,18 @@ export default function UploadIdentifier() {
                     ".log",
                     ".data",
                     ".hl7",
+                    ".edi",
                   ]}
                   maxSize={100 * 1024 * 1024}
                   maxFiles={25}
                   profilingInProgress={uploadState.profilingInProgress || hl7Busy}
-                  uploadButtonLabel={hl7Busy ? "Processing HL7…" : undefined}
+                  uploadButtonLabel={
+                    hl7Busy
+                      ? files.every(isEDIFile)
+                        ? "Processing EDI…"
+                        : "Processing HL7…"
+                      : undefined
+                  }
                 />
 
                 {validationErrors.length > 0 && (

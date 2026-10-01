@@ -55,7 +55,8 @@ export default function FileUploader({
     ".out",
     ".log",
     ".data",
-    ".hl7"
+    ".hl7",
+    ".edi"
   ];
   const fileTypes = allowedTypes || defaultAllowedTypes;
   const fileSizeLimit = maxSize || 100 * 1024 * 1024; // 100MB
@@ -175,7 +176,7 @@ export default function FileUploader({
             }
           </span>
           <p className="text-font-dark/50 text-[10px] mt-1">
-            CSV, TSV, JSON, XML, Excel, ZIP, DAT, Fixed-Width, and HL7 (.hl7) message files
+            CSV, TSV, JSON, XML, Excel, ZIP, DAT, Fixed-Width, HL7 (.hl7), and X12 EDI (.edi)
           </p>
           <p className="text-[10px] text-font-dark/50 mt-2">
             Maximum file size {fileSizeLimit > 1024 * 1024 * 1024 ? (fileSizeLimit / (1024 * 1024 * 1024)).toFixed(0) + 'GB' : (fileSizeLimit / (1024 * 1024)).toFixed(0) + 'MB'}

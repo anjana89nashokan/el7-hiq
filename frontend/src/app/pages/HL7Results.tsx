@@ -519,17 +519,23 @@ const HL7Results: React.FC = () => {
 
   const activeFileObj = result?.files.find((f) => f.filename === activeFile);
 
+  const isEdi = result?.format === "x12";
+
   if (loading) {
     return (
       <div className={`${t.page} flex items-center justify-center`}>
-        <div className="font-bold text-[#4A4A4A]">Loading HL7 results…</div>
+        <div className="font-bold text-[#4A4A4A]">
+          {isEdi ? "Loading EDI results…" : "Loading HL7 results…"}
+        </div>
       </div>
     );
   }
   if (error || !result) {
     return (
       <div className={`${t.page} flex items-center justify-center`}>
-        <div className="text-[#212121] font-bold">{error ?? "No HL7 results available."}</div>
+        <div className="text-[#212121] font-bold">
+          {error ?? (isEdi ? "No EDI results available." : "No HL7 results available.")}
+        </div>
       </div>
     );
   }
@@ -541,12 +547,17 @@ const HL7Results: React.FC = () => {
       <main className={t.container}>
         <div className="flex items-start justify-between mb-8 gap-4">
           <div>
-            <div className={t.eyebrow}>HL7 v2 ingestion</div>
-            <h2 className={t.heading}>Message profile by file</h2>
+            <div className={t.eyebrow}>
+              {isEdi ? "X12 EDI (HIPAA)" : "HL7 v2 ingestion"}
+            </div>
+            <h2 className={t.heading}>
+              {isEdi ? "Transaction profile by file" : "Message profile by file"}
+            </h2>
             <div className={t.accentRule} />
             <p className={t.subtext}>
-              One file at a time. Filter by segment, expand rows on demand — scrolling stays inside
-              each panel.
+              {isEdi
+                ? "270/271 eligibility and related X12 segments. Review proposed canonical mappings next."
+                : "One file at a time. Filter by segment, expand rows on demand — scrolling stays inside each panel."}
             </p>
           </div>
           <div className="flex items-center gap-2 shrink-0">
@@ -558,7 +569,7 @@ const HL7Results: React.FC = () => {
               onClick={() => navigate(sttmNav(`/hl7/${result.hl7_session_id}/review`))}
               className={t.btnPrimary}
             >
-              Continue to Z-segment review
+              {isEdi ? "Continue to mapping review" : "Continue to Z-segment review"}
               {result.mapping_summary
                 ? ` (${result.mapping_summary.custom ?? result.mapping_summary.total})`
                 : ""}

@@ -33,7 +33,7 @@ from api.routers import evidencehub
 from api.routers import graphs
 from api.routers import mapping, indemap, dart_suggestion
 from api.routers import settings as settings_router
-from api.routers import hl7
+from api.routers import edi, hl7
 from datetime import datetime
 from fastapi.staticfiles import StaticFiles
 from pathlib import Path
@@ -134,3 +134,4 @@ app.include_router(extracts.router, prefix="/extracts", tags=["extracts"])
 app.include_router(quality.router, prefix="/quality", tags=["quality"])
 app.include_router(settings_router.router, prefix="/settings", tags=["settings"])
 app.include_router(hl7.router, prefix="/hl7", tags=["hl7"])
+app.include_router(edi.router, prefix="/edi", tags=["edi"])
