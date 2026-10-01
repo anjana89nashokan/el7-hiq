@@ -1314,10 +1314,12 @@ const HL7MappingReview: React.FC = () => {
     if (!hl7SessionId) return;
     setLoading(true);
     try {
-      const [mappings, session] = await Promise.all([
-        getHL7Mappings(hl7SessionId),
-        getHL7Session(hl7SessionId),
-      ]);
+      const session = await getHL7Session(hl7SessionId);
+      if ((session as { view_mode?: string }).view_mode === "837_decode") {
+        navigate(sttmNav(`/hl7/${hl7SessionId}`), { replace: true });
+        return;
+      }
+      const mappings = await getHL7Mappings(hl7SessionId);
       const model =
         session.format === "x12"
           ? await getEdiCanonicalModel()
@@ -1330,7 +1332,7 @@ const HL7MappingReview: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  }, [hl7SessionId]);
+  }, [hl7SessionId, navigate]);
 
   useEffect(() => {
     void load();

@@ -42,10 +42,54 @@ export const uploadEDIFiles = async (
   }
 
   const response = await axiosInstance.post("/edi/upload", formData);
-  return response.data as HL7Result & { format?: string };
+  return response.data as HL7ResultWithEdi & { format?: string };
 };
 
 export const getEdiCanonicalModel = async (): Promise<CanonicalEntity[]> => {
   const response = await axiosInstance.get("/edi/canonical-model");
   return response.data.entities as CanonicalEntity[];
+};
+
+export interface EDI837DecodedElement {
+  element_id: string;
+  element_name: string;
+  value: string;
+  meaning: string;
+}
+
+export interface EDI837DecodedSegment {
+  sequence: number;
+  segment_id: string;
+  segment_name: string;
+  elements: EDI837DecodedElement[];
+}
+
+export interface EDI837DecodedMessage {
+  source_file: string;
+  transaction_set: string;
+  implementation_guide: string;
+  guide_reference: string;
+  version: string;
+  control_id: string;
+  segments: EDI837DecodedSegment[];
+}
+
+export interface EDI837DecodeFile {
+  filename: string;
+  messages: EDI837DecodedMessage[];
+}
+
+export interface EDI837DecodePayload {
+  guide_reference: string;
+  files: EDI837DecodeFile[];
+}
+
+export type HL7ResultWithEdi = HL7Result & {
+  view_mode?: "837_decode" | "x12_mapping";
+  edi_decoded?: EDI837DecodePayload;
+};
+
+export const getEdiDecoded = async (hl7SessionId: string): Promise<EDI837DecodePayload> => {
+  const response = await axiosInstance.get(`/edi/sessions/${hl7SessionId}/decoded`);
+  return response.data as EDI837DecodePayload;
 };
