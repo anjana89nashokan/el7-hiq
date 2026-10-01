@@ -58,6 +58,7 @@ export interface HL7FileResult {
 }
 
 export interface HL7Result {
+  format?: "x12" | "hl7";
   hl7_session_id: string;
   created_at: string;
   summary: {

@@ -12,7 +12,8 @@ const MAX_FILE_SIZE = 100 * 1024 * 1024; // 100MB
 const ALLOWED_EXTENSIONS = [
   '.csv', '.json', '.xml', '.xlsx', '.xls', '.psv', '.txt', '.zip',
   '.dat', '.fwf', '.asc', '.prn', '.out', '.log', '.data', '.tsv', '.ced',
-  '.hl7'
+  '.hl7',
+  '.edi'
 ];
 
 // Helper Functions

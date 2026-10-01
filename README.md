@@ -24,6 +24,8 @@ chmod +x start.sh
 
 Open **http://127.0.0.1:5173** — no login required.
 
+Upload **`.hl7`** or **`.edi`** (HIPAA X12, e.g. 270/271 eligibility) on the Upload page for profiling and canonical mapping review (same flow as HL7).
+
 API health: **http://127.0.0.1:8000/health**
 
 ## Docker
