@@ -175,8 +175,9 @@ export default function FileUploader({
               : `Drag and Drop or Upload ${multiple ? "File(s)" : "File"}`
             }
           </span>
+          {/* Tabular: CSV, TSV, JSON, XML, Excel, ZIP, fixed-width/tabular DAT. Interchange: HL7 (.hl7); X12 EDI (.edi and healthcare .dat with ISA/ST). */}
           <p className="text-font-dark/50 text-[10px] mt-1">
-            CSV, TSV, JSON, XML, Excel, ZIP, DAT, Fixed-Width, HL7 (.hl7), and X12 EDI (.edi)
+            CSV, TSV, JSON, XML, Excel, ZIP, DAT, Fixed-Width, HL7 (.hl7), and X12 EDI (.edi, .dat)
           </p>
           <p className="text-[10px] text-font-dark/50 mt-2">
             Maximum file size {fileSizeLimit > 1024 * 1024 * 1024 ? (fileSizeLimit / (1024 * 1024 * 1024)).toFixed(0) + 'GB' : (fileSizeLimit / (1024 * 1024)).toFixed(0) + 'MB'}

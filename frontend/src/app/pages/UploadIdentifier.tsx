@@ -11,7 +11,7 @@ import { TOOLTIP_CONTENT } from "../constants/tooltipContent";
 import { uploadIdentifierReducer, initialState } from "../state/reducers/uploadIdentifierReducers";
 import { uploadFilesApi, saveSelectedDD, processFiles } from "../end-points/uploadIdentifier";
 import { isHL7File, uploadHL7Files } from "../end-points/hl7Api";
-import { isEDIFile, uploadEDIFiles } from "../end-points/ediApi";
+import { isEDIFileByName, sniffEDIFile, uploadEDIFiles } from "../end-points/ediApi";
 import { fetchSessions } from "../end-points/sessionsApi";
 import {
   canResumeProfilingRunFromSummary,
@@ -358,19 +358,29 @@ export default function UploadIdentifier() {
     }
   }, [files, navigate]);
 
-  const handleUploadFiles = useCallback(() => {
+  const handleUploadFiles = useCallback(async () => {
     if (files.length === 0) {
       setValidationErrors(["Please upload at least one file before proceeding."]);
       return;
     }
 
     const hl7Count = files.filter(isHL7File).length;
-    const ediCount = files.filter(isEDIFile).length;
+    const ediCandidates = files.filter(isEDIFileByName);
+    const ediSniff = await Promise.all(ediCandidates.map((f) => sniffEDIFile(f)));
+    const ediCount = ediSniff.filter(Boolean).length;
+    const rejectedDat = ediCandidates.filter((_, i) => !ediSniff[i]);
+    if (rejectedDat.length > 0) {
+      setValidationErrors([
+        `These files are not X12 EDI (835/837/270/271): ${rejectedDat.map((f) => f.name).join(", ")}. Use the tabular upload for fixed-width .dat files.`,
+      ]);
+      return;
+    }
+
     const interchangeCount = hl7Count + ediCount;
     if (interchangeCount === files.length) {
       if (hl7Count > 0 && ediCount > 0) {
         setValidationErrors([
-          "Upload HL7 (.hl7) and X12 EDI (.edi) files in separate batches.",
+          "Upload HL7 (.hl7) and X12 EDI (.edi/.dat) files in separate batches.",
         ]);
         return;
       }
@@ -784,7 +794,9 @@ export default function UploadIdentifier() {
                   profilingInProgress={uploadState.profilingInProgress || hl7Busy}
                   uploadButtonLabel={
                     hl7Busy
-                      ? files.every(isEDIFile)
+                      ? files.every(
+                          (f) => isEDIFileByName(f) && !isHL7File(f)
+                        )
                         ? "Processing EDI…"
                         : "Processing HL7…"
                       : undefined

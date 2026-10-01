@@ -1,8 +1,8 @@
 """X12 EDI parser for healthcare transactions (270/271, 835, 837, …).
 
-Supports delimited interchange files (``.edi``) such as HIPAA 005010X279
-eligibility (270/271). Element and segment delimiters are read from the ISA
-segment per X12.601.
+Supports ``.edi`` and ``.dat`` interchanges (HIPAA 005010). Delimiters are read
+from the ISA segment when present; transaction-only excerpts (companion guide
+samples) use X12 defaults (* : ^ ~).
 """
 
 from __future__ import annotations
@@ -12,9 +12,10 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 PATH_RE = re.compile(r"^([A-Z0-9]{2,3})-(\d+)(?:\.(\d+))?(?:\.(\d+))?$")
+ISA_SPLIT_RE = re.compile(r"(?=ISA)")
 
-# Segments that are envelope or structural counters, not clinical payload.
 STRUCTURAL_SEGMENTS = frozenset({"ISA", "IEA", "GS", "GE", "ST", "SE"})
+HEALTHCARE_TXN_RE = re.compile(r"^ST\*(835|837|270|271)\*")
 
 
 @dataclass
@@ -51,8 +52,6 @@ class Segment:
 
 @dataclass
 class InterchangeMessage:
-    """X12 functional group / transaction set shaped like HL7 ``Message`` for profiling."""
-
     segments: list[Segment]
     delimiters: Delimiters
     source_file: str = ""
@@ -60,12 +59,15 @@ class InterchangeMessage:
 
     @property
     def message_type(self) -> str:
-        """ST01 and implementation guide, e.g. ``270^005010X279A1``."""
         st = self.first("ST")
         if st is None or not st.fields:
             return "UNKNOWN"
         txn = (st.fields[0] or "").strip()
         guide = (st.fields[2] if len(st.fields) > 2 else "").strip()
+        if not guide:
+            gs = self.first("GS")
+            if gs is not None and len(gs.fields) >= 8:
+                guide = (gs.fields[7] or "").strip()
         return f"{txn}^{guide}" if guide else txn
 
     @property
@@ -119,66 +121,102 @@ class InterchangeMessage:
         return value.strip()
 
 
+def looks_like_x12(text: str) -> bool:
+    """True for HIPAA/X12 payloads (``.edi`` / healthcare ``.dat``)."""
+    sample = text.strip().lstrip("\ufeff")[:4096]
+    if not sample:
+        return False
+    if sample.startswith("ISA"):
+        return True
+    if sample.startswith("GS*"):
+        return True
+    if HEALTHCARE_TXN_RE.match(sample):
+        return True
+    if re.search(r"(?:^|~|\n)ST\*(835|837|270|271)\*", sample):
+        return True
+    return False
+
+
 def _split_segments(text: str, term: str) -> list[str]:
     parts = text.split(term)
     return [p.strip() for p in parts if p.strip()]
 
 
-def parse(text: str, source_file: str = "") -> InterchangeMessage:
-    text = text.strip().lstrip("\ufeff")
-    if not text:
-        raise ValueError("empty interchange")
-
-    # Single-line files use ~; some drops also break on newlines between segments.
-    if text.startswith("ISA") and "~" in text[:120]:
-        delims = Delimiters.from_isa(text.split("~", 1)[0] + "~")
-        normalized = text.replace("\r\n", "").replace("\n", "").replace("\r", "")
-        raw_segments = _split_segments(normalized, delims.segment)
-    else:
-        lines = [ln.strip() for ln in re.split(r"\r\n|\r|\n", text) if ln.strip()]
-        if not lines or not lines[0].startswith("ISA"):
-            raise ValueError("interchange does not begin with ISA")
-        delims = Delimiters.from_isa(lines[0])
-        raw_segments = []
-        for line in lines:
-            raw_segments.extend(_split_segments(line.replace("\n", ""), delims.segment))
-
-    if not raw_segments or raw_segments[0][:3] != "ISA":
-        raise ValueError("no ISA segment found")
-
+def _segments_from_text(text: str, delims: Delimiters) -> list[Segment]:
+    normalized = text.replace("\r\n", "").replace("\n", "").replace("\r", "")
+    raw_segments = _split_segments(normalized, delims.segment)
     segments: list[Segment] = []
-    warnings: list[str] = []
     for i, raw in enumerate(raw_segments):
         parts = raw.split(delims.element)
         name = parts[0].strip()
         if not name:
             continue
-        segments.append(
-            Segment(
-                name=name,
-                fields=parts[1:],
-                index=i,
-                is_z=False,
-            )
-        )
+        segments.append(Segment(name=name, fields=parts[1:], index=i, is_z=False))
+    return segments
 
+
+def _build_message(segments: list[Segment], delims: Delimiters, source_file: str) -> InterchangeMessage:
+    warnings: list[str] = []
     if not any(s.name == "ST" for s in segments):
         warnings.append("no ST (transaction set) segment found")
-
     msg = InterchangeMessage(segments=segments, delimiters=delims, source_file=source_file)
     msg._warnings = warnings
     return msg
 
 
-def parse_file(path: str | Path) -> InterchangeMessage:
-    p = Path(path)
-    raw = p.read_bytes()
+def parse(text: str, source_file: str = "") -> InterchangeMessage:
+    docs = parse_documents(text, source_file=source_file)
+    if not docs:
+        raise ValueError("no X12 content found")
+    return docs[0]
+
+
+def parse_documents(text: str, source_file: str = "") -> list[InterchangeMessage]:
+    text = text.strip().lstrip("\ufeff")
+    if not text:
+        raise ValueError("empty interchange")
+    if not looks_like_x12(text):
+        raise ValueError("content does not look like X12 EDI (expected ISA/GS/ST segment)")
+
+    normalized = text.replace("\r\n", "\n").replace("\r", "\n")
+    if "ISA" in normalized[:20]:
+        chunks = [c for c in ISA_SPLIT_RE.split(normalized) if c.strip().startswith("ISA")]
+        if not chunks:
+            chunks = [normalized]
+    else:
+        chunks = [normalized]
+
+    messages: list[InterchangeMessage] = []
+    for chunk in chunks:
+        chunk = chunk.strip()
+        if chunk.startswith("ISA"):
+            first_seg = chunk.split("~", 1)[0] + "~"
+            delims = Delimiters.from_isa(first_seg)
+        else:
+            delims = Delimiters()
+        segments = _segments_from_text(chunk, delims)
+        if segments:
+            messages.append(_build_message(segments, delims, source_file))
+    return messages
+
+
+def _read_text(path: Path) -> str:
+    raw = path.read_bytes()
     for encoding in ("utf-8", "latin-1"):
         try:
-            text = raw.decode(encoding)
-            break
+            return raw.decode(encoding)
         except UnicodeDecodeError:
             continue
-    else:
-        text = raw.decode("utf-8", errors="replace")
-    return parse(text, source_file=p.name)
+    return raw.decode("utf-8", errors="replace")
+
+
+def parse_file(path: str | Path) -> InterchangeMessage:
+    docs = parse_documents_file(path)
+    if not docs:
+        raise ValueError(f"no X12 messages in {path}")
+    return docs[0]
+
+
+def parse_documents_file(path: str | Path) -> list[InterchangeMessage]:
+    p = Path(path)
+    return parse_documents(_read_text(p), source_file=p.name)

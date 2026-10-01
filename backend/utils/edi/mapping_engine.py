@@ -18,8 +18,9 @@ from utils.hl7.mapping_engine import (
 from . import canonical_model as cm
 
 _X279 = "HIPAA 005010X279 eligibility companion guide."
+_X835 = "HIPAA 005010X221 remittance advice companion guide (835)."
+_X837 = "HIPAA 005010X222/X223/X224 health care claim companion guide (837)."
 _X12 = "ANSI X12 segment definition."
-_PROFILE = "Companion guide mapping profile (835/837/270/271)."
 
 STRUCTURAL_PATHS = {
     "ISA-1", "ISA-2", "ISA-3", "ISA-4", "ISA-5", "ISA-7", "ISA-9", "ISA-10",
@@ -85,6 +86,39 @@ RULES: tuple[StandardRule, ...] = (
     StandardRule("AAA-1", "EligibilityResponse.validRequestIndicator", "direct", 0.93, _X279, ("271",)),
     StandardRule("AAA-3", "EligibilityResponse.rejectReasonCode", "direct", 0.95, _X279, ("271",)),
     StandardRule("AAA-4", "EligibilityResponse.followUpActionCode", "direct", 0.92, _X279, ("271",)),
+    # 835 remittance (companion guide samples)
+    StandardRule("BPR-1", "RemittancePayment.paymentMethod", "direct", 0.94, _X835, ("835",)),
+    StandardRule("BPR-2", "RemittancePayment.paymentAmount", "decimal", 0.96, _X835, ("835",)),
+    StandardRule("BPR-3", "RemittancePayment.paymentFormat", "direct", 0.90, _X835, ("835",)),
+    StandardRule("BPR-16", "RemittancePayment.paymentDate", "x12_date", 0.92, _X835, ("835",)),
+    StandardRule("TRN-2", "RemittancePayment.traceNumber", "direct", 0.93, _X835, ("835",)),
+    StandardRule("DTM-2", "RemittancePayment.productionDate", "x12_date", 0.90, _X835, ("835",)),
+    StandardRule("CLP-1", "ClaimPayment.patientControlNumber", "direct", 0.96, _X835, ("835",)),
+    StandardRule("CLP-2", "ClaimPayment.claimStatus", "direct", 0.95, _X835, ("835",)),
+    StandardRule("CLP-3", "ClaimPayment.chargeAmount", "decimal", 0.96, _X835, ("835",)),
+    StandardRule("CLP-4", "ClaimPayment.paymentAmount", "decimal", 0.96, _X835, ("835",)),
+    StandardRule("CLP-5", "ClaimPayment.patientResponsibility", "decimal", 0.92, _X835, ("835",)),
+    StandardRule("CLP-7", "ClaimPayment.payerClaimNumber", "direct", 0.94, _X835, ("835",)),
+    StandardRule("SVC-1", "ServicePayment.procedureCode", "direct", 0.94, _X835, ("835",)),
+    StandardRule("SVC-2", "ServicePayment.chargeAmount", "decimal", 0.95, _X835, ("835",)),
+    StandardRule("SVC-3", "ServicePayment.paymentAmount", "decimal", 0.95, _X835, ("835",)),
+    StandardRule("N3-1", "Address.addressLine", "direct", 0.90, _X835, ("835", "837")),
+    StandardRule("N4-1", "Address.city", "direct", 0.90, _X835, ("835", "837")),
+    StandardRule("N4-2", "Address.state", "direct", 0.90, _X835, ("835", "837")),
+    StandardRule("N4-3", "Address.postalCode", "direct", 0.90, _X835, ("835", "837")),
+    # 837 claim
+    StandardRule("CLM-1", "Claim.patientControlNumber", "direct", 0.98, _X837, ("837",)),
+    StandardRule("CLM-2", "Claim.totalCharge", "decimal", 0.96, _X837, ("837",)),
+    StandardRule("CLM-5", "Claim.placeOfService", "component[1]", 0.92, _X837, ("837",)),
+    StandardRule("HI-1", "Claim.diagnosisCodes", "direct", 0.94, _X837, ("837",)),
+    StandardRule("SV1-1", "ServiceLine.procedureCode", "direct", 0.95, _X837, ("837",)),
+    StandardRule("SV1-2", "ServiceLine.chargeAmount", "decimal", 0.96, _X837, ("837",)),
+    StandardRule("SV1-3", "ServiceLine.unitBasis", "direct", 0.90, _X837, ("837",)),
+    StandardRule("SV1-4", "ServiceLine.serviceUnits", "decimal", 0.92, _X837, ("837",)),
+    StandardRule("SV2-1", "ServiceLine.procedureCode", "direct", 0.93, _X837, ("837",)),
+    StandardRule("SV2-2", "ServiceLine.chargeAmount", "decimal", 0.95, _X837, ("837",)),
+    StandardRule("PRV-1", "Party.entityType", "direct", 0.88, _X837, ("837",)),
+    StandardRule("REF-2", "Party.identifier", "direct", 0.85, _X837, ("835", "837")),
 )
 
 RULES_BY_PATH: dict[str, list[StandardRule]] = {}
@@ -233,8 +267,10 @@ def entities_in_play(messages: list) -> set[str]:
             entities |= {"EligibilityInquiry", "Subscriber"}
         elif txn == "271":
             entities |= {"EligibilityResponse", "Subscriber"}
-        elif txn in {"835", "837"}:
-            entities.add("ClaimRemittance")
+        elif txn == "835":
+            entities |= {"RemittancePayment", "ClaimPayment", "ServicePayment", "Address"}
+        elif txn == "837":
+            entities |= {"Claim", "ServiceLine", "Address"}
     return entities
 
 

@@ -133,14 +133,97 @@ ELIGIBILITY_RESPONSE = CanonicalEntity(
     ),
 )
 
+ADDRESS = CanonicalEntity(
+    name="Address",
+    domain="N3/N4 location",
+    description="Street and geographic address on claims and remittance.",
+    attributes=(
+        _attr("addressLine", "string", "0..1", "N301 address line."),
+        _attr("city", "string", "0..1", "N401 city."),
+        _attr("state", "code", "0..1", "N402 state."),
+        _attr("postalCode", "string", "0..1", "N403 postal code."),
+    ),
+)
+
+REMITTANCE_PAYMENT = CanonicalEntity(
+    name="RemittancePayment",
+    domain="835 remittance",
+    description="Financial payment and remittance header (005010X221).",
+    attributes=(
+        _attr("paymentMethod", "code", "0..1", "BPR01 payment method code."),
+        _attr("paymentAmount", "decimal", "0..1", "BPR02 monetary amount."),
+        _attr("paymentFormat", "code", "0..1", "BPR03 credit/debit flag."),
+        _attr("paymentDate", "date", "0..1", "BPR16 payment date."),
+        _attr("traceNumber", "string", "0..1", "TRN02 trace number."),
+        _attr("productionDate", "date", "0..1", "DTM03 production date (405)."),
+    ),
+)
+
+CLAIM_PAYMENT = CanonicalEntity(
+    name="ClaimPayment",
+    domain="835 claim payment",
+    description="Claim-level payment information (CLP loop).",
+    attributes=(
+        _attr("patientControlNumber", "string", "0..1", "CLP01 patient control number."),
+        _attr("claimStatus", "code", "0..1", "CLP02 claim status code."),
+        _attr("chargeAmount", "decimal", "0..1", "CLP03 total claim charge."),
+        _attr("paymentAmount", "decimal", "0..1", "CLP04 claim payment amount."),
+        _attr("patientResponsibility", "decimal", "0..1", "CLP05 patient responsibility."),
+        _attr("payerClaimNumber", "string", "0..1", "CLP07 payer claim control number."),
+    ),
+)
+
+SERVICE_PAYMENT = CanonicalEntity(
+    name="ServicePayment",
+    domain="835 service line",
+    description="Service line payment (SVC segment).",
+    attributes=(
+        _attr("procedureCode", "string", "0..1", "SVC01 composite procedure."),
+        _attr("chargeAmount", "decimal", "0..1", "SVC02 line charge amount."),
+        _attr("paymentAmount", "decimal", "0..1", "SVC03 line payment amount."),
+    ),
+)
+
+CLAIM = CanonicalEntity(
+    name="Claim",
+    domain="837 claim",
+    description="Claim header (837P/I/D — 005010X222/X223/X224).",
+    attributes=(
+        _attr("patientControlNumber", "string", "1..1", "CLM01 patient control number."),
+        _attr("totalCharge", "decimal", "0..1", "CLM02 total claim charge."),
+        _attr("placeOfService", "code", "0..1", "CLM05 place of service."),
+        _attr("claimFrequency", "code", "0..1", "CLM05 claim frequency."),
+        _attr("providerSignature", "code", "0..1", "CLM06 provider signature indicator."),
+        _attr("diagnosisCodes", "string", "0..*", "HI01 health care diagnosis codes."),
+    ),
+)
+
+SERVICE_LINE = CanonicalEntity(
+    name="ServiceLine",
+    domain="837 service line",
+    description="Professional / institutional service line (SV1/SV2).",
+    attributes=(
+        _attr("procedureCode", "string", "0..1", "SV101 procedure identifier."),
+        _attr("chargeAmount", "decimal", "0..1", "SV102 line item charge."),
+        _attr("unitBasis", "code", "0..1", "SV103 unit basis."),
+        _attr("serviceUnits", "decimal", "0..1", "SV104 service unit count."),
+    ),
+)
+
 ENTITIES: tuple[CanonicalEntity, ...] = (
     INTERCHANGE_ENVELOPE,
     BATCH_HEADER,
     HIERARCHY,
     PARTY,
+    ADDRESS,
     ELIGIBILITY_INQUIRY,
     SUBSCRIBER,
     ELIGIBILITY_RESPONSE,
+    REMITTANCE_PAYMENT,
+    CLAIM_PAYMENT,
+    SERVICE_PAYMENT,
+    CLAIM,
+    SERVICE_LINE,
 )
 
 _BY_PATH: dict[str, CanonicalAttribute] = {}
