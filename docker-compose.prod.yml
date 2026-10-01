@@ -1,0 +1,36 @@
+# Production stack for VPS (used by GitHub Actions deploy).
+# On the server: copy .env.example → .env and set keys + VITE_API_BASE_URL + DATAMAP_CORS_ORIGINS.
+
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "8000:8080"
+    env_file:
+      - .env
+    environment:
+      PORT: "8080"
+      APP_SESSION_AUTH_MODE: dev
+    volumes:
+      - ./backend/data:/app/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8080/health"]
+      interval: 15s
+      timeout: 10s
+      retries: 8
+      start_period: 180s
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      target: production
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL}
+    ports:
+      - "80:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped

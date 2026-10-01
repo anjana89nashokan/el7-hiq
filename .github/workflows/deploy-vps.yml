@@ -1,0 +1,51 @@
+# Deploy to your VPS on push to main (or manual run).
+#
+# Required GitHub repository secrets (Settings → Secrets and variables → Actions):
+#   VPS_HOST          — server IP or hostname
+#   VPS_USER          — SSH user (e.g. deploy)
+#   VPS_SSH_KEY       — private SSH key (entire PEM)
+# Optional:
+#   VPS_PORT          — SSH port (default 22)
+#   VPS_APP_DIR       — app path on server (default /opt/el7-hiq)
+
+name: Deploy to VPS
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-vps
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT || 22 }}
+          command_timeout: 45m
+          script: |
+            set -euo pipefail
+            APP_DIR="${{ secrets.VPS_APP_DIR }}"
+            if [ -z "$APP_DIR" ]; then APP_DIR="/opt/el7-hiq"; fi
+            cd "$APP_DIR"
+            if [ ! -d .git ]; then
+              echo "Missing git repo in $APP_DIR — clone the repository there first."
+              exit 1
+            fi
+            git fetch origin main
+            git reset --hard origin/main
+            if [ ! -f .env ]; then
+              echo "Create .env on the server (cp .env.example .env) before deploying."
+              exit 1
+            fi
+            docker compose -f docker-compose.prod.yml build
+            docker compose -f docker-compose.prod.yml up -d --remove-orphans
+            docker compose -f docker-compose.prod.yml ps
