@@ -5,7 +5,8 @@
 ```bash
 # On the VPS (Ubuntu/Debian example)
 sudo apt update && sudo apt install -y git docker.io docker-compose-plugin
-sudo usermod -aG docker deploy   # your deploy user
+sudo usermod -aG docker deployer   # SSH user used by GitHub Actions (required)
+# Log out of SSH and back in so the group applies, then: docker ps
 
 mkdir -p ~/el7-hiq
 # No git on the VPS — GitHub Actions uploads code + .env from repository secrets.

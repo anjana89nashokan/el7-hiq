@@ -108,6 +108,12 @@ jobs:
             fi
             chmod 600 "$APP_DIR/.env"
             cd "$APP_DIR"
+            if ! docker info >/dev/null 2>&1; then
+              echo "Cannot access Docker (permission denied on /var/run/docker.sock)."
+              echo "On the VPS run once: sudo usermod -aG docker $USER"
+              echo "Then log out of SSH and run Deploy again (new session picks up the docker group)."
+              exit 1
+            fi
             docker compose -f docker-compose.prod.yml build
             docker compose -f docker-compose.prod.yml up -d --remove-orphans
             docker compose -f docker-compose.prod.yml ps
