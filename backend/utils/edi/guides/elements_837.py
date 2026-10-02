@@ -177,6 +177,7 @@ ELEMENT_DEFS: dict[str, list[tuple[str, str | None]]] = {
         ("Unit or Basis for Measurement Code", None),
         ("Weight", None),
         ("Yes/No Condition or Response Code", None),
+        ("Pregnancy Indicator", None),
     ],
     "DMG": [
         ("Date Time Period Format Qualifier", "DMG01"),
@@ -200,8 +201,10 @@ ELEMENT_DEFS: dict[str, list[tuple[str, str | None]]] = {
         ("Level of Service Code", None),
         ("Yes/No Condition or Response Code", None),
         ("Provider Agreement Code", None),
-        ("Claim Submitter's Identifier", None),
+        ("Condition Indicator Code", None),
         ("Delay Reason Code", None),
+        ("External Cause of Injury Code", None),
+        ("Claim Submission Reason Code", None),
     ],
     "DTP": [
         ("Date/Time Qualifier", "DTP01"),
@@ -238,6 +241,11 @@ ELEMENT_DEFS: dict[str, list[tuple[str, str | None]]] = {
         ("Emergency Indicator", None),
         ("Multiple Procedure Code", None),
         ("Yes/No Condition or Response Code", None),
+        ("Yes/No Condition or Response Code", None),
+        ("Yes/No Condition or Response Code", None),
+        ("Family Planning Indicator", None),
+        ("Review Code", None),
+        ("Ambulance Certification Condition Code", None),
     ],
     "SV2": [
         ("Service Line Revenue Code", None),
@@ -319,12 +327,7 @@ ELEMENT_DEFS: dict[str, list[tuple[str, str | None]]] = {
         ("Admission Source Code", None),
         ("Patient Status Code", None),
     ],
-    "CAS": [
-        ("Claim Adjustment Group Code", None),
-        ("Adjustment Reason Code", None),
-        ("Monetary Amount", None),
-        ("Quantity", None),
-    ],
+    "CAS": [],  # filled below (up to CAS19)
     "HCP": [
         ("Pricing Methodology", None),
         ("Monetary Amount", None),
@@ -384,11 +387,45 @@ ELEMENT_DEFS: dict[str, list[tuple[str, str | None]]] = {
     "FRM": [
         ("Assigned Identification", None),
         ("Yes/No Condition or Response Code", None),
+        ("Reference Identification", None),
+        ("Date", None),
+        ("Reference Identification", None),
     ],
     "CTP": [
         ("Class of Trade Code", None),
         ("Price Identifier Code", None),
         ("Unit Price", None),
         ("Quantity", None),
+        ("Composite Unit of Measure", None),
     ],
 }
+
+
+def _build_cas_element_defs() -> list[tuple[str, str | None]]:
+    rows: list[tuple[str, str | None]] = [
+        ("Claim Adjustment Group Code", "CAS01"),
+        ("Adjustment Reason Code", None),
+        ("Adjustment Amount", None),
+        ("Adjustment Quantity", None),
+    ]
+    for n in range(2, 7):
+        rows.extend([
+            (f"Adjustment Reason Code (set {n})", None),
+            (f"Adjustment Amount (set {n})", None),
+            (f"Adjustment Quantity (set {n})", None),
+        ])
+    return rows
+
+
+ELEMENT_DEFS["CAS"] = _build_cas_element_defs()
+
+
+def resolve_element_def(segment: str, position_1based: int) -> tuple[str, str | None]:
+    """Element name + optional code-set id (companion guide / X12 005010)."""
+    if segment == "HI":
+        return ("Health Care Code Information", "HI01")
+    defs = ELEMENT_DEFS.get(segment, [])
+    idx = position_1based - 1
+    if 0 <= idx < len(defs):
+        return defs[idx]
+    return (f"{segment}{position_1based:02d}", None)

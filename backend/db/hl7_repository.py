@@ -44,8 +44,11 @@ def summarize_hl7_row(row: Hl7Session, *, versions: list[dict] | None = None) ->
 
     return {
         "hl7_session_id": result.get("hl7_session_id", row.id),
+        "format": result.get("format", "hl7"),
+        "view_mode": result.get("view_mode"),
         "status": status,
         "messages_parsed": summary.get("messages_parsed", 0),
+        "message_types": summary.get("message_types", {}),
         "mappings_total": len(mappings),
         "mappings_approved": approved,
         "mappings_pending": pending,

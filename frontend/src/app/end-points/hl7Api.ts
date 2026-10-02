@@ -211,6 +211,8 @@ export const uploadHL7Files = async (
 export interface HL7SessionListItem {
   hl7_session_id: string;
   created_at: string | null;
+  format?: "hl7" | "x12";
+  view_mode?: "837_decode" | "x12_mapping";
   status: string;
   messages_parsed: number;
   messages_failed: number;

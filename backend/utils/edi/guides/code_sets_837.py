@@ -191,10 +191,10 @@ CLM06_PROV_SIG = {"Y": "Yes", "N": "No"}
 CLM07_ASSIGNMENT = {"A": "Assigned", "B": "Assignment Accepted", "C": "Not Assigned"}
 
 HI01_QUAL = {
-    "ABK": "Principal Diagnosis",
-    "ABF": "Diagnosis",
-    "BK": "Principal Diagnosis (legacy)",
-    "BF": "Diagnosis (legacy)",
+    "ABK": "Principal Diagnosis — ICD-10-CM (companion guide: use when service date is 10/01/2015 and after)",
+    "ABF": "Additional Diagnosis — ICD-10-CM (companion guide: use when service date is 10/01/2015 and after)",
+    "BK": "Principal Diagnosis — ICD-9-CM (service date 9/30/2015 and prior)",
+    "BF": "Additional Diagnosis — ICD-9-CM (service date 9/30/2015 and prior)",
 }
 
 SV101_PRODUCT = {
@@ -256,6 +256,14 @@ CRC01_CATEGORY = {
 
 OI03_BENEFITS = {"Y": "Yes", "N": "No", "W": "Not Applicable"}
 
+CAS01_GROUP = {
+    "CO": "Contractual Obligations",
+    "CR": "Correction and Reversals",
+    "OA": "Other Adjustments",
+    "PI": "Payor Initiated Reductions",
+    "PR": "Patient Responsibility",
+}
+
 CODE_SETS: dict[str, dict[str, str]] = {
     "NM101": NM101_ENTITY,
     "NM102": NM102_ENTITY_TYPE,
@@ -283,6 +291,7 @@ CODE_SETS: dict[str, dict[str, str]] = {
     "CLM05_POS": CLM05_FACILITY,
     "CLM06": CLM06_PROV_SIG,
     "CLM07": CLM07_ASSIGNMENT,
+    "CAS01": CAS01_GROUP,
     "HI01": HI01_QUAL,
     "SV101": SV101_PRODUCT,
     "PER01": PER01_FUNCTION,

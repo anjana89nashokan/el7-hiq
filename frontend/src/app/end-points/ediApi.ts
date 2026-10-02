@@ -55,13 +55,28 @@ export interface EDI837DecodedElement {
   element_name: string;
   value: string;
   meaning: string;
+  /** Snake_case JSON field name (from element name). */
+  target: string;
+  /** Composite sub-elements (e.g. HI01-1, HI01-2 per companion guide). */
+  children?: EDI837DecodedElement[];
 }
 
 export interface EDI837DecodedSegment {
   sequence: number;
   segment_id: string;
   segment_name: string;
+  /** Companion-guide party role for NM1 (e.g. Billing Provider). */
+  segment_label?: string;
+  party_code?: string;
   elements: EDI837DecodedElement[];
+}
+
+export interface EDI837GuideSection {
+  section_id: string;
+  title: string;
+  /** One guide table for LOOP 2300 (HI + claim NM1 rows together). */
+  combined_table?: boolean;
+  segments: EDI837DecodedSegment[];
 }
 
 export interface EDI837DecodedMessage {
@@ -72,6 +87,7 @@ export interface EDI837DecodedMessage {
   version: string;
   control_id: string;
   segments: EDI837DecodedSegment[];
+  sections?: EDI837GuideSection[];
 }
 
 export interface EDI837DecodeFile {
@@ -92,4 +108,9 @@ export type HL7ResultWithEdi = HL7Result & {
 export const getEdiDecoded = async (hl7SessionId: string): Promise<EDI837DecodePayload> => {
   const response = await axiosInstance.get(`/edi/sessions/${hl7SessionId}/decoded`);
   return response.data as EDI837DecodePayload;
+};
+
+export const exportEdi837Json = async (hl7SessionId: string): Promise<Record<string, unknown>> => {
+  const response = await axiosInstance.get(`/edi/sessions/${hl7SessionId}/export/json`);
+  return response.data as Record<string, unknown>;
 };

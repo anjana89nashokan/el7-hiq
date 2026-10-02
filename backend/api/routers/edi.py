@@ -27,6 +27,7 @@ from utils.edi import (
     serialize_edi_messages,
     summarise,
 )
+from utils.edi.export_json import decoded_corpus_to_json
 
 EDI_EXTENSIONS = {".edi", ".dat"}
 
@@ -254,3 +255,28 @@ async def get_edi_decoded(
     if not stored:
         raise HTTPException(status_code=404, detail="no stored EDI payload for this session")
     return decode_edi_837_from_stored(stored)
+
+
+@router.get("/sessions/{hl7_session_id}/export/json")
+async def export_edi_json(
+    hl7_session_id: str,
+    current_user: CurrentUser = Depends(resolve_current_user),
+) -> dict:
+    with app_db_session() as db:
+        repo = Hl7Repository(db)
+        try:
+            row = repo.require(hl7_session_id)
+        except LookupError:
+            raise HTTPException(status_code=404, detail="session not found") from None
+        if row.user_key and row.user_key != current_user.user_key:
+            raise HTTPException(status_code=404, detail="session not found")
+        result = dict(row.result_json or {})
+    if result.get("format") != "x12" or result.get("view_mode") != "837_decode":
+        raise HTTPException(status_code=400, detail="session is not an 837 decode export")
+    decoded = result.get("edi_decoded")
+    if not decoded:
+        stored = result.get("edi_parsed") or []
+        if not stored:
+            raise HTTPException(status_code=404, detail="no stored EDI payload for this session")
+        decoded = decode_edi_837_from_stored(stored)
+    return decoded_corpus_to_json(decoded)
