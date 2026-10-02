@@ -17,6 +17,11 @@ import {
   type HL7SessionListItem,
 } from "../end-points/hl7Api";
 import { getCurrentAppSessionId, onSessionChanged } from "../utils/appSessionStorage";
+import {
+  interchangeOpenActionLabel,
+  interchangeSessionLabel,
+  isEdi837Decode,
+} from "../utils/interchangeSessionLabel";
 
 const formatDate = (value: string | null) => (value ? new Date(value).toLocaleString() : "Not available");
 
@@ -152,9 +157,11 @@ export default function Sessions() {
                         <span>{session.current_extract_run_id ? "Extract saved" : "No extract run"}</span>
                       ) : session.hl7 ? (
                         <>
-                          <span>HL7 profiled ({session.hl7.messages_parsed} messages)</span>
                           <span>
-                            HL7 mapping: {session.hl7.mappings_approved}/{session.hl7.mappings_total} approved
+                            {interchangeSessionLabel(session.hl7)} ({session.hl7.messages_parsed} messages)
+                          </span>
+                          <span>
+                            Mapping: {session.hl7.mappings_approved}/{session.hl7.mappings_total} approved
                             {session.hl7.latest_version != null && ` · published v${session.hl7.latest_version}`}
                           </span>
                         </>
@@ -174,14 +181,16 @@ export default function Sessions() {
                           onClick={() => navigate(sttmNav(`/hl7/${session.hl7!.hl7_session_id}`))}
                           className="rounded-md border border-teal-200 bg-brand-surface px-3 py-1.5 text-sm text-font-blue hover:bg-teal-100 cursor-pointer"
                         >
-                          Open HL7 Profile
+                          Open {interchangeOpenActionLabel(session.hl7)}
                         </button>
-                        <button
-                          onClick={() => navigate(sttmNav(`/hl7/${session.hl7!.hl7_session_id}/review`))}
-                          className="rounded-md border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-sm text-emerald-700 hover:bg-emerald-100 cursor-pointer"
-                        >
-                          Open HL7 Mapping
-                        </button>
+                        {!isEdi837Decode(session.hl7) && (
+                          <button
+                            onClick={() => navigate(sttmNav(`/hl7/${session.hl7!.hl7_session_id}/review`))}
+                            className="rounded-md border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-sm text-emerald-700 hover:bg-emerald-100 cursor-pointer"
+                          >
+                            Open Mapping Review
+                          </button>
+                        )}
                       </>
                     )}
                     {session.current_extract_run_id && (
@@ -231,16 +240,16 @@ export default function Sessions() {
       {!loading && (
         <div className="mt-10">
           <div className="mb-4">
-            <h2 className="text-xl font-bold mb-1 text-brand-darkblue">HL7 analyses</h2>
+            <h2 className="text-xl font-bold mb-1 text-brand-darkblue">Interchange analyses</h2>
             <p className="text-sm text-gray-500">
-              Message-based uploads. Profiling runs instantly at upload; the status tracks the
-              mapping review and published package versions.
+              HL7 v2 and X12 EDI uploads. EDI 837 opens segment decode; HL7 and other EDI use
+              profiling and mapping review when applicable.
             </p>
           </div>
 
           {hl7Sessions.length === 0 && (
             <div className="rounded-lg border border-dashed border-gray-300 p-6 text-sm text-gray-500">
-              No HL7 analyses yet. Upload .hl7 files on the Upload page to start one.
+              No interchange analyses yet. Upload .hl7 or EDI (.edi/.dat) files on the Upload page.
             </div>
           )}
 
@@ -257,7 +266,7 @@ export default function Sessions() {
                   >
                     <div className="flex items-center gap-3">
                       <span className="text-base font-semibold text-brand-darkblue">
-                        {Object.keys(session.message_types).join(", ") || "HL7"}
+                        {interchangeSessionLabel(session)}
                       </span>
                       <span
                         className={`text-[11px] font-semibold px-2 py-0.5 rounded border ${hl7StatusChip(session.status)}`}
@@ -286,14 +295,16 @@ export default function Sessions() {
                       onClick={() => navigate(sttmNav(`/hl7/${session.hl7_session_id}`))}
                       className="rounded-md border border-teal-200 bg-brand-surface px-3 py-1.5 text-sm text-font-blue hover:bg-teal-100 cursor-pointer"
                     >
-                      Open Profile
+                      Open {interchangeOpenActionLabel(session)}
                     </button>
-                    <button
-                      onClick={() => navigate(sttmNav(`/hl7/${session.hl7_session_id}/review`))}
-                      className="rounded-md border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-sm text-emerald-700 hover:bg-emerald-100 cursor-pointer"
-                    >
-                      Open Mapping Review
-                    </button>
+                    {!isEdi837Decode(session) && (
+                      <button
+                        onClick={() => navigate(sttmNav(`/hl7/${session.hl7_session_id}/review`))}
+                        className="rounded-md border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-sm text-emerald-700 hover:bg-emerald-100 cursor-pointer"
+                      >
+                        Open Mapping Review
+                      </button>
+                    )}
                     <button
                       onClick={() => handleDeleteHL7(session)}
                       className="rounded-md border border-red-200 px-3 py-1.5 text-sm text-red-700 hover:bg-red-50 cursor-pointer"

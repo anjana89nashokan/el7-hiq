@@ -18,6 +18,12 @@ import {
 import { getCurrentAppSessionId, onSessionChanged, emitNewSessionLoading } from "../utils/appSessionStorage";
 import { useChat } from "../contexts/ChatContext";
 import { sttmNav } from "../utils/sttmRoutes";
+import {
+  interchangeAnalysesSectionTitle,
+  interchangeOpenActionLabel,
+  interchangeSessionLabel,
+  isEdi837Decode,
+} from "../utils/interchangeSessionLabel";
 
 const links = [
   { to: sttmNav("/upload"), icon: FileUp, title: "New Profiling" },
@@ -233,17 +239,19 @@ export default function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps)
                           <button
                             onClick={() => navigate(sttmNav(`/hl7/${session.hl7!.hl7_session_id}`))}
                             className="rounded bg-brand-primary/20 px-2 py-1 text-[10px] text-teal-100 hover:bg-brand-primary/30 cursor-pointer"
-                            title="Open HL7 Profile"
+                            title={`Open ${interchangeSessionLabel(session.hl7)}`}
                           >
-                            H
+                            {session.hl7.format === "x12" ? "E" : "H"}
                           </button>
-                          <button
-                            onClick={() => navigate(sttmNav(`/hl7/${session.hl7!.hl7_session_id}/review`))}
-                            className="rounded bg-emerald-500/20 px-2 py-1 text-[10px] text-emerald-100 hover:bg-emerald-500/30 cursor-pointer"
-                            title="Open HL7 Mapping"
-                          >
-                            M
-                          </button>
+                          {!isEdi837Decode(session.hl7) && (
+                            <button
+                              onClick={() => navigate(sttmNav(`/hl7/${session.hl7!.hl7_session_id}/review`))}
+                              className="rounded bg-emerald-500/20 px-2 py-1 text-[10px] text-emerald-100 hover:bg-emerald-500/30 cursor-pointer"
+                              title="Open mapping review"
+                            >
+                              M
+                            </button>
+                          )}
                         </>
                       )}
                       {session.current_extract_run_id && (
@@ -306,20 +314,22 @@ export default function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps)
                                 navigate(sttmNav(`/hl7/${session.hl7!.hl7_session_id}`));
                               }}
                               className="rounded-md bg-brand-primary/20 px-2 py-1 text-[10px] font-medium text-teal-100 hover:bg-brand-primary/30 transition-colors cursor-pointer whitespace-nowrap"
-                              title="Open HL7 profile"
+                              title={`Open ${interchangeSessionLabel(session.hl7)}`}
                             >
-                              Profile
+                              {interchangeOpenActionLabel(session.hl7)}
                             </button>
-                            <button
-                              onClick={(event) => {
-                                event.stopPropagation();
-                                navigate(sttmNav(`/hl7/${session.hl7!.hl7_session_id}/review`));
-                              }}
-                              className="rounded-md bg-emerald-500/20 px-2 py-1 text-[10px] font-medium text-emerald-100 hover:bg-emerald-500/30 transition-colors cursor-pointer whitespace-nowrap"
-                              title="Open HL7 mapping review"
-                            >
-                              {session.hl7.mapping_complete ? "Mapped" : "Review"}
-                            </button>
+                            {!isEdi837Decode(session.hl7) && (
+                              <button
+                                onClick={(event) => {
+                                  event.stopPropagation();
+                                  navigate(sttmNav(`/hl7/${session.hl7!.hl7_session_id}/review`));
+                                }}
+                                className="rounded-md bg-emerald-500/20 px-2 py-1 text-[10px] font-medium text-emerald-100 hover:bg-emerald-500/30 transition-colors cursor-pointer whitespace-nowrap"
+                                title="Open mapping review"
+                              >
+                                {session.hl7.mapping_complete ? "Mapped" : "Review"}
+                              </button>
+                            )}
                           </>
                         ) : (
                           <>
@@ -359,7 +369,7 @@ export default function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps)
           {!isLoading && hl7Sessions.length > 0 && !isCollapsed && (
             <div className="pt-2 mt-2 border-t border-white/10">
               <div className="text-white/50 text-[10px] font-semibold uppercase tracking-wider px-1 mb-2">
-                HL7 analyses
+                {interchangeAnalysesSectionTitle(hl7Sessions)}
               </div>
               {hl7Sessions.map((hl7) => (
                 <div
@@ -367,21 +377,23 @@ export default function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps)
                   className="rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 px-3 py-2 mb-2"
                 >
                   <div className="text-xs text-white font-medium truncate">
-                    {Object.keys(hl7.message_types).join(", ") || "HL7"} · {hl7.hl7_session_id.slice(0, 8)}
+                    {interchangeSessionLabel(hl7)} · {hl7.hl7_session_id.slice(0, 8)}
                   </div>
                   <div className="flex items-center gap-1 mt-1">
                     <button
                       onClick={() => navigate(sttmNav(`/hl7/${hl7.hl7_session_id}`))}
                       className="rounded-md bg-brand-primary/20 px-2 py-1 text-[10px] font-medium text-teal-100 hover:bg-brand-primary/30 transition-colors cursor-pointer whitespace-nowrap"
                     >
-                      Profile
+                      {interchangeOpenActionLabel(hl7)}
                     </button>
-                    <button
-                      onClick={() => navigate(sttmNav(`/hl7/${hl7.hl7_session_id}/review`))}
-                      className="rounded-md bg-emerald-500/20 px-2 py-1 text-[10px] font-medium text-emerald-100 hover:bg-emerald-500/30 transition-colors cursor-pointer whitespace-nowrap"
-                    >
-                      Review
-                    </button>
+                    {!isEdi837Decode(hl7) && (
+                      <button
+                        onClick={() => navigate(sttmNav(`/hl7/${hl7.hl7_session_id}/review`))}
+                        className="rounded-md bg-emerald-500/20 px-2 py-1 text-[10px] font-medium text-emerald-100 hover:bg-emerald-500/30 transition-colors cursor-pointer whitespace-nowrap"
+                      >
+                        Review
+                      </button>
+                    )}
                   </div>
                 </div>
               ))}

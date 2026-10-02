@@ -290,6 +290,8 @@ async def list_hl7_sessions(
             sessions.append({
                 "hl7_session_id": result.get("hl7_session_id", row.id),
                 "created_at": result.get("created_at"),
+                "format": result.get("format", "hl7"),
+                "view_mode": result.get("view_mode"),
                 "status": status,
                 "messages_parsed": summary.get("messages_parsed", 0),
                 "messages_failed": summary.get("messages_failed", 0),
