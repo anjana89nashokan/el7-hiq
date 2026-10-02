@@ -46,3 +46,27 @@ export function isEdi837Decode(meta: InterchangeSessionMeta): boolean {
 export function interchangeOpenActionLabel(meta: InterchangeSessionMeta): string {
   return isEdi837Decode(meta) ? "Decode" : meta.format === "x12" ? "Profile" : "Profile";
 }
+
+/** Second sidebar action: HL7 mapping review vs EDI 837 JSON mapping. */
+export function interchangeMappingPath(hl7SessionId: string, meta: InterchangeSessionMeta): string {
+  if (isEdi837Decode(meta)) {
+    return `/hl7/${hl7SessionId}/json-mapping`;
+  }
+  return `/hl7/${hl7SessionId}/review`;
+}
+
+export function interchangeMappingActionLabel(
+  meta: InterchangeSessionMeta & { mapping_complete?: boolean }
+): string {
+  if (isEdi837Decode(meta)) {
+    return "Mapping";
+  }
+  return meta.mapping_complete ? "Mapped" : "Review";
+}
+
+export function interchangeMappingActionTitle(meta: InterchangeSessionMeta): string {
+  if (isEdi837Decode(meta)) {
+    return "Open JSON mapping";
+  }
+  return "Open mapping review";
+}

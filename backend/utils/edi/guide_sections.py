@@ -158,7 +158,9 @@ def _enrich_sections(sections: list[dict[str, Any]]) -> list[dict[str, Any]]:
         in_service = section_id.startswith("service-")
         in_loop = in_claim or in_service
         section["combined_table"] = in_claim
+        section_title = section.get("title") or ""
         for seg in section.get("segments") or []:
+            seg["guide_section_title"] = section_title
             if seg.get("segment_id") != "NM1":
                 continue
             party = (seg.get("party_code") or "").strip()

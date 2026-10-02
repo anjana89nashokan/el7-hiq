@@ -68,6 +68,8 @@ export interface EDI837DecodedSegment {
   /** Companion-guide party role for NM1 (e.g. Billing Provider). */
   segment_label?: string;
   party_code?: string;
+  /** Parent guide section title from decode (e.g. Transaction header (BHT)). */
+  guide_section_title?: string;
   elements: EDI837DecodedElement[];
 }
 

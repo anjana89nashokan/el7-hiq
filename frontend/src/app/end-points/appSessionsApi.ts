@@ -399,10 +399,20 @@ function runTimestamp(value?: string | null): number {
   return Number.isNaN(parsed) ? 0 : parsed;
 }
 
+function interchangeSessionRoute(session: AppSessionItem): string | null {
+  const hl7Id = session.current_hl7_session_id ?? session.hl7?.hl7_session_id;
+  if (!hl7Id) return null;
+  return `/hl7/${hl7Id}`;
+}
+
 export function getAppSessionOpenRoute(detail: AppSessionDetail): string {
   // Extract sessions (extract_* ids) always open the Extract workflow.
   if (detail.session.id.startsWith("extract_") || detail.extract_run) {
     return "/extract";
+  }
+  const interchangeRoute = interchangeSessionRoute(detail.session);
+  if (interchangeRoute) {
+    return interchangeRoute;
   }
   const profilingRun = detail.profiling_run;
   const mappingRun = detail.mapping_run;

@@ -18,9 +18,10 @@ import {
 } from "../end-points/hl7Api";
 import { getCurrentAppSessionId, onSessionChanged } from "../utils/appSessionStorage";
 import {
+  interchangeMappingActionLabel,
+  interchangeMappingPath,
   interchangeOpenActionLabel,
   interchangeSessionLabel,
-  isEdi837Decode,
 } from "../utils/interchangeSessionLabel";
 
 const formatDate = (value: string | null) => (value ? new Date(value).toLocaleString() : "Not available");
@@ -183,14 +184,18 @@ export default function Sessions() {
                         >
                           Open {interchangeOpenActionLabel(session.hl7)}
                         </button>
-                        {!isEdi837Decode(session.hl7) && (
-                          <button
-                            onClick={() => navigate(sttmNav(`/hl7/${session.hl7!.hl7_session_id}/review`))}
-                            className="rounded-md border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-sm text-emerald-700 hover:bg-emerald-100 cursor-pointer"
-                          >
-                            Open Mapping Review
-                          </button>
-                        )}
+                        <button
+                          onClick={() =>
+                            navigate(
+                              sttmNav(
+                                interchangeMappingPath(session.hl7!.hl7_session_id, session.hl7!)
+                              )
+                            )
+                          }
+                          className="rounded-md border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-sm text-emerald-700 hover:bg-emerald-100 cursor-pointer"
+                        >
+                          Open {interchangeMappingActionLabel(session.hl7!)}
+                        </button>
                       </>
                     )}
                     {session.current_extract_run_id && (
@@ -297,14 +302,14 @@ export default function Sessions() {
                     >
                       Open {interchangeOpenActionLabel(session)}
                     </button>
-                    {!isEdi837Decode(session) && (
-                      <button
-                        onClick={() => navigate(sttmNav(`/hl7/${session.hl7_session_id}/review`))}
-                        className="rounded-md border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-sm text-emerald-700 hover:bg-emerald-100 cursor-pointer"
-                      >
-                        Open Mapping Review
-                      </button>
-                    )}
+                    <button
+                      onClick={() =>
+                        navigate(sttmNav(interchangeMappingPath(session.hl7_session_id, session)))
+                      }
+                      className="rounded-md border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-sm text-emerald-700 hover:bg-emerald-100 cursor-pointer"
+                    >
+                      Open {interchangeMappingActionLabel(session)}
+                    </button>
                     <button
                       onClick={() => handleDeleteHL7(session)}
                       className="rounded-md border border-red-200 px-3 py-1.5 text-sm text-red-700 hover:bg-red-50 cursor-pointer"

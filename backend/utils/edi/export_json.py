@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from typing import Any
 
+from .guide_section_labels import json_segment_label
+
 
 def _element_value(el: dict[str, Any]) -> Any:
     children = el.get("children") or []
@@ -38,7 +40,11 @@ def _section_to_dict(section: dict[str, Any]) -> dict[str, Any]:
             {
                 "segment_id": seg.get("segment_id"),
                 "sequence": seg.get("sequence"),
-                "segment_label": seg.get("segment_label"),
+                "segment_name": seg.get("segment_name"),
+                "segment_label": json_segment_label(
+                    seg,
+                    seg.get("guide_section_title") or section.get("title"),
+                ),
                 "party_code": seg.get("party_code"),
                 "fields": _segment_fields(seg),
             }

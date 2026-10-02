@@ -20,9 +20,11 @@ import { useChat } from "../contexts/ChatContext";
 import { sttmNav } from "../utils/sttmRoutes";
 import {
   interchangeAnalysesSectionTitle,
+  interchangeMappingActionLabel,
+  interchangeMappingActionTitle,
+  interchangeMappingPath,
   interchangeOpenActionLabel,
   interchangeSessionLabel,
-  isEdi837Decode,
 } from "../utils/interchangeSessionLabel";
 
 const links = [
@@ -243,15 +245,17 @@ export default function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps)
                           >
                             {session.hl7.format === "x12" ? "E" : "H"}
                           </button>
-                          {!isEdi837Decode(session.hl7) && (
-                            <button
-                              onClick={() => navigate(sttmNav(`/hl7/${session.hl7!.hl7_session_id}/review`))}
-                              className="rounded bg-emerald-500/20 px-2 py-1 text-[10px] text-emerald-100 hover:bg-emerald-500/30 cursor-pointer"
-                              title="Open mapping review"
-                            >
-                              M
-                            </button>
-                          )}
+                          <button
+                            onClick={() =>
+                              navigate(
+                                sttmNav(interchangeMappingPath(session.hl7!.hl7_session_id, session.hl7!))
+                              )
+                            }
+                            className="rounded bg-emerald-500/20 px-2 py-1 text-[10px] text-emerald-100 hover:bg-emerald-500/30 cursor-pointer"
+                            title={interchangeMappingActionTitle(session.hl7!)}
+                          >
+                            M
+                          </button>
                         </>
                       )}
                       {session.current_extract_run_id && (
@@ -318,18 +322,20 @@ export default function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps)
                             >
                               {interchangeOpenActionLabel(session.hl7)}
                             </button>
-                            {!isEdi837Decode(session.hl7) && (
-                              <button
-                                onClick={(event) => {
-                                  event.stopPropagation();
-                                  navigate(sttmNav(`/hl7/${session.hl7!.hl7_session_id}/review`));
-                                }}
-                                className="rounded-md bg-emerald-500/20 px-2 py-1 text-[10px] font-medium text-emerald-100 hover:bg-emerald-500/30 transition-colors cursor-pointer whitespace-nowrap"
-                                title="Open mapping review"
-                              >
-                                {session.hl7.mapping_complete ? "Mapped" : "Review"}
-                              </button>
-                            )}
+                            <button
+                              onClick={(event) => {
+                                event.stopPropagation();
+                                navigate(
+                                  sttmNav(
+                                    interchangeMappingPath(session.hl7!.hl7_session_id, session.hl7!)
+                                  )
+                                );
+                              }}
+                              className="rounded-md bg-emerald-500/20 px-2 py-1 text-[10px] font-medium text-emerald-100 hover:bg-emerald-500/30 transition-colors cursor-pointer whitespace-nowrap"
+                              title={interchangeMappingActionTitle(session.hl7!)}
+                            >
+                              {interchangeMappingActionLabel(session.hl7!)}
+                            </button>
                           </>
                         ) : (
                           <>
@@ -386,14 +392,15 @@ export default function Sidebar({ isCollapsed, onToggleCollapse }: SidebarProps)
                     >
                       {interchangeOpenActionLabel(hl7)}
                     </button>
-                    {!isEdi837Decode(hl7) && (
-                      <button
-                        onClick={() => navigate(sttmNav(`/hl7/${hl7.hl7_session_id}/review`))}
-                        className="rounded-md bg-emerald-500/20 px-2 py-1 text-[10px] font-medium text-emerald-100 hover:bg-emerald-500/30 transition-colors cursor-pointer whitespace-nowrap"
-                      >
-                        Review
-                      </button>
-                    )}
+                    <button
+                      onClick={() =>
+                        navigate(sttmNav(interchangeMappingPath(hl7.hl7_session_id, hl7)))
+                      }
+                      className="rounded-md bg-emerald-500/20 px-2 py-1 text-[10px] font-medium text-emerald-100 hover:bg-emerald-500/30 transition-colors cursor-pointer whitespace-nowrap"
+                      title={interchangeMappingActionTitle(hl7)}
+                    >
+                      {interchangeMappingActionLabel(hl7)}
+                    </button>
                   </div>
                 </div>
               ))}

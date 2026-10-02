@@ -15,6 +15,7 @@ import Documentation from "./pages/Documentation";
 import Settings from "./pages/Settings";
 import HL7Results from "./pages/HL7Results";
 import HL7MappingReview from "./pages/HL7MappingReview";
+import EDI837JsonMapping from "./pages/EDI837JsonMapping";
 import MappingsLibrary from "./pages/MappingsLibrary";
 import StreamingProfilingResult from "./pages/StreamingProfilingResult";
 import { sttmNav } from "./utils/sttmRoutes";
@@ -41,6 +42,7 @@ export default function SttmApp() {
             <Route path="hl7" element={<HL7Results />} />
             <Route path="hl7/:hl7SessionId" element={<HL7Results />} />
             <Route path="hl7/:hl7SessionId/review" element={<HL7MappingReview />} />
+            <Route path="hl7/:hl7SessionId/json-mapping" element={<EDI837JsonMapping />} />
             <Route path="streaming-profiling" element={<StreamingProfilingResult />} />
             <Route path="*" element={<Navigate to={sttmNav("/dashboard")} replace />} />
           </Route>

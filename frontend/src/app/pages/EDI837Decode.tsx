@@ -9,7 +9,7 @@ import type {
   EDI837GuideSection,
   HL7ResultWithEdi,
 } from "../end-points/ediApi";
-import { download837Json } from "../utils/edi837ExportJson";
+import { segmentDisplayLabel } from "../utils/edi837ExportJson";
 
 type SegmentRow = EDI837DecodedSegment;
 
@@ -65,12 +65,7 @@ const chipClass = (active: boolean) =>
       : "bg-white text-[#212121] border-[#E0E0E0] hover:border-[#0097AC]"
   }`;
 
-const segmentHeaderTitle = (seg: SegmentRow): string => {
-  if (seg.segment_id === "NM1" && seg.segment_label) {
-    return seg.segment_label;
-  }
-  return seg.segment_name;
-};
+const segmentHeaderTitle = (seg: SegmentRow): string => segmentDisplayLabel(seg);
 
 const SegmentTable: React.FC<{
   segment: SegmentRow;
@@ -349,7 +344,7 @@ export const EDI837DecodeView: React.FC<{ result: HL7ResultWithEdi }> = ({ resul
             <button
               type="button"
               onClick={() => {
-                if (decoded) download837Json(decoded, active?.filename ?? "edi-837.dat");
+                navigate(sttmNav(`/hl7/${result.hl7_session_id}/json-mapping`));
               }}
               disabled={!decoded?.files.length}
               className={t.btnPrimary}

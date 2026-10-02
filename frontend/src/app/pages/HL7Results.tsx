@@ -444,11 +444,8 @@ const HL7Results: React.FC = () => {
   const location = useLocation();
   const params = useParams<{ hl7SessionId?: string }>();
 
-  const stateResult = (location.state as { result?: HL7Result } | null)?.result ?? null;
-  const [result, setResult] = useState<HL7ResultWithEdi | null>(
-    stateResult as HL7ResultWithEdi | null
-  );
-  const [loading, setLoading] = useState<boolean>(!stateResult);
+  const [result, setResult] = useState<HL7ResultWithEdi | null>(null);
+  const [loading, setLoading] = useState<boolean>(Boolean(params.hl7SessionId));
   const [error, setError] = useState<string | null>(null);
   const [fhirName, setFhirName] = useState<string | null>(null);
   const [fhirDoc, setFhirDoc] = useState<Record<string, unknown> | null>(null);
@@ -459,32 +456,55 @@ const HL7Results: React.FC = () => {
   const sessionId = result?.hl7_session_id ?? params.hl7SessionId;
 
   useEffect(() => {
-    if (result || !params.hl7SessionId) return;
+    const id = params.hl7SessionId;
+    if (!id) {
+      setResult(null);
+      setLoading(false);
+      setError(null);
+      return;
+    }
+
+    const navResult = (location.state as { result?: HL7Result } | null)?.result;
+    const bootstrap =
+      navResult?.hl7_session_id === id ? (navResult as HL7ResultWithEdi) : null;
+
     let cancelled = false;
     setLoading(true);
-    getHL7Session(params.hl7SessionId)
-      .then(async (data) => {
+    setError(null);
+    setResult(null);
+    setFhirName(null);
+    setFhirDoc(null);
+    setActiveFile("");
+    setSegmentFilter("all");
+    setExpandedSegment(null);
+
+    const load = async () => {
+      try {
+        let data: HL7ResultWithEdi = bootstrap ?? (await getHL7Session(id) as HL7ResultWithEdi);
         if (cancelled) return;
-        const withEdi = data as HL7ResultWithEdi;
-        if (withEdi.view_mode === "837_decode" && !withEdi.edi_decoded) {
+        if (data.view_mode === "837_decode" && !data.edi_decoded) {
           try {
-            const decoded = await getEdiDecoded(params.hl7SessionId);
-            setResult({ ...withEdi, edi_decoded: decoded });
-            return;
+            const decoded = await getEdiDecoded(id);
+            if (!cancelled) data = { ...data, edi_decoded: decoded };
           } catch {
             /* session payload may still include edi_decoded after re-upload */
           }
         }
-        setResult(withEdi);
-      })
-      .catch((err) =>
-        !cancelled && setError(err instanceof Error ? err.message : "Failed to load HL7 session")
-      )
-      .finally(() => !cancelled && setLoading(false));
+        if (!cancelled) setResult(data);
+      } catch (err) {
+        if (!cancelled) {
+          setError(err instanceof Error ? err.message : "Failed to load HL7 session");
+        }
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    };
+
+    void load();
     return () => {
       cancelled = true;
     };
-  }, [params.hl7SessionId, result]);
+  }, [params.hl7SessionId, location.key]);
 
   useEffect(() => {
     if (!result?.files.length) return;
@@ -559,7 +579,7 @@ const HL7Results: React.FC = () => {
   }
 
   if (is837Decode) {
-    return <EDI837DecodeView result={result} />;
+    return <EDI837DecodeView key={result.hl7_session_id} result={result} />;
   }
 
   const { summary, profile, files, routing_summary } = result;
